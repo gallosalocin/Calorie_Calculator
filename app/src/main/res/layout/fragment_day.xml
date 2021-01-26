@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.dayChoice.DayChoiceFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_monday"
+        style="@style/DayChoice"
+        android:text="@string/monday_cap"
+        app:layout_constraintBottom_toTopOf="@+id/tv_tuesday"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_tuesday"
+        style="@style/DayChoice"
+        android:text="@string/tuesday_cap"
+        app:layout_constraintBottom_toTopOf="@+id/tv_wednesday"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_monday" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_wednesday"
+        style="@style/DayChoice"
+        android:text="@string/wednesday_cap"
+        app:layout_constraintBottom_toTopOf="@+id/tv_thursday"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_tuesday" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_thursday"
+        style="@style/DayChoice"
+        android:text="@string/thursday_cap"
+        app:layout_constraintBottom_toTopOf="@+id/tv_friday"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_wednesday" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_friday"
+        style="@style/DayChoice"
+        android:text="@string/friday_cap"
+        app:layout_constraintBottom_toTopOf="@+id/tv_saturday"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_thursday" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_saturday"
+        style="@style/DayChoice"
+        android:text="@string/saturday_cap"
+        app:layout_constraintBottom_toTopOf="@+id/tv_sunday"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_friday" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_sunday"
+        style="@style/DayChoice"
+        android:text="@string/sunday_cap"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_saturday" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

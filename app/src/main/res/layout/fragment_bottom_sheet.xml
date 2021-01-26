@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.bottomSheet.BottomSheetFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_bottom_all_foods"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_food_db"
+        app:layout_constraintEnd_toEndOf="@id/tv_bottom_all_foods"
+        app:layout_constraintStart_toStartOf="@id/tv_bottom_all_foods"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_bottom_all_foods"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/all_foods"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@id/tv_bottom_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_bottom_all_foods" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_bottom_profile"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_profile"
+        app:layout_constraintEnd_toEndOf="@id/tv_bottom_profile"
+        app:layout_constraintStart_toStartOf="@id/tv_bottom_profile"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_bottom_profile"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/profile"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_bottom_all_foods"
+        app:layout_constraintTop_toBottomOf="@id/iv_bottom_all_foods" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_bottom_close"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_bottom_all_foods" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_bottom_close"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/close_app"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/iv_bottom_close"
+        app:layout_constraintStart_toStartOf="@id/iv_bottom_close"
+        app:layout_constraintTop_toBottomOf="@id/iv_bottom_close" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
