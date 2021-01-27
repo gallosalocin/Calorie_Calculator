@@ -1,5 +1,6 @@
 package com.gallosalocin.caloriecalculator.db
 
+import android.graphics.Color
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -35,13 +36,13 @@ abstract class CaloriesCalculatorDatabase : RoomDatabase() {
             val foodDao = database.get().getFoodDao()
 
             applicationScope.launch {
-                categoryDao.insertCategory(Category(1, "", 0xFFFFFFFF.toInt()))
-                categoryDao.insertCategory(Category(2, "Carbs", 0xFFFFEA61.toInt()))
-                categoryDao.insertCategory(Category(3, "Veggies", 0xFF88B984.toInt()))
-                categoryDao.insertCategory(Category(4, "Proteins", 0xFFFF7770.toInt()))
-                categoryDao.insertCategory(Category(5, "Fruits", 0xFFCCAAFF.toInt()))
-                categoryDao.insertCategory(Category(6, "Healthy fats", 0xFFA9E5FF.toInt()))
-                categoryDao.insertCategory(Category(7, "Oil", 0xFFE1B894.toInt()))
+                categoryDao.insertCategory(Category(1, "", Color.parseColor("#FFFFFF")))
+                categoryDao.insertCategory(Category(2, "Carbs", Color.parseColor("#FFEA61")))
+                categoryDao.insertCategory(Category(3, "Veggies", Color.parseColor("#88B984")))
+                categoryDao.insertCategory(Category(4, "Proteins", Color.parseColor("#FF7770")))
+                categoryDao.insertCategory(Category(5, "Fruits", Color.parseColor("#CCAAFF")))
+                categoryDao.insertCategory(Category(6, "Healthy fats", Color.parseColor("#A9E5FF")))
+                categoryDao.insertCategory(Category(7, "Oil", Color.parseColor("#E1B894")))
 
                 foodDao.insertFood(Food(id = 1, name = "Blanc de poulet", categoryId = 4, calories = 162F, weight = 150, fats = 2F, carbs = 0.7F, prots = 35.3F))
                 foodDao.insertFood(Food(id = 2, name = "Jambon cuit à l'étouffée", categoryId = 4, calories = 108F, weight = 100, fats = 3F, carbs = .2F, prots = 19F))

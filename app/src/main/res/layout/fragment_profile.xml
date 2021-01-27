@@ -204,7 +204,7 @@
         style="@style/ProfileTextView"
         android:layout_marginStart="6dp"
         android:layout_marginTop="20dp"
-        android:text="@string/daily_calorie"
+        android:text="@string/daily_calories"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/radio_group_activity_level" />
 

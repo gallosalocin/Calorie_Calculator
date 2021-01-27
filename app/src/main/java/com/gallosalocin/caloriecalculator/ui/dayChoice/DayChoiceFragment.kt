@@ -1,5 +1,6 @@
 package com.gallosalocin.caloriecalculator.ui.dayChoice
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -49,30 +50,37 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
         binding.tvMonday.setOnClickListener {
             dayTag = 1
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
+            requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.tvTuesday.setOnClickListener {
             dayTag = 2
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
+            requireView().performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
         }
         binding.tvWednesday.setOnClickListener {
             dayTag = 3
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
+            requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.tvThursday.setOnClickListener {
             dayTag = 4
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
+            requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.tvFriday.setOnClickListener {
             dayTag = 5
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
+            requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.tvSaturday.setOnClickListener {
             dayTag = 6
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
+            requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.tvSunday.setOnClickListener {
             dayTag = 7
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
+            requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
     }
 

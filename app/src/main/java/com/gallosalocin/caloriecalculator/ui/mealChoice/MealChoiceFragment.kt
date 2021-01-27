@@ -2,7 +2,6 @@ package com.gallosalocin.caloriecalculator.ui.mealChoice
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,7 +20,6 @@ class MealChoiceFragment : Fragment(R.layout.fragment_meal_choice) {
 
     private val viewModel: MealChoiceViewModel by viewModels()
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMealChoiceBinding.inflate(inflater, container, false)
         return binding.root
@@ -38,6 +36,7 @@ class MealChoiceFragment : Fragment(R.layout.fragment_meal_choice) {
         showLunchDailyMacros()
         showDinnerDailyMacros()
         showSnackDailyMacros()
+
     }
 
     override fun onStart() {
@@ -127,18 +126,22 @@ class MealChoiceFragment : Fragment(R.layout.fragment_meal_choice) {
         binding.cvBreakfast.setOnClickListener {
             mealTag = 1
             findNavController().navigate(R.id.action_mealFragment_to_mealListFragment)
+            requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.cvLunch.setOnClickListener {
             mealTag = 2
             findNavController().navigate(R.id.action_mealFragment_to_mealListFragment)
+            requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.cvDinner.setOnClickListener {
             mealTag = 3
             findNavController().navigate(R.id.action_mealFragment_to_mealListFragment)
+            requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.cvSnack.setOnClickListener {
             mealTag = 4
             findNavController().navigate(R.id.action_mealFragment_to_mealListFragment)
+            requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
     }
 

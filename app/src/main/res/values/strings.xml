@@ -38,7 +38,7 @@
     <string name="exercise_4_5_times">Moderate activity (exercise 4–5 times)</string>
     <string name="exercise_6_8_times">Very active (exercise 6–8 times)</string>
     <string name="exercise_very_intense">Extra active (exercise +10 times)</string>
-    <string name="daily_calorie">Calories per day :</string>
+    <string name="daily_calories">Daily Calories :</string>
     <string name="calculate_daily_calorie">Calculate Cal/day</string>
     <string name="custom_calories">Custom Calories</string>
     <string name="fat">Fat</string>

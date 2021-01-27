@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
@@ -185,7 +186,11 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_weight_edit, null)
 
         val weightEdited = dialogView.findViewById<AppCompatEditText>(R.id.et_dialog_weight)
-        weightEdited.setText("${selectedFood.weight}")
+        weightEdited.apply {
+            setText("${selectedFood.weight}")
+            requestFocus()
+            selectAll()
+        }
 
         val dialog = AlertDialog.Builder(requireContext(), R.style.DialogTheme)
                 .setView(dialogView)
@@ -203,8 +208,10 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
                     getMealDetailLiveData()
                 }.create()
 
+        configEnterButtonSoftKeyboard(selectedFood, weightEdited, dialog)
         dialog.show()
 
+        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         dialog.getButton(AlertDialog.BUTTON_POSITIVE)
                 .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
@@ -280,6 +287,21 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
                 getString(R.string.breakfast), getString(R.string.lunch), getString(R.string.dinner), getString(R.string.snack))
 
         (requireActivity() as AppCompatActivity).supportActionBar?.title = dayTagArray[dayTag - 1] + " / " + mealTagArray[mealTag - 1]
+    }
+
+
+    // Press enter to update weight
+    private fun configEnterButtonSoftKeyboard(selectedFood: Food, editText: AppCompatEditText, alertDialog: AlertDialog) {
+        editText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                alertDialog.dismiss()
+                updateFood(selectedFood, editText)
+                setupRecyclerView()
+                getMealDetailLiveData()
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        }
     }
 
     override fun onDestroyView() {
