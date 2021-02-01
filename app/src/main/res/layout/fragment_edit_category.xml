@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.editCategory.EditCategoryFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_name_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:text="@string/name"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/et_name"
+        app:layout_constraintEnd_toEndOf="@id/tv_color_title"
+        app:layout_constraintStart_toStartOf="@id/tv_color_title"
+        app:layout_constraintTop_toTopOf="@id/et_name" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_name"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/design_default_color_secondary_variant"
+        android:gravity="center"
+        android:inputType="text|textCapSentences"
+        android:selectAllOnFocus="true"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/btn_color_picker"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_color_title"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_vertical"
+        android:text="@string/color"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/btn_color_picker"
+        app:layout_constraintEnd_toStartOf="@id/btn_color_picker"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_color_picker" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_color_picker"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/design_default_color_on_primary"
+        app:layout_constraintStart_toEndOf="@id/tv_color_title"
+        app:layout_constraintTop_toBottomOf="@id/et_name"
+        app:strokeColor="@color/design_default_color_secondary_variant"
+        app:strokeWidth="1dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

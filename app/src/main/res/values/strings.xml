@@ -5,7 +5,7 @@
     <string name="sort">Sort</string>
     <string name="profile">Profile</string>
     <string name="logout">Logout</string>
-    <string name="all_foods">All Foods</string>
+    <string name="foods">Foods</string>
     <string name="schedule">Schedule</string>
     <string name="calories">Calories</string>
     <string name="fats">Fats</string>
@@ -56,8 +56,9 @@
     <string name="toast_fill_fields">Please fill all the fields.</string>
     <string name="profile_saved">Profile saved</string>
     <string name="custom_calorie_saved">Custom calories saved</string>
-    <string name="title_alert_dialog">Delete food</string>
-    <string name="delete_alert_dialog_question">Are you sure you want to delete \'%1$s\' from database?</string>
+    <string name="title_alert_dialog_food">Delete food</string>
+    <string name="title_alert_dialog_category">Delete category</string>
+    <string name="delete_alert_dialog_question">Are you sure you want to delete \'%1$s\' ?</string>
     <string name="yes_alert_dialog">Yes</string>
     <string name="successfully_remove_food">Successfully food removed : %1$s</string>
     <string name="undo_snackbar">Undo</string>
@@ -83,4 +84,6 @@
     <string name="oils">Oils</string>
     <string name="nothing_to_delete">Nothing to delete!!!</string>
     <string name="close_app">Close App</string>
+    <string name="color">Pick a color</string>
+    <string name="categories">Categories</string>
 </resources>

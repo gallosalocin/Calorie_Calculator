@@ -1,9 +1,12 @@
 package com.gallosalocin.caloriecalculator.ui.addFood
 
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -36,6 +39,11 @@ class AddFoodFragment : Fragment(R.layout.fragment_add_food) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+
+        binding.etAddName.apply {
+            requestFocus()
+            showSoftKeyboard()
+        }
 
         configSpinner()
     }
@@ -126,6 +134,11 @@ class AddFoodFragment : Fragment(R.layout.fragment_add_food) {
             errorText.error = null
             true
         }
+    }
+
+    // Show keyboard
+    private fun EditText.showSoftKeyboard(){
+        (this.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
     }
 
     override fun onDestroyView() {

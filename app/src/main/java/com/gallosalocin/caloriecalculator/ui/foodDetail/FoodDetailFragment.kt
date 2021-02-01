@@ -57,7 +57,7 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail) {
     private fun displayAlertDialogToDelete() {
         AlertDialog.Builder(requireContext(), R.style.DialogTheme)
                 .setCancelable(false)
-                .setTitle(getString(R.string.title_alert_dialog))
+                .setTitle(getString(R.string.title_alert_dialog_food))
                 .setIcon(R.drawable.ic_delete_swipe_black)
                 .setMessage(getString(R.string.delete_alert_dialog_question, currentFood.name))
                 .setPositiveButton(getString(R.string.yes_alert_dialog)) { _, _ ->

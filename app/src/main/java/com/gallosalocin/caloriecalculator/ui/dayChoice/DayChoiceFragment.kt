@@ -1,16 +1,16 @@
 package com.gallosalocin.caloriecalculator.ui.dayChoice
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
-import androidx.activity.addCallback
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentDayBinding
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.dayTag
+import com.google.android.material.snackbar.Snackbar
+import kotlin.system.exitProcess
 
 class DayChoiceFragment : Fragment(R.layout.fragment_day) {
 
@@ -25,8 +25,23 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
+        var backPressedTime: Long = 0
+        val backSnackBar = Snackbar.make(requireView(), "Press back again to exit", Snackbar.LENGTH_SHORT)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                    backSnackBar.dismiss()
+                    activity?.finish()
+                    exitProcess(0)
+                } else {
+                    backSnackBar.show()
+                }
+                backPressedTime = System.currentTimeMillis()
+            }
+        })
 
         dayChoice()
 

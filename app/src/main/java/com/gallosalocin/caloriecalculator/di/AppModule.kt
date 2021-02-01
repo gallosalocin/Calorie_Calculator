@@ -8,6 +8,7 @@ import com.gallosalocin.caloriecalculator.db.CaloriesCalculatorDatabase
 import com.gallosalocin.caloriecalculator.others.Constants.CALORIES_CALCULATOR_DATABASE_NAME
 import com.gallosalocin.caloriecalculator.others.Constants.KEY_FIRST_TIME_TOGGLE
 import com.gallosalocin.caloriecalculator.others.Constants.SHARED_PREFERENCES_NAME
+import com.gallosalocin.caloriecalculator.repositories.CurrentCategoryIdRepository
 import com.gallosalocin.caloriecalculator.repositories.CurrentFoodIdRepository
 import dagger.Module
 import dagger.Provides
@@ -25,6 +26,10 @@ object AppModule {
     @Singleton
     @Provides
     fun provideCurrentFoodRepository() = CurrentFoodIdRepository()
+
+    @Singleton
+    @Provides
+    fun provideCurrentCategoryRepository() = CurrentCategoryIdRepository()
 
     @Singleton
     @Provides
@@ -52,7 +57,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideSharedPreferences(@ApplicationContext context: Context) =
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences =
             context.getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
 
     @Singleton

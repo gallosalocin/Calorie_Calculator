@@ -15,19 +15,18 @@ import kotlinx.coroutines.launch
 class EditFoodViewModel @ViewModelInject constructor(
     private val mainRepository: MainRepository,
     private val currentFoodIdRepository: CurrentFoodIdRepository
-): ViewModel() {
+) : ViewModel() {
 
-    fun getViewStateLiveData() : LiveData<FoodWithCategory> {
-        return Transformations.switchMap(currentFoodIdRepository.getCurrentFoodIdLiveData()) { id ->
+    fun getViewStateLiveData(): LiveData<FoodWithCategory> =
+        Transformations.switchMap(currentFoodIdRepository.getCurrentFoodIdLiveData()) { id ->
             mainRepository.observeFoodWithId(id)
         }
-    }
 
     fun updateFood(food: Food) = viewModelScope.launch {
         mainRepository.updateFood(food)
     }
 
-    val getAllCategories: LiveData<List<Category>> = mainRepository.observeAllCategories()
 
+    val getAllCategories: LiveData<List<Category>> = mainRepository.observeAllCategories()
 
 }

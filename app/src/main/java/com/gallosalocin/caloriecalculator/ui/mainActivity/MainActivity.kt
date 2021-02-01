@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

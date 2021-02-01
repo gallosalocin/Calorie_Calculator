@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.EditText
 import android.widget.RadioButton
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -48,6 +47,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
+        if (isFirstAppOpen) {
+            (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        }
+
         if (!isBottomChoice && !isFirstAppOpen) {
             findNavController().navigate(R.id.action_profileFragment_to_dayFragment)
         }
@@ -79,20 +82,20 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             R.id.tb_menu_save -> {
                 if (isCustomCalories) {
                     if (confirmInputFieldsValidation()) {
+                        sharedPref.edit().putBoolean(KEY_FIRST_TIME_TOGGLE, false).apply()
                         dailyCalories = binding.etDailyCalorieResult.text.toString().toFloat()
                         calculateMacros()
                         saveUserData()
                         findNavController().navigate(R.id.action_profileFragment_to_dayFragment)
-                        sharedPref.edit().putBoolean(KEY_FIRST_TIME_TOGGLE, false).apply()
                     }
                 } else {
                     if (confirmInputFieldsValidation()) {
+                        sharedPref.edit().putBoolean(KEY_FIRST_TIME_TOGGLE, false).apply()
                         calculateBmr()
                         calculateDailyCalories()
                         calculateMacros()
                         saveUserData()
                         findNavController().navigate(R.id.action_profileFragment_to_dayFragment)
-                        sharedPref.edit().putBoolean(KEY_FIRST_TIME_TOGGLE, false).apply()
                     }
                 }
             }
@@ -176,45 +179,45 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun saveUserData() {
         if (isCustomCalories) {
             user = User(
-                    gender = 0,
-                    age = 0,
-                    height = 0,
-                    weight = 0,
-                    bmrResult = 0F,
-                    activity = 0,
-                    fatPercent = binding.fatPercent.text.toString().toInt(),
-                    carbPercent = binding.carbPercent.text.toString().toInt(),
-                    protPercent = binding.protPercent.text.toString().toInt(),
-                    dailyCalories = binding.etDailyCalorieResult.text.toString().toFloat(),
-                    fatResult = binding.fatResult.text.toString().toInt(),
-                    carbResult = binding.carbResult.text.toString().toInt(),
-                    protResult = binding.protResult.text.toString().toInt(),
-                    isCustomCalories = isCustomCalories
+                gender = 0,
+                age = 0,
+                height = 0,
+                weight = 0,
+                bmrResult = 0F,
+                activity = 0,
+                fatPercent = binding.fatPercent.text.toString().toInt(),
+                carbPercent = binding.carbPercent.text.toString().toInt(),
+                protPercent = binding.protPercent.text.toString().toInt(),
+                dailyCalories = binding.etDailyCalorieResult.text.toString().toFloat(),
+                fatResult = binding.fatResult.text.toString().toInt(),
+                carbResult = binding.carbResult.text.toString().toInt(),
+                protResult = binding.protResult.text.toString().toInt(),
+                isCustomCalories = isCustomCalories
             )
             viewModel.insertUser(user)
         } else {
             user = User(
-                    gender = genderValue,
-                    age = binding.ageValue.text.toString().toInt(),
-                    height = binding.heightValue.text.toString().toInt(),
-                    weight = binding.weightValue.text.toString().toInt(),
-                    bmrResult = binding.tvBmrResult.text.toString().toFloat(),
-                    activity = activityValue,
-                    fatPercent = binding.fatPercent.text.toString().toInt(),
-                    carbPercent = binding.carbPercent.text.toString().toInt(),
-                    protPercent = binding.protPercent.text.toString().toInt(),
-                    dailyCalories = binding.etDailyCalorieResult.text.toString().toFloat(),
-                    fatResult = binding.fatResult.text.toString().toInt(),
-                    carbResult = binding.carbResult.text.toString().toInt(),
-                    protResult = binding.protResult.text.toString().toInt(),
-                    isCustomCalories = isCustomCalories
+                gender = genderValue,
+                age = binding.ageValue.text.toString().toInt(),
+                height = binding.heightValue.text.toString().toInt(),
+                weight = binding.weightValue.text.toString().toInt(),
+                bmrResult = binding.tvBmrResult.text.toString().toFloat(),
+                activity = activityValue,
+                fatPercent = binding.fatPercent.text.toString().toInt(),
+                carbPercent = binding.carbPercent.text.toString().toInt(),
+                protPercent = binding.protPercent.text.toString().toInt(),
+                dailyCalories = binding.etDailyCalorieResult.text.toString().toFloat(),
+                fatResult = binding.fatResult.text.toString().toInt(),
+                carbResult = binding.carbResult.text.toString().toInt(),
+                protResult = binding.protResult.text.toString().toInt(),
+                isCustomCalories = isCustomCalories
             )
             viewModel.insertUser(user)
         }
     }
 
     private fun loadUserData() {
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = if (user.isCustomCalories)  "Custom Calories" else "Calories Calculator"
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = if (user.isCustomCalories) "Custom Calories" else "Calories Calculator"
 
         when (user.gender) {
             1 -> binding.radioGroupGender.check(R.id.gender_male)
@@ -248,9 +251,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun confirmInputFieldsValidation(): Boolean {
         if (isCustomCalories) {
             return if (!validateInputFieldIfNullOrEmpty(binding.etDailyCalorieResult)
-                    or !validateInputFieldIfNullOrEmpty(binding.fatPercent)
-                    or !validateInputFieldIfNullOrEmpty(binding.carbPercent)
-                    or !validateInputFieldIfNullOrEmpty(binding.protPercent)) {
+                or !validateInputFieldIfNullOrEmpty(binding.fatPercent)
+                or !validateInputFieldIfNullOrEmpty(binding.carbPercent)
+                or !validateInputFieldIfNullOrEmpty(binding.protPercent)
+            ) {
                 Snackbar.make(requireView(), getString(R.string.toast_fill_fields), Snackbar.LENGTH_SHORT).show()
                 false
             } else {
@@ -258,13 +262,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             }
         } else {
             return if (!validateInputFieldIfNullOrEmpty(binding.ageValue)
-                    or !validateInputFieldIfNullOrEmpty(binding.heightValue)
-                    or !validateInputFieldIfNullOrEmpty(binding.weightValue)
-                    or !validateInputFieldIfNullOrEmpty(binding.fatPercent)
-                    or !validateInputFieldIfNullOrEmpty(binding.carbPercent)
-                    or !validateInputFieldIfNullOrEmpty(binding.protPercent)
-                    || binding.radioGroupGender.checkedRadioButtonId == -1
-                    || binding.radioGroupActivityLevel.checkedRadioButtonId == -1) {
+                or !validateInputFieldIfNullOrEmpty(binding.heightValue)
+                or !validateInputFieldIfNullOrEmpty(binding.weightValue)
+                or !validateInputFieldIfNullOrEmpty(binding.fatPercent)
+                or !validateInputFieldIfNullOrEmpty(binding.carbPercent)
+                or !validateInputFieldIfNullOrEmpty(binding.protPercent)
+                || binding.radioGroupGender.checkedRadioButtonId == -1
+                || binding.radioGroupActivityLevel.checkedRadioButtonId == -1
+            ) {
                 Snackbar.make(requireView(), getString(R.string.toast_fill_fields), Snackbar.LENGTH_SHORT).show()
                 false
             } else {
@@ -290,7 +295,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             isCustomCalories = !isCustomCalories
             displayOrHideViews()
             binding.etDailyCalorieResult.isEnabled = isCustomCalories
-            (requireActivity() as AppCompatActivity).supportActionBar?.title = if (isCustomCalories)  "Custom Calories" else "Calories Calculator"
+            (requireActivity() as AppCompatActivity).supportActionBar?.title = if (isCustomCalories) "Custom Calories" else "Calories Calculator"
         }
     }
 

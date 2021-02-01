@@ -39,16 +39,21 @@ class MainRepository @Inject constructor(
 
     fun observeDayDetail() = foodDao.getDayDetail(dayTag.toString())
 
-    fun observeFoodWithId(foodId: Int) : LiveData<FoodWithCategory> {
-        return foodDao.getFoodWithId(foodId)
-    }
+    fun observeFoodWithId(foodId: Int) : LiveData<FoodWithCategory> = foodDao.getFoodWithId(foodId)
 
 
     // Category
 
     suspend fun insertCategory(category: Category) = categoryDao.insertCategory(category)
 
+    suspend fun updateCategory(category: Category) = categoryDao.updateCategory(category)
+
+    suspend fun deleteCategory(category: Category) = categoryDao.deleteCategory(category)
+
     fun observeAllCategories() = categoryDao.getAllCategories()
+
+    fun observeCategoryWithId(categoryId: Int) : LiveData<Category> = categoryDao.getCategoryWithId(categoryId)
+
 
     // User
 

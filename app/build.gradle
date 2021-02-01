@@ -96,6 +96,9 @@ dependencies {
 
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // Dhaval Color Picker
+    implementation 'com.github.dhaval2404:colorpicker:2.0'
 }
 
 kapt{

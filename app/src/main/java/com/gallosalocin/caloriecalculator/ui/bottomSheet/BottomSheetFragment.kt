@@ -28,16 +28,16 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             findNavController().navigate(R.id.action_bottomSheetFragment_to_profileFragment)
         }
 
+        binding.ivBottomAddCategory.setOnClickListener {
+            isBottomChoice = true
+            findNavController().navigate(R.id.action_bottomSheetFragment_to_allCategoriesFragment)
+        }
+
         binding.ivBottomAllFoods.setOnClickListener {
             isBottomChoice = true
             findNavController().navigate(R.id.action_bottomSheetFragment_to_allFoodsFragment)
         }
-
-        binding.ivBottomClose.setOnClickListener {
-            activity?.finishAffinity()
-        }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

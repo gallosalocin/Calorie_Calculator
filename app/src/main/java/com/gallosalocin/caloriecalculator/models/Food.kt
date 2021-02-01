@@ -8,7 +8,10 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "foods",
-        foreignKeys = [ForeignKey(entity = Category::class, parentColumns = ["categories_id"], childColumns = ["category_id"])])
+        foreignKeys = [ForeignKey(entity = Category::class,
+                parentColumns = ["categories_id"],
+                childColumns = ["category_id"],
+                onDelete = ForeignKey.CASCADE)])
 @Parcelize
 data class Food(
         @PrimaryKey(autoGenerate = true)
