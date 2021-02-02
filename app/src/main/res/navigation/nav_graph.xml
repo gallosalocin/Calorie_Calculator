@@ -8,7 +8,7 @@
         android:id="@+id/dayFragment"
         android:name="com.gallosalocin.caloriecalculator.ui.dayChoice.DayChoiceFragment"
         android:label="Calorie Calculator"
-        tools:layout="@layout/fragment_day" >
+        tools:layout="@layout/fragment_day">
         <action
             android:id="@+id/action_dayFragment_to_bottomSheetFragment"
             app:destination="@id/bottomSheetFragment" />
@@ -23,8 +23,8 @@
     <fragment
         android:id="@+id/allFoodsFragment"
         android:name="com.gallosalocin.caloriecalculator.ui.allFoods.AllFoodsFragment"
-        android:label="All Foods"
-        tools:layout="@layout/fragment_all_foods" >
+        android:label="@string/foods_list"
+        tools:layout="@layout/fragment_all_foods">
         <action
             android:id="@+id/action_allFoodsFragment_to_addFoodFragment"
             app:destination="@id/addFoodFragment" />
@@ -35,7 +35,7 @@
     <fragment
         android:id="@+id/mealFragment"
         android:name="com.gallosalocin.caloriecalculator.ui.mealChoice.MealChoiceFragment"
-        tools:layout="@layout/fragment_meal_choice" >
+        tools:layout="@layout/fragment_meal_choice">
         <action
             android:id="@+id/action_mealFragment_to_bottomSheetFragment"
             app:destination="@id/bottomSheetFragment" />
@@ -64,8 +64,8 @@
     <fragment
         android:id="@+id/addFoodFragment"
         android:name="com.gallosalocin.caloriecalculator.ui.addFood.AddFoodFragment"
-        android:label="Add New Food"
-        tools:layout="@layout/fragment_add_food" >
+        android:label="@string/add_new_food"
+        tools:layout="@layout/fragment_add_food">
         <action
             android:id="@+id/action_addFoodFragment_to_allFoodsFragment"
             app:destination="@id/allFoodsFragment"
@@ -87,7 +87,7 @@
     <fragment
         android:id="@+id/editFoodFragment"
         android:name="com.gallosalocin.caloriecalculator.ui.editFood.EditFoodFragment"
-        android:label="Edit Food"
+        android:label="@string/edit_food"
         tools:layout="@layout/fragment_edit_food">
         <action
             android:id="@+id/action_editFoodFragment_to_allFoodsFragment"
@@ -98,8 +98,8 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.gallosalocin.caloriecalculator.ui.profile.ProfileFragment"
-        android:label="Profile"
-        tools:layout="@layout/fragment_profile" >
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_dayFragment"
             app:destination="@id/dayFragment"
@@ -108,7 +108,7 @@
     <fragment
         android:id="@+id/foodDetailFragment"
         android:name="com.gallosalocin.caloriecalculator.ui.foodDetail.FoodDetailFragment"
-        android:label="Nutrition Facts"
+        android:label="@string/nutrition_facts"
         tools:layout="@layout/fragment_food_detail">
         <action
             android:id="@+id/action_foodDetailFragment_to_editFoodFragment"
@@ -122,8 +122,8 @@
     <fragment
         android:id="@+id/addCategoryFragment"
         android:name="com.gallosalocin.caloriecalculator.ui.addCategory.AddCategoryFragment"
-        android:label="Add New Category"
-        tools:layout="@layout/fragment_add_category" >
+        android:label="@string/aa_new_category"
+        tools:layout="@layout/fragment_add_category">
         <action
             android:id="@+id/action_addCategoryFragment_to_allCategoriesFragment"
             app:destination="@id/allCategoriesFragment"
@@ -133,7 +133,7 @@
     <fragment
         android:id="@+id/allCategoriesFragment"
         android:name="com.gallosalocin.caloriecalculator.ui.allCategories.AllCategoriesFragment"
-        android:label="All Categories"
+        android:label="@string/categories_list"
         tools:layout="@layout/fragment_all_categories">
         <action
             android:id="@+id/action_allCategoriesFragment_to_addCategoryFragment"
@@ -145,7 +145,7 @@
     <fragment
         android:id="@+id/editCategoryFragment"
         android:name="com.gallosalocin.caloriecalculator.ui.editCategory.EditCategoryFragment"
-        android:label="Edit Category"
+        android:label="@string/edit_category"
         tools:layout="@layout/fragment_edit_category">
         <action
             android:id="@+id/action_editCategoryFragment_to_allCategoriesFragment"

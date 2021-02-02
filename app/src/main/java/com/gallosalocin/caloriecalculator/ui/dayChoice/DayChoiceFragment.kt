@@ -8,9 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentDayBinding
+import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.dayTag
+import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.isBottomChoice
 import com.google.android.material.snackbar.Snackbar
-import kotlin.system.exitProcess
 
 class DayChoiceFragment : Fragment(R.layout.fragment_day) {
 
@@ -35,7 +36,6 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
                 if (backPressedTime + 2000 > System.currentTimeMillis()) {
                     backSnackBar.dismiss()
                     activity?.finish()
-                    exitProcess(0)
                 } else {
                     backSnackBar.show()
                 }
@@ -64,36 +64,43 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
     private fun dayChoice() {
         binding.tvMonday.setOnClickListener {
             dayTag = 1
+            isBottomChoice = false
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.tvTuesday.setOnClickListener {
             dayTag = 2
+            isBottomChoice = false
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
         }
         binding.tvWednesday.setOnClickListener {
             dayTag = 3
+            isBottomChoice = false
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.tvThursday.setOnClickListener {
             dayTag = 4
+            isBottomChoice = false
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.tvFriday.setOnClickListener {
             dayTag = 5
+            isBottomChoice = false
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.tvSaturday.setOnClickListener {
             dayTag = 6
+            isBottomChoice = false
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.tvSunday.setOnClickListener {
             dayTag = 7
+            isBottomChoice = false
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }

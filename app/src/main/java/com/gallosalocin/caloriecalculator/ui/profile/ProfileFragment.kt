@@ -1,6 +1,5 @@
 package com.gallosalocin.caloriecalculator.ui.profile
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
@@ -12,11 +11,9 @@ import androidx.navigation.fragment.findNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentProfileBinding
 import com.gallosalocin.caloriecalculator.models.User
-import com.gallosalocin.caloriecalculator.others.Constants.KEY_FIRST_TIME_TOGGLE
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.isBottomChoice
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -25,18 +22,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val binding get() = _binding!!
 
     private val viewModel: ProfileViewModel by viewModels()
-    private lateinit var user: User
+
+    private lateinit var currentUser: User
     private var dailyCalories: Float = 0F
     private var bmrResult: Float = 0F
     private var genderValue: Int = 0
     private var activityValue: Int = 0
     private var isCustomCalories = false
-
-    @Inject
-    lateinit var sharedPref: SharedPreferences
-
-    @set:Inject
-    var isFirstAppOpen = true
+    private var isFirstAppOpen = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
@@ -47,25 +40,30 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        if (isFirstAppOpen) {
-            (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        }
+        viewModel.readFromDataStore.observe(viewLifecycleOwner) {
+            isFirstAppOpen = it
 
-        if (!isBottomChoice && !isFirstAppOpen) {
-            findNavController().navigate(R.id.action_profileFragment_to_dayFragment)
-        }
+            if (isFirstAppOpen) {
+                (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            }
 
-        if (isBottomChoice) {
-            (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            if (!isBottomChoice && !isFirstAppOpen) {
+                findNavController().navigate(R.id.action_profileFragment_to_dayFragment)
+            }
 
-            viewModel.getUser.observe(viewLifecycleOwner) {
-                user = it
-                loadUserData()
-                isCustomCalories = user.isCustomCalories
-                displayOrHideViews()
-                binding.etDailyCalorieResult.isEnabled = isCustomCalories
+            if (isBottomChoice) {
+                (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+                viewModel.getUser.observe(viewLifecycleOwner) { user ->
+                    currentUser = user
+                    loadUserData()
+                    isCustomCalories = currentUser.isCustomCalories
+                    displayOrHideViews()
+                    binding.etDailyCalorieResult.isEnabled = isCustomCalories
+                }
             }
         }
+
         switchCaloriesDayInputMode()
     }
 
@@ -82,7 +80,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             R.id.tb_menu_save -> {
                 if (isCustomCalories) {
                     if (confirmInputFieldsValidation()) {
-                        sharedPref.edit().putBoolean(KEY_FIRST_TIME_TOGGLE, false).apply()
+                        isFirstAppOpen = false
+                        viewModel.saveToDataStore(isFirstAppOpen)
                         dailyCalories = binding.etDailyCalorieResult.text.toString().toFloat()
                         calculateMacros()
                         saveUserData()
@@ -90,7 +89,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     }
                 } else {
                     if (confirmInputFieldsValidation()) {
-                        sharedPref.edit().putBoolean(KEY_FIRST_TIME_TOGGLE, false).apply()
+                        isFirstAppOpen = false
+                        viewModel.saveToDataStore(isFirstAppOpen)
                         calculateBmr()
                         calculateDailyCalories()
                         calculateMacros()
@@ -178,7 +178,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun saveUserData() {
         if (isCustomCalories) {
-            user = User(
+            currentUser = User(
                 gender = 0,
                 age = 0,
                 height = 0,
@@ -194,9 +194,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 protResult = binding.protResult.text.toString().toInt(),
                 isCustomCalories = isCustomCalories
             )
-            viewModel.insertUser(user)
+            viewModel.insertUser(currentUser)
         } else {
-            user = User(
+            currentUser = User(
                 gender = genderValue,
                 age = binding.ageValue.text.toString().toInt(),
                 height = binding.heightValue.text.toString().toInt(),
@@ -212,19 +212,20 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 protResult = binding.protResult.text.toString().toInt(),
                 isCustomCalories = isCustomCalories
             )
-            viewModel.insertUser(user)
+            viewModel.insertUser(currentUser)
         }
     }
 
     private fun loadUserData() {
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = if (user.isCustomCalories) "Custom Calories" else "Calories Calculator"
-
-        when (user.gender) {
+        (requireActivity() as AppCompatActivity).supportActionBar?.title =
+        if (isCustomCalories) getString(R.string.custom_calories) else getString(R.string.calories_calculator)
+        
+        when (currentUser.gender) {
             1 -> binding.radioGroupGender.check(R.id.gender_male)
             2 -> binding.radioGroupGender.check(R.id.gender_female)
         }
 
-        when (user.activity) {
+        when (currentUser.activity) {
             1 -> binding.radioGroupActivityLevel.check(R.id.level1)
             2 -> binding.radioGroupActivityLevel.check(R.id.level2)
             3 -> binding.radioGroupActivityLevel.check(R.id.level3)
@@ -233,17 +234,17 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
 
         binding.apply {
-            if (user.age.toString() == "0") ageValue.setText("") else ageValue.setText(user.age.toString())
-            if (user.height.toString() == "0") heightValue.setText("") else heightValue.setText(user.height.toString())
-            if (user.weight.toString() == "0") weightValue.setText("") else weightValue.setText(user.weight.toString())
-            if (user.bmrResult.toString() == "0") tvBmrResult.text = "" else tvBmrResult.text = String.format("%.0f", user.bmrResult)
-            fatPercent.setText(user.fatPercent.toString())
-            carbPercent.setText(user.carbPercent.toString())
-            protPercent.setText(user.protPercent.toString())
-            etDailyCalorieResult.setText(String.format("%.0f", user.dailyCalories))
-            fatResult.text = user.fatResult.toString()
-            carbResult.text = user.carbResult.toString()
-            protResult.text = user.protResult.toString()
+            if (currentUser.age.toString() == "0") ageValue.setText("") else ageValue.setText(currentUser.age.toString())
+            if (currentUser.height.toString() == "0") heightValue.setText("") else heightValue.setText(currentUser.height.toString())
+            if (currentUser.weight.toString() == "0") weightValue.setText("") else weightValue.setText(currentUser.weight.toString())
+            if (currentUser.bmrResult.toString() == "0") tvBmrResult.text = "" else tvBmrResult.text = String.format("%.0f", currentUser.bmrResult)
+            fatPercent.setText(currentUser.fatPercent.toString())
+            carbPercent.setText(currentUser.carbPercent.toString())
+            protPercent.setText(currentUser.protPercent.toString())
+            etDailyCalorieResult.setText(String.format("%.0f", currentUser.dailyCalories))
+            fatResult.text = currentUser.fatResult.toString()
+            carbResult.text = currentUser.carbResult.toString()
+            protResult.text = currentUser.protResult.toString()
         }
     }
 
@@ -295,7 +296,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             isCustomCalories = !isCustomCalories
             displayOrHideViews()
             binding.etDailyCalorieResult.isEnabled = isCustomCalories
-            (requireActivity() as AppCompatActivity).supportActionBar?.title = if (isCustomCalories) "Custom Calories" else "Calories Calculator"
+            (requireActivity() as AppCompatActivity).supportActionBar?.title =
+                if (isCustomCalories) getString(R.string.custom_calories) else getString(R.string.calories_calculator)
         }
     }
 

@@ -52,7 +52,6 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
         foodWithCategoryList = ArrayList()
         setupRecyclerView()
         showUserMacrosExpected()
-        showDayDetailMacros()
 
         getMealDetailLiveData()
         configItemTouchHelper()
@@ -90,6 +89,7 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
                 expectedDayCarbTotal.text = it.carbResult.toString()
                 expectedDayProtTotal.text = it.protResult.toString()
             }
+            showDayDetailMacros()
         }
     }
 
@@ -102,6 +102,7 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
                 dayCarbTotal.text = String.format("%.1f", foodWithCategoryList.sumByDouble { it.food.carbs.toDouble() })
                 dayProtTotal.text = String.format("%.1f", foodWithCategoryList.sumByDouble { it.food.prots.toDouble() })
             }
+            checkIfDayMacrosBiggerExpectedDayMacros()
         }
     }
 
@@ -116,6 +117,34 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
                 mealProtTotal.text = String.format("%.1f", foodWithCategoryList.sumByDouble { it.food.prots.toDouble() })
             }
             foodAdapter.submitList(foodWithCategoryList)
+        }
+    }
+
+    // Check if dayMacrosTotal are bigger than expectedDayMacrosTotal
+    private fun checkIfDayMacrosBiggerExpectedDayMacros() {
+        if (binding.dayCalTotal.text.toString().toFloat()
+            > binding.expectedDayCalTotal.text.toString().toFloat()) {
+            binding.dayCalTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
+        } else {
+            binding.dayCalTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
+        }
+        if (binding.dayFatTotal.text.toString().replace(',', '.').toFloat()
+            > binding.expectedDayFatTotal.text.toString().toFloat()) {
+            binding.dayFatTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
+        } else {
+            binding.dayFatTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
+        }
+        if (binding.dayCarbTotal.text.toString().replace(',', '.').toFloat()
+            > binding.expectedDayCarbTotal.text.toString().toFloat()) {
+            binding.dayCarbTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
+        } else {
+            binding.dayCarbTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
+        }
+        if (binding.dayProtTotal.text.toString().replace(',', '.').toFloat()
+            > binding.expectedDayProtTotal.text.toString().toFloat()) {
+            binding.dayProtTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
+        } else {
+            binding.dayProtTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
         }
     }
 

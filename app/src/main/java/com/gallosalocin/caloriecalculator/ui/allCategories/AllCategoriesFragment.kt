@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.adapters.CategoryAdapter
 import com.gallosalocin.caloriecalculator.databinding.FragmentAllCategoriesBinding
-import com.gallosalocin.caloriecalculator.models.Category
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

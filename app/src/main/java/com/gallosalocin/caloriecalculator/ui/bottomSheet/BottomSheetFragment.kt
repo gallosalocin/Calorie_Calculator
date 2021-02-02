@@ -42,7 +42,5 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        isBottomChoice = false
     }
-
 }

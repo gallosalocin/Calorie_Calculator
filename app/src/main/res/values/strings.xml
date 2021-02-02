@@ -1,12 +1,10 @@
 <resources>
-    <string name="app_name">Calorie Calculator</string>
+    <string name="app_name" translatable="false">Calorie Calculator</string>
     <string name="save">Save</string>
     <string name="edit">Edit</string>
     <string name="sort">Sort</string>
     <string name="profile">Profile</string>
-    <string name="logout">Logout</string>
     <string name="foods">Foods</string>
-    <string name="schedule">Schedule</string>
     <string name="calories">Calories</string>
     <string name="fats">Fats</string>
     <string name="carbs">Carbs</string>
@@ -28,9 +26,9 @@
     <string name="female">Female</string>
     <string name="age">Age</string>
     <string name="height">Height</string>
-    <string name="centimeter">cm</string>
+    <string name="centimeter" translatable="false">cm</string>
     <string name="weight">Weight</string>
-    <string name="kilogram">kg</string>
+    <string name="kilogram" translatable="false">kg</string>
     <string name="calculate_bmr">Calculate BMR</string>
     <string name="your_bmr_is">Your BMR is :</string>
     <string name="sedentary">Sedentary (no exercise)</string>
@@ -39,28 +37,21 @@
     <string name="exercise_6_8_times">Very active (exercise 6–8 times)</string>
     <string name="exercise_very_intense">Extra active (exercise +10 times)</string>
     <string name="daily_calories">Daily Calories :</string>
-    <string name="calculate_daily_calorie">Calculate Cal/day</string>
-    <string name="custom_calories">Custom Calories</string>
-    <string name="fat">Fat</string>
-    <string name="prot">Prot</string>
-    <string name="carb">Carb</string>
-    <string name="percent">%</string>
-    <string name="calculate_macro">Calculate Macros</string>
-    <string name="_30">30</string>
-    <string name="_40">40</string>
+    <string name="percent" translatable="false">%</string>
+    <string name="_30" translatable="false">30</string>
+    <string name="_40" translatable="false">40</string>
     <string name="add">Add</string>
     <string name="name">Name</string>
     <string name="category">Category</string>
     <string name="note">Note</string>
     <string name="nutrition_facts_100g">Nutrition Facts (100g)</string>
-    <string name="toast_fill_fields">Please fill all the fields.</string>
+    <string name="toast_fill_fields">Please fill all the fields</string>
     <string name="profile_saved">Profile saved</string>
-    <string name="custom_calorie_saved">Custom calories saved</string>
     <string name="title_alert_dialog_food">Delete food</string>
     <string name="title_alert_dialog_category">Delete category</string>
     <string name="delete_alert_dialog_question">Are you sure you want to delete \'%1$s\' ?</string>
     <string name="yes_alert_dialog">Yes</string>
-    <string name="successfully_remove_food">Successfully food removed : %1$s</string>
+    <string name="successfully_remove_food">Food successfully removed : %1$s</string>
     <string name="undo_snackbar">Undo</string>
     <string name="no_alert_dialog">No</string>
     <string name="delete">Delete</string>
@@ -68,13 +59,12 @@
     <string name="carb_gram_symbol">Carbs (g)</string>
     <string name="prot_gram_symbol">Proteins (g)</string>
     <string name="error_fill_field">Fill the field</string>
-    <string name="gram_symbol">g</string>
+    <string name="gram_symbol" translatable="false">g</string>
     <string name="calculate">Calculate</string>
-    <string name="save_custom_calories">Save custom \ncalories</string>
     <string name="switch_calories_input_mode">Switch calories input mode</string>
     <string name="search">Search</string>
     <string name="alert_dialog_delete_meal">Delete meal</string>
-    <string name="alert_dialog_delete_all_message">Are you sure that you want to delete the meal?</string>
+    <string name="alert_dialog_delete_all_message">Are you sure that you want to delete the meal ?</string>
     <string name="choose_a_category">Choose a category</string>
     <string name="sort_by_category">Sort by Category</string>
     <string name="sort_by_name">Sort by Name</string>
@@ -83,7 +73,17 @@
     <string name="healthy_fats">Healthy Fats</string>
     <string name="oils">Oils</string>
     <string name="nothing_to_delete">Nothing to delete!!!</string>
-    <string name="close_app">Close App</string>
     <string name="color">Pick a color</string>
     <string name="categories">Categories</string>
+    <string name="_0" translatable="false">0</string>
+    <string name="how_many_times_you_workout_per_week">How many times you workout per week :</string>
+    <string name="foods_list">Foods List</string>
+    <string name="add_new_food">Add New Food</string>
+    <string name="edit_food">Edit Food</string>
+    <string name="nutrition_facts">Nutrition Facts</string>
+    <string name="aa_new_category">Add New Category</string>
+    <string name="categories_list">Categories List</string>
+    <string name="edit_category">Edit Category</string>
+    <string name="custom_calories">Custom Calories</string>
+    <string name="calories_calculator">Calories Calculator</string>
 </resources>
