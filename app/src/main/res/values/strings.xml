@@ -26,9 +26,9 @@
     <string name="female">Female</string>
     <string name="age">Age</string>
     <string name="height">Height</string>
-    <string name="centimeter" translatable="false">cm</string>
+    <string name="centimeter">cm</string>
     <string name="weight">Weight</string>
-    <string name="kilogram" translatable="false">kg</string>
+    <string name="kilogram">kg</string>
     <string name="calculate_bmr">Calculate BMR</string>
     <string name="your_bmr_is">Your BMR is :</string>
     <string name="sedentary">Sedentary (no exercise)</string>
@@ -59,7 +59,7 @@
     <string name="carb_gram_symbol">Carbs (g)</string>
     <string name="prot_gram_symbol">Proteins (g)</string>
     <string name="error_fill_field">Fill the field</string>
-    <string name="gram_symbol" translatable="false">g</string>
+    <string name="gram_symbol">g</string>
     <string name="calculate">Calculate</string>
     <string name="switch_calories_input_mode">Switch calories input mode</string>
     <string name="search">Search</string>

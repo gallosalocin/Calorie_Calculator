@@ -56,36 +56,6 @@
                 android:id="@+id/tb_menu_sort_name"
                 android:title="@string/sort_by_name"
                 app:showAsAction="never" />
-
-            <item
-                android:id="@+id/tb_menu_sort_carb"
-                android:title="@string/carbs"
-                app:showAsAction="never" />
-
-            <item
-                android:id="@+id/tb_menu_sort_veggies"
-                android:title="@string/veggies"
-                app:showAsAction="never" />
-
-            <item
-                android:id="@+id/tb_menu_sort_prot"
-                android:title="@string/proteins"
-                app:showAsAction="never" />
-
-            <item
-                android:id="@+id/tb_menu_sort_fruits"
-                android:title="@string/fruits"
-                app:showAsAction="never" />
-
-            <item
-                android:id="@+id/tb_menu_sort_healthy_fats"
-                android:title="@string/healthy_fats"
-                app:showAsAction="never" />
-
-            <item
-                android:id="@+id/tb_menu_sort_oils"
-                android:title="@string/oils"
-                app:showAsAction="never" />
         </menu>
     </item>
 

@@ -77,6 +77,9 @@
     <string name="aa_new_category">Ajouter Nouvelle Catégorie</string>
     <string name="categories_list">Liste Catégories</string>
     <string name="edit_category">Modifier Catégorie</string>
-    <string name="custom_calories">Calories personnalisées</string>
-    <string name="calories_calculator">Calculateur de calories</string>
+    <string name="custom_calories">Calories Personnalisées</string>
+    <string name="calories_calculator">Calculateur de Calories</string>
+    <string name="gram_symbol">g</string>
+    <string name="centimeter">cm</string>
+    <string name="kilogram">kg</string>
 </resources>

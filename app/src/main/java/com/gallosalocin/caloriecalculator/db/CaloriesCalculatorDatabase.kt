@@ -130,6 +130,8 @@ abstract class CaloriesCalculatorDatabase : RoomDatabase() {
                 foodDao.insertFood(Food(id = 83, name = "Petit Dej", categoryId = 8, calories = 556F, weight = 100, fats = 18.1F, carbs = 75.1F, prots = 22.3F))
                 foodDao.insertFood(Food(id = 84, name = "Soupe de poulet", categoryId = 8, calories = 390F, weight = 100, fats = 4.3F, carbs = 45.4F, prots = 41.3F))
                 foodDao.insertFood(Food(id = 85, name = "Navet", categoryId = 3, calories = 28F, weight = 100, fats = 0.1F, carbs = 6F, prots = 0.9F))
+                foodDao.insertFood(Food(id = 86, name = "Parmesan", categoryId = 6, calories = 402F, weight = 100, fats = 29.7F, carbs = 0F, prots = 32.4F))
+                foodDao.insertFood(Food(id = 87, name = "Omelette", categoryId = 4, calories = 154F, weight = 100, fats = 12F, carbs = 0.6F, prots = 11F))
             }
         }
     }

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentDayBinding
-import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.dayTag
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.isBottomChoice
 import com.google.android.material.snackbar.Snackbar
@@ -17,6 +16,7 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
 
     private var _binding: FragmentDayBinding? = null
     private val binding get() = _binding!!
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentDayBinding.inflate(inflater, container, false)
@@ -28,6 +28,12 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
         setHasOptionsMenu(true)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
+        pressBackTwiceToQuit()
+        dayChoice()
+    }
+
+    // Press back twice to quit app
+    private fun pressBackTwiceToQuit() {
         var backPressedTime: Long = 0
         val backSnackBar = Snackbar.make(requireView(), "Press back again to exit", Snackbar.LENGTH_SHORT)
 
@@ -42,9 +48,6 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
                 backPressedTime = System.currentTimeMillis()
             }
         })
-
-        dayChoice()
-
     }
 
     // Setup toolbar
@@ -110,4 +113,5 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
         super.onDestroyView()
         _binding = null
     }
+
 }

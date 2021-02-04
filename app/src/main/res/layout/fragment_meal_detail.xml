@@ -26,7 +26,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/overall_day_cal_title"
-                style="@style/DayMacrosName"
+                style="@style/CardViewAllFoodsTitle"
                 android:text="@string/calories"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/overall_day_fat_title"
@@ -34,7 +34,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/overall_day_fat_title"
-                style="@style/DayMacrosName"
+                style="@style/CardViewAllFoodsTitle"
                 android:text="@string/fats"
                 app:layout_constraintLeft_toRightOf="@id/overall_day_cal_title"
                 app:layout_constraintRight_toLeftOf="@id/overall_day_carb_title"
@@ -42,7 +42,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/overall_day_carb_title"
-                style="@style/DayMacrosName"
+                style="@style/CardViewAllFoodsTitle"
                 android:text="@string/carbs"
                 app:layout_constraintLeft_toRightOf="@id/overall_day_fat_title"
                 app:layout_constraintRight_toLeftOf="@id/overall_day_prot_title"
@@ -50,7 +50,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/overall_day_prot_title"
-                style="@style/DayMacrosName"
+                style="@style/CardViewAllFoodsTitle"
                 android:text="@string/proteins"
                 app:layout_constraintLeft_toRightOf="@id/overall_day_carb_title"
                 app:layout_constraintRight_toRightOf="parent"
@@ -189,20 +189,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_meal_overall"
         tools:listitem="@layout/item_food" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_food"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/design_default_color_secondary_variant"
-        android:contentDescription="@string/add"
-        android:src="@drawable/ic_add"
-        app:layout_anchor="@id/rv_meal_detail"
-        app:layout_anchorGravity="bottom|right"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:tint="@color/design_default_color_on_primary" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

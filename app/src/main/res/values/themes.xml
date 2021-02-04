@@ -53,7 +53,7 @@
     </style>
 
     <style name="ProfileTextView">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">80dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginStart">6dp</item>
@@ -84,7 +84,7 @@
     </style>
 
     <style name="DetailTitleTextView">
-        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_width">150dp</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_marginStart">5dp</item>
         <item name="android:layout_marginTop">10dp</item>
@@ -166,7 +166,6 @@
     <style name="RadioButtonProfile">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">30dp</item>
-        <item name="android:layout_marginStart">6dp</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -176,59 +175,17 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
     </style>
 
-
-
-
-
-
-    <style name="DayMacrosName">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">2dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">21sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="ValuesMacrosItem">
+    <style name="ValuesMacrosFoodItem">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">2dp</item>
         <item name="android:layout_marginTop">6dp</item>
         <item name="android:textSize">16sp</item>
         <item name="android:gravity">center</item>
-    </style>
-
-    <style name="NameFoodItem">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">22sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginStart">6dp</item>
-    </style>
-
-    <style name="WeightItem">
-        <item name="android:layout_width">50dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">2dp</item>
-        <item name="android:layout_marginRight">2dp</item>
-        <item name="android:layout_marginTop">6dp</item>
-        <item name="android:textAlignment">viewEnd</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="WeightSymbolItem">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginEnd">20dp</item>
-        <item name="android:layout_marginTop">6dp</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:text">@string/gram_symbol</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

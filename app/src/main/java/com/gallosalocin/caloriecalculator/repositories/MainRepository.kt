@@ -31,10 +31,10 @@ class MainRepository @Inject constructor(
     fun observeAllFoods() = foodDao.getAllFoods()
 
     fun observeMealDetail() = foodDao.getMealDetail(dayTag.toString(), mealTag.toString())
+
     fun observeBreakfast() = foodDao.getMealDetail(dayTag.toString(), "1")
     fun observeLunch() = foodDao.getMealDetail(dayTag.toString(), "2")
     fun observeDinner() = foodDao.getMealDetail(dayTag.toString(), "3")
-
     fun observeSnack() = foodDao.getMealDetail(dayTag.toString(), "4")
 
     fun observeDayDetail() = foodDao.getDayDetail(dayTag.toString())

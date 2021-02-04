@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -24,7 +23,11 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/food_name"
-                style="@style/NameFoodItem"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:textSize="22sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/food_cal"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/food_gram"
@@ -33,7 +36,14 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/food_gram"
-                style="@style/WeightItem"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="2dp"
+                android:textAlignment="viewEnd"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/food_name"
                 app:layout_constraintLeft_toRightOf="@id/food_name"
                 app:layout_constraintRight_toLeftOf="@id/food_gram_symbol"
@@ -42,7 +52,14 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/food_gram_symbol"
-                style="@style/WeightSymbolItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/gram_symbol"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/food_name"
                 app:layout_constraintLeft_toRightOf="@id/food_gram"
                 app:layout_constraintRight_toRightOf="parent"
@@ -50,7 +67,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/food_cal"
-                style="@style/ValuesMacrosItem"
+                style="@style/ValuesMacrosFoodItem"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/food_fat"
                 app:layout_constraintTop_toBottomOf="@id/food_name"
@@ -58,7 +75,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/food_fat"
-                style="@style/ValuesMacrosItem"
+                style="@style/ValuesMacrosFoodItem"
                 app:layout_constraintLeft_toRightOf="@id/food_cal"
                 app:layout_constraintRight_toLeftOf="@id/food_carb"
                 app:layout_constraintTop_toBottomOf="@id/food_name"
@@ -66,7 +83,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/food_carb"
-                style="@style/ValuesMacrosItem"
+                style="@style/ValuesMacrosFoodItem"
                 app:layout_constraintLeft_toRightOf="@id/food_fat"
                 app:layout_constraintRight_toLeftOf="@id/food_prot"
                 app:layout_constraintTop_toBottomOf="@id/food_name"
@@ -74,7 +91,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/food_prot"
-                style="@style/ValuesMacrosItem"
+                style="@style/ValuesMacrosFoodItem"
                 app:layout_constraintLeft_toRightOf="@id/food_carb"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/food_name"

@@ -56,13 +56,41 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
         getMealDetailLiveData()
         configItemTouchHelper()
 
-
-        binding.fabAddFood.setOnClickListener {
-            findNavController().navigate(R.id.action_mealDetailFragment_to_allFoodsFragment)
-        }
-
     }
 
+    // Setup toolbar
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.toolbar, menu)
+        menu.getItem(4).isVisible = true
+        menu.getItem(7).isVisible = true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.tb_menu_delete -> {
+                if (foodWithCategoryList.isEmpty())
+                    Snackbar.make(requireView(), getString(R.string.nothing_to_delete), Snackbar.LENGTH_SHORT).show()
+                else
+                    setupDeleteAllMealFoodsEditDialog()
+            }
+            R.id.tb_menu_add -> findNavController().navigate(R.id.action_mealDetailFragment_to_allFoodsFragment)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun toolbarChangeTitleMealName(dayTag: Int, mealTag: Int) {
+        val dayTagArray = arrayOf(
+            getString(R.string.monday_cap), getString(R.string.tuesday_cap), getString(R.string.wednesday_cap), getString(R.string.thursday_cap),
+            getString(R.string.friday_cap), getString(R.string.saturday_cap), getString(R.string.sunday_cap)
+        )
+        val mealTagArray = arrayOf(
+            getString(R.string.breakfast), getString(R.string.lunch), getString(R.string.dinner), getString(R.string.snack)
+        )
+
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = dayTagArray[dayTag - 1] + " / " + mealTagArray[mealTag - 1]
+    }
+    
     override fun onStart() {
         super.onStart()
         toolbarChangeTitleMealName(dayTag, mealTag)
@@ -123,25 +151,29 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
     // Check if dayMacrosTotal are bigger than expectedDayMacrosTotal
     private fun checkIfDayMacrosBiggerExpectedDayMacros() {
         if (binding.dayCalTotal.text.toString().toFloat()
-            > binding.expectedDayCalTotal.text.toString().toFloat()) {
+            > binding.expectedDayCalTotal.text.toString().toFloat()
+        ) {
             binding.dayCalTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
         } else {
             binding.dayCalTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
         }
         if (binding.dayFatTotal.text.toString().replace(',', '.').toFloat()
-            > binding.expectedDayFatTotal.text.toString().toFloat()) {
+            > binding.expectedDayFatTotal.text.toString().toFloat()
+        ) {
             binding.dayFatTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
         } else {
             binding.dayFatTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
         }
         if (binding.dayCarbTotal.text.toString().replace(',', '.').toFloat()
-            > binding.expectedDayCarbTotal.text.toString().toFloat()) {
+            > binding.expectedDayCarbTotal.text.toString().toFloat()
+        ) {
             binding.dayCarbTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
         } else {
             binding.dayCarbTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
         }
         if (binding.dayProtTotal.text.toString().replace(',', '.').toFloat()
-            > binding.expectedDayProtTotal.text.toString().toFloat()) {
+            > binding.expectedDayProtTotal.text.toString().toFloat()
+        ) {
             binding.dayProtTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
         } else {
             binding.dayProtTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
@@ -151,8 +183,8 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
     // Setup Swipes
     private fun configItemTouchHelper() {
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
-                0,
-                ItemTouchHelper.LEFT
+            0,
+            ItemTouchHelper.LEFT
         ) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 return false
@@ -164,8 +196,10 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
 
                 if (direction == ItemTouchHelper.LEFT) {
                     viewModel.deleteFood(foodWithCategory.food)
-                    Snackbar.make(requireView(), (getString(R.string.successfully_remove_food, foodWithCategory.food.name)),
-                            Snackbar.LENGTH_SHORT).apply {
+                    Snackbar.make(
+                        requireView(), (getString(R.string.successfully_remove_food, foodWithCategory.food.name)),
+                        Snackbar.LENGTH_SHORT
+                    ).apply {
                         setAction(getString(R.string.undo_snackbar)) {
                             viewModel.insertFood(foodWithCategory.food)
                         }
@@ -175,13 +209,13 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
             }
 
             override fun onChildDraw(
-                    canvas: Canvas,
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    dX: Float,
-                    dY: Float,
-                    actionState: Int,
-                    isCurrentlyActive: Boolean
+                canvas: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
             ) {
                 val removeIcon: Drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_remove_swipe)!!
                 val swipeLeftBackground = ColorDrawable(Color.parseColor("#FF9900"))
@@ -193,10 +227,10 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
                     if (dX < 0) {
                         swipeLeftBackground.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
                         removeIcon.setBounds(
-                                itemView.right - removeIconMargin - removeIcon.intrinsicWidth,
-                                itemView.top + removeIconMargin,
-                                itemView.right - removeIconMargin,
-                                itemView.bottom - removeIconMargin
+                            itemView.right - removeIconMargin - removeIcon.intrinsicWidth,
+                            itemView.top + removeIconMargin,
+                            itemView.right - removeIconMargin,
+                            itemView.bottom - removeIconMargin
                         )
                         swipeLeftBackground.draw(canvas)
                         removeIcon.draw(canvas)
@@ -222,46 +256,46 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
         }
 
         val dialog = AlertDialog.Builder(requireContext(), R.style.DialogTheme)
-                .setView(dialogView)
-                .setTitle(selectedFood.name)
-                .setCancelable(false)
-                .setPositiveButton("Change") { dialoginterface, _ ->
-                    dialoginterface.dismiss()
-                    updateFood(selectedFood, weightEdited)
-                    setupRecyclerView()
-                    getMealDetailLiveData()
-                }
-                .setNegativeButton("Cancel") { dialogInterface, _ ->
-                    dialogInterface.dismiss()
-                    setupRecyclerView()
-                    getMealDetailLiveData()
-                }.create()
+            .setView(dialogView)
+            .setTitle(selectedFood.name)
+            .setCancelable(false)
+            .setPositiveButton("Change") { dialoginterface, _ ->
+                dialoginterface.dismiss()
+                updateFood(selectedFood, weightEdited)
+                setupRecyclerView()
+                getMealDetailLiveData()
+            }
+            .setNegativeButton("Cancel") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+                setupRecyclerView()
+                getMealDetailLiveData()
+            }.create()
 
         configEnterButtonSoftKeyboard(selectedFood, weightEdited, dialog)
         dialog.show()
 
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
     }
 
     // Update Food
     private fun updateFood(selectedFood: Food, weightEdited: AppCompatEditText) {
         val newWeight = weightEdited.text.toString().toInt()
         val foodUpdated = Food(
-                id = selectedFood.id,
-                name = selectedFood.name,
-                categoryId = selectedFood.categoryId,
-                calories = ((newWeight.toFloat() / 100) * ((100 * selectedFood.calories) / selectedFood.weight)),
-                fats = ((newWeight.toFloat() / 100) * ((100 * selectedFood.fats) / selectedFood.weight)),
-                carbs = ((newWeight.toFloat() / 100) * ((100 * selectedFood.carbs) / selectedFood.weight)),
-                prots = ((newWeight.toFloat() / 100) * ((100 * selectedFood.prots) / selectedFood.weight)),
-                note = selectedFood.note,
-                dayId = selectedFood.dayId,
-                mealId = selectedFood.mealId,
-                weight = newWeight
+            id = selectedFood.id,
+            name = selectedFood.name,
+            categoryId = selectedFood.categoryId,
+            calories = ((newWeight.toFloat() / 100) * ((100 * selectedFood.calories) / selectedFood.weight)),
+            fats = ((newWeight.toFloat() / 100) * ((100 * selectedFood.fats) / selectedFood.weight)),
+            carbs = ((newWeight.toFloat() / 100) * ((100 * selectedFood.carbs) / selectedFood.weight)),
+            prots = ((newWeight.toFloat() / 100) * ((100 * selectedFood.prots) / selectedFood.weight)),
+            note = selectedFood.note,
+            dayId = selectedFood.dayId,
+            mealId = selectedFood.mealId,
+            weight = newWeight
         )
         viewModel.updateFood(foodUpdated)
     }
@@ -269,55 +303,24 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
     // Setup Alert Dialog to delete all meal foods
     private fun setupDeleteAllMealFoodsEditDialog() {
         val dialog = AlertDialog.Builder(requireContext(), R.style.DialogTheme)
-                .setIcon(R.drawable.ic_delete_black)
-                .setTitle(getString(R.string.alert_dialog_delete_meal))
-                .setMessage(getString(R.string.alert_dialog_delete_all_message))
-                .setCancelable(false)
-                .setPositiveButton("Yes") { dialoginterface, _ ->
-                    dialoginterface.dismiss()
-                    viewModel.deleteAllMealDetail()
-                }
-                .setNegativeButton("Cancel") { dialogInterface, _ ->
-                    dialogInterface.dismiss()
-                }.create()
+            .setIcon(R.drawable.ic_delete_black)
+            .setTitle(getString(R.string.alert_dialog_delete_meal))
+            .setMessage(getString(R.string.alert_dialog_delete_all_message))
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialoginterface, _ ->
+                dialoginterface.dismiss()
+                viewModel.deleteAllMealDetail()
+            }
+            .setNegativeButton("Cancel") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }.create()
         dialog.show()
 
         dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
     }
-
-    // Setup toolbar
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.toolbar, menu)
-        menu.getItem(7).isVisible = true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.tb_menu_delete -> {
-                if (foodWithCategoryList.isEmpty())
-                    Snackbar.make(requireView(), getString(R.string.nothing_to_delete), Snackbar.LENGTH_SHORT).show()
-                else
-                    setupDeleteAllMealFoodsEditDialog()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun toolbarChangeTitleMealName(dayTag: Int, mealTag: Int) {
-        val dayTagArray = arrayOf(
-                getString(R.string.monday_cap), getString(R.string.tuesday_cap), getString(R.string.wednesday_cap), getString(R.string.thursday_cap),
-                getString(R.string.friday_cap), getString(R.string.saturday_cap), getString(R.string.sunday_cap)
-        )
-        val mealTagArray = arrayOf(
-                getString(R.string.breakfast), getString(R.string.lunch), getString(R.string.dinner), getString(R.string.snack))
-
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = dayTagArray[dayTag - 1] + " / " + mealTagArray[mealTag - 1]
-    }
-
 
     // Press enter to update weight
     private fun configEnterButtonSoftKeyboard(selectedFood: Food, editText: AppCompatEditText, alertDialog: AlertDialog) {
