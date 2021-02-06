@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minWidth="350dp"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/ProfileInfoDialog"
+        android:text="@string/moderate_carbs"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/ProfileInfoDialog"
+        android:text="@string/moderate_carbs_macros"
+        android:textSize="16sp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/ProfileInfoDialog"
+        android:layout_marginTop="10dp"
+        android:text="@string/higher_carbs"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/ProfileInfoDialog"
+        android:text="@string/higher_carbs_macros"
+        android:textSize="16sp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/ProfileInfoDialog"
+        android:layout_marginTop="10dp"
+        android:text="@string/lower_carbs"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/ProfileInfoDialog"
+        android:text="@string/lower_carbs_macros"
+        android:textSize="16sp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

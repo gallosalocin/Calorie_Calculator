@@ -68,8 +68,8 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
         menu.getItem(3).isVisible = true
-        menu.getItem(4).isVisible = true
-        menu.getItem(5).isVisible = true
+        menu.getItem(2).isVisible = true
+        menu.getItem(7).isVisible = true
 
 
         val searchItem = menu.findItem(R.id.tb_menu_search)
@@ -223,7 +223,16 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
                             viewModel.setCurrentFoodId(selectedFood.id)
                             findNavController().navigate(R.id.action_allFoodsFragment_to_foodDetailFragment)
                         } else {
-                            if (dayTag != 0) {
+//                            if (dayTag == 99) {
+//                                val foodDuplicated = foodWithCategory.food
+//                                foodDuplicated.id = System.currentTimeMillis().toInt()
+//                                foodDuplicated.dayId = "99"
+//                                viewModel.insertFood(foodDuplicated)
+//                                searchView.setQuery("", false)
+//                                setupRecyclerView()
+//                                foodAdapter.submitList(foodsList)
+//                            } else
+                                if (dayTag != 0) {
                                 val foodDuplicated = foodWithCategory.food
                                 foodDuplicated.id = System.currentTimeMillis().toInt()
                                 foodDuplicated.dayId = dayTag.toString()

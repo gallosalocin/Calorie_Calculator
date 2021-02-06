@@ -8,9 +8,194 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/grey_400</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColorPrimary">@color/grey_400</item>
+        <item name="android:textColorSecondary">@color/grey_400</item>
+        <item name="android:itemTextAppearance">@style/myCustomMenuTextAppearance</item>
     </style>
+
+    <style name="myCustomMenuTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">@color/grey_400</item>
+    </style>
+
+    <style name="DialogTheme" parent="ThemeOverlay.AppCompat.Dialog">
+        <item name="android:textColorPrimary">@color/grey_400</item>
+    </style>
+
+    <style name="myCustomSpinner" parent="Widget.AppCompat.Spinner.Underlined">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/grey_400</item>
+        <item name="android:backgroundTint">#757575</item>
+    </style>
+
+    <style name="DayChoice">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/grey_400</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:hapticFeedbackEnabled">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackgroundBorderless</item>
+        <item name="android:background">@drawable/custom_day_background_night</item>
+    </style>
+
+    <style name="ProfileTextView">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginStart">6dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/grey_400</item>
+    </style>
+
+    <style name="ProfileTextViewMacrosResult">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/grey_400</item>
+    </style>
+
+    <style name="ProfileEditText">
+        <item name="android:selectAllOnFocus">true</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/grey_400</item>
+        <item name="backgroundTint">@color/grey_400</item>
+    </style>
+
+    <style name="ProfileRadioButtonStyle">
+        <item name="colorAccent">@color/design_default_color_secondary_variant</item>
+        <item name="android:textColorSecondary">@color/grey_400</item>
+    </style>
+
+    <style name="DetailTitleTextView">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="paddingStart">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/grey_400</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AddFoodTextInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/design_default_color_on_secondary</item>
+        <item name="android:selectAllOnFocus">true</item>
+        <item name="android:textColor">@color/grey_400</item>
+    </style>
+
+    <style name="AddDishTextInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/design_default_color_on_secondary</item>
+        <item name="android:selectAllOnFocus">true</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/grey_400</item>
+    </style>
+
+    <style name="ValuesMacrosMeal">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">2dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/grey_400</item>
+    </style>
+
+    <style name="DayMacrosValuesExpected">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">2dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/grey_400</item>
+    </style>
+
+    <style name="CardViewMealChoiceName">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/grey_400</item>
+        <item name="android:layout_marginStart">15dp</item>
+    </style>
+
+    <style name="CardViewMealChoiceMacrosValue">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginStart">2dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/grey_400</item>
+    </style>
+
+    <style name="CardViewAllFoodsTitle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/grey_400</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="ValuesMacrosFoodItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">2dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/design_default_color_on_secondary</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="AddEditCategoryTextViewTitle">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/grey_400</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AddEditCategoryEditText">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/grey_400</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="SpinnerCustomLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/grey_400</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="MealChoiceDetailAllValuesBackground">
+        <item name="android:background">@drawable/custom_overall_background_night</item>
+    </style>
+
+    <style name="ProfileInfoDialog">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/grey_400</item>
+    </style>
+
 </resources>

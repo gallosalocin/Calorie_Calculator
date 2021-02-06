@@ -63,7 +63,7 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
         menu.getItem(4).isVisible = true
-        menu.getItem(7).isVisible = true
+        menu.getItem(3).isVisible = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

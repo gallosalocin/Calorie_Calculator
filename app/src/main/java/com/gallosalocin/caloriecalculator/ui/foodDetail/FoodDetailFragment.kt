@@ -37,8 +37,8 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
-        menu.getItem(2).isVisible = true
-        menu.getItem(7).isVisible = true
+        menu.getItem(1).isVisible = true
+        menu.getItem(4).isVisible = true
 
     }
 

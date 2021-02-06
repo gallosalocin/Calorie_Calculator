@@ -1,6 +1,7 @@
 package com.gallosalocin.caloriecalculator.models
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
@@ -8,6 +9,7 @@ import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "users")
 @Parcelize
+@Keep
 data class User(
         @PrimaryKey(autoGenerate = false)
     val id: Int = 1,

@@ -38,7 +38,7 @@ class AllCategoriesFragment : Fragment(R.layout.fragment_all_categories) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
-        menu.getItem(4).isVisible = true
+        menu.getItem(3).isVisible = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

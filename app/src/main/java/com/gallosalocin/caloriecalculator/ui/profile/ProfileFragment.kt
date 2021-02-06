@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.view.*
 import android.widget.EditText
 import android.widget.RadioButton
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentProfileBinding
+import com.gallosalocin.caloriecalculator.models.Food
 import com.gallosalocin.caloriecalculator.models.User
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.isBottomChoice
 import com.google.android.material.snackbar.Snackbar
@@ -45,25 +49,24 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
             if (isFirstAppOpen) {
                 (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            }
+            } else {
+                if (isBottomChoice) {
+                    (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-            if (!isBottomChoice && !isFirstAppOpen) {
-                findNavController().navigate(R.id.action_profileFragment_to_dayFragment)
-            }
-
-            if (isBottomChoice) {
-                (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-                viewModel.getUser.observe(viewLifecycleOwner) { user ->
-                    currentUser = user
-                    loadUserData()
-                    isCustomCalories = currentUser.isCustomCalories
-                    displayOrHideViews()
-                    binding.etDailyCalorieResult.isEnabled = isCustomCalories
+                    viewModel.getUser.observe(viewLifecycleOwner) { user ->
+                        currentUser = user
+                        loadUserData()
+                        isCustomCalories = currentUser.isCustomCalories
+                        displayOrHideViews()
+                        binding.etDailyCalorieResult.isEnabled = isCustomCalories
+                    }
+                } else {
+                    findNavController().navigate(R.id.action_profileFragment_to_dayFragment)
                 }
             }
         }
 
+        binding.ivProfileInfo.setOnClickListener { setupInfoMacrosRatioDialog() }
         switchCaloriesDayInputMode()
     }
 
@@ -72,7 +75,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
         menu.getItem(0).isVisible = true
-        menu.getItem(1).isVisible = true
+        menu.getItem(5).isVisible = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -218,8 +221,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun loadUserData() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title =
-        if (isCustomCalories) getString(R.string.custom_calories) else getString(R.string.calories_calculator)
-        
+            if (isCustomCalories) getString(R.string.custom_calories) else getString(R.string.calories_calculator)
+
         when (currentUser.gender) {
             1 -> binding.radioGroupGender.check(R.id.gender_male)
             2 -> binding.radioGroupGender.check(R.id.gender_female)
@@ -338,6 +341,17 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 radioGroupActivityLevel.visibility = View.VISIBLE
             }
         }
+    }
+
+    // Setup Alert Dialog Info Macros Ratio
+    private fun setupInfoMacrosRatioDialog() {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_profile_info, null)
+
+        val dialog = AlertDialog.Builder(requireContext(), R.style.DialogTheme)
+            .setView(dialogView)
+            .create()
+
+        dialog.show()
     }
 
     override fun onDestroyView() {

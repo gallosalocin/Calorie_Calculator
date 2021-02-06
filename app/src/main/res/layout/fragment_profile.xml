@@ -198,7 +198,7 @@
         android:id="@+id/tv_daily_calorie_text"
         style="@style/ProfileTextView"
         android:layout_width="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="@string/daily_calories"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/radio_group_activity_level" />
@@ -217,16 +217,74 @@
         app:layout_constraintTop_toTopOf="@id/tv_daily_calorie_text"
         tools:text="2300" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_macros_ratios_text"
+        style="@style/ProfileTextView"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20sp"
+        android:text="@string/macronutrient_ratio"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_daily_calorie_text" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_profile_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_info"
+        app:layout_constraintBottom_toBottomOf="@id/tv_macros_ratios_text"
+        app:layout_constraintStart_toEndOf="@id/tv_macros_ratios_text"
+        app:layout_constraintTop_toTopOf="@id/tv_macros_ratios_text" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/carb"
+        style="@style/ProfileTextView"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text="@string/carbs"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_macros_ratios_text" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/carb_percent"
+        style="@style/ProfileEditText"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:maxLength="2"
+        android:text="@string/_40"
+        app:layout_constraintBottom_toBottomOf="@id/carb"
+        app:layout_constraintLeft_toRightOf="@id/carb"
+        app:layout_constraintTop_toTopOf="@id/carb" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/percent"
+        android:textColor="@color/design_default_color_on_secondary"
+        app:layout_constraintBottom_toBottomOf="@id/carb"
+        app:layout_constraintLeft_toRightOf="@id/carb_percent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/carb_result"
+        style="@style/ProfileTextViewMacrosResult"
+        android:layout_width="60dp"
+        android:textAlignment="textEnd"
+        app:layout_constraintBottom_toBottomOf="@id/carb"
+        app:layout_constraintLeft_toRightOf="@id/percent_symbol"
+        app:layout_constraintTop_toTopOf="@id/carb"
+        tools:text="200" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/fat"
         style="@style/ProfileTextView"
-        android:layout_width="140dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="@string/fats"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_daily_calorie_text" />
+        app:layout_constraintRight_toRightOf="@id/carb"
+        app:layout_constraintTop_toBottomOf="@id/carb"  />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/fat_percent"
@@ -269,46 +327,6 @@
         app:layout_constraintLeft_toRightOf="@id/fat_result" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/carb"
-        style="@style/ProfileTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/carbs"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@id/fat"
-        app:layout_constraintTop_toBottomOf="@id/fat" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/carb_percent"
-        style="@style/ProfileEditText"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:maxLength="2"
-        android:text="@string/_40"
-        app:layout_constraintBottom_toBottomOf="@id/carb"
-        app:layout_constraintLeft_toRightOf="@id/carb"
-        app:layout_constraintTop_toTopOf="@id/carb" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/percent"
-        android:textColor="@color/design_default_color_on_secondary"
-        app:layout_constraintBottom_toBottomOf="@id/carb"
-        app:layout_constraintLeft_toRightOf="@id/carb_percent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/carb_result"
-        style="@style/ProfileTextViewMacrosResult"
-        android:layout_width="60dp"
-        android:textAlignment="textEnd"
-        app:layout_constraintBottom_toBottomOf="@id/carb"
-        app:layout_constraintLeft_toRightOf="@id/percent_symbol"
-        app:layout_constraintTop_toTopOf="@id/carb"
-        tools:text="200" />
-
-    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -324,8 +342,8 @@
         android:layout_height="wrap_content"
         android:text="@string/proteins"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@id/fat"
-        app:layout_constraintTop_toBottomOf="@id/carb" />
+        app:layout_constraintRight_toRightOf="@id/carb"
+        app:layout_constraintTop_toBottomOf="@id/fat" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/prot_percent"

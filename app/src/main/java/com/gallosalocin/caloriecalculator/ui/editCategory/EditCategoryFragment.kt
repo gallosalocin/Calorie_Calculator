@@ -42,15 +42,21 @@ class EditCategoryFragment : Fragment(R.layout.fragment_edit_category) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
-        menu.getItem(1).isVisible = true
-        menu.getItem(7).isVisible = true
+        menu.getItem(5).isVisible = true
+        menu.getItem(4).isVisible = true
 
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.tb_menu_save -> confirmAllInputs()
-            R.id.tb_menu_delete -> displayAlertDialogToDelete()
+            R.id.tb_menu_delete -> {
+                if (currentCategory.id <= 8 ) {
+                    Snackbar.make(requireView(), getString(R.string.cannot_delete_this_category), Snackbar.LENGTH_SHORT).show()
+                } else {
+                    displayAlertDialogToDelete()
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
     }

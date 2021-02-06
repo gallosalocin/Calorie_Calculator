@@ -52,7 +52,7 @@ class AddFoodFragment : Fragment(R.layout.fragment_add_food) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
-        menu.getItem(1).isVisible = true
+        menu.getItem(5).isVisible = true
 
     }
 
@@ -86,13 +86,13 @@ class AddFoodFragment : Fragment(R.layout.fragment_add_food) {
     // Save food
     private fun saveFood() {
         val food = Food(
-                name = binding.etAddName.text.toString(),
-                categoryId = spinnerCategorySelected!!.id,
-                calories = binding.etAddCalorie.text.toString().toFloat(),
-                fats = binding.etAddFat.text.toString().toFloat(),
-                carbs = binding.etAddCarb.text.toString().toFloat(),
-                prots = binding.etAddProt.text.toString().toFloat(),
-                note = binding.etAddNote.text.toString()
+            name = binding.etAddName.text.toString(),
+            categoryId = spinnerCategorySelected!!.id,
+            calories = binding.etAddCalorie.text.toString().toFloat(),
+            fats = binding.etAddFat.text.toString().toFloat(),
+            carbs = binding.etAddCarb.text.toString().toFloat(),
+            prots = binding.etAddProt.text.toString().toFloat(),
+            note = binding.etAddNote.text.toString()
         )
         viewModel.insertFood(food)
         findNavController().navigate(R.id.action_addFoodFragment_to_allFoodsFragment)
@@ -101,11 +101,12 @@ class AddFoodFragment : Fragment(R.layout.fragment_add_food) {
     // Validate All Inputs Methods
     private fun confirmAllInputs() {
         if (!validateInput(binding.etAddName, binding.addName)
-                or !validateSpinnerCategory()
-                or !validateInput(binding.etAddCalorie, binding.addCalorie)
-                or !validateInput(binding.etAddFat, binding.addFat)
-                or !validateInput(binding.etAddCarb, binding.addCarb)
-                or !validateInput(binding.etAddProt, binding.addProt)) {
+            or !validateSpinnerCategory()
+            or !validateInput(binding.etAddCalorie, binding.addCalorie)
+            or !validateInput(binding.etAddFat, binding.addFat)
+            or !validateInput(binding.etAddCarb, binding.addCarb)
+            or !validateInput(binding.etAddProt, binding.addProt)
+        ) {
             return
         }
         saveFood()
@@ -137,7 +138,7 @@ class AddFoodFragment : Fragment(R.layout.fragment_add_food) {
     }
 
     // Show keyboard
-    private fun EditText.showSoftKeyboard(){
+    private fun EditText.showSoftKeyboard() {
         (this.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
     }
 

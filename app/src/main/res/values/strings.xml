@@ -49,6 +49,7 @@
     <string name="profile_saved">Profile saved</string>
     <string name="title_alert_dialog_food">Delete food</string>
     <string name="title_alert_dialog_category">Delete category</string>
+    <string name="title_alert_dialog_dish">Delete dish</string>
     <string name="delete_alert_dialog_question">Are you sure you want to delete \'%1$s\' ?</string>
     <string name="yes_alert_dialog">Yes</string>
     <string name="successfully_remove_food">Food successfully removed : %1$s</string>
@@ -81,9 +82,22 @@
     <string name="add_new_food">Add New Food</string>
     <string name="edit_food">Edit Food</string>
     <string name="nutrition_facts">Nutrition Facts</string>
-    <string name="aa_new_category">Add New Category</string>
+    <string name="add_new_category">Add New Category</string>
     <string name="categories_list">Categories List</string>
     <string name="edit_category">Edit Category</string>
     <string name="custom_calories">Custom Calories</string>
     <string name="calories_calculator">Calories Calculator</string>
+    <string name="recipes">Dishes</string>
+    <string name="add_new_dish">Add New Dish</string>
+    <string name="dishes_list">Dishes List</string>
+    <string name="edit_dish">Edit Dish</string>
+    <string name="cannot_delete_this_category">You can\'t delete this category!!!</string>
+    <string name="press_back_again_to_exit">Press back again to exit</string>
+    <string name="macronutrient_ratio">Macronutrient ratio :</string>
+    <string name="moderate_carbs">Moderate Carbs (Maintenance)</string>
+    <string name="moderate_carbs_macros">Carbs 40–60%\nFats 15–25%\nProteins 25–35%</string>
+    <string name="higher_carbs">Higher Carbs (Bodybuilding)</string>
+    <string name="higher_carbs_macros">Carbs 30–50%\nFats 25–35%\nProteins 25–35%</string>
+    <string name="lower_carbs">Lower Carbs (Fat Loss)</string>
+    <string name="lower_carbs_macros">Carbs 10–30%\nFats 30–40%\nProteins 40–50%</string>
 </resources>

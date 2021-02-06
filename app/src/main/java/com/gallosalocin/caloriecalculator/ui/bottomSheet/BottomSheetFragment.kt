@@ -28,15 +28,23 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             findNavController().navigate(R.id.action_bottomSheetFragment_to_profileFragment)
         }
 
-        binding.ivBottomAddCategory.setOnClickListener {
+        binding.ivBottomCategories.setOnClickListener {
             isBottomChoice = true
             findNavController().navigate(R.id.action_bottomSheetFragment_to_allCategoriesFragment)
         }
 
-        binding.ivBottomAllFoods.setOnClickListener {
+        binding.ivBottomFoods.setOnClickListener {
             isBottomChoice = true
             findNavController().navigate(R.id.action_bottomSheetFragment_to_allFoodsFragment)
         }
+
+//        binding.ivBottomDishes.setOnClickListener {
+//            isBottomChoice = true
+//            findNavController().navigate(R.id.action_bottomSheetFragment_to_allDishesFragment)
+//        }
+
+        binding.ivBottomDishes.visibility = View.GONE
+        binding.tvBottomDishes.visibility = View.GONE
     }
 
     override fun onDestroyView() {

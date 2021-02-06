@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentDayBinding
+import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.dayTag
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.isBottomChoice
 import com.google.android.material.snackbar.Snackbar
+import timber.log.Timber
 
 class DayChoiceFragment : Fragment(R.layout.fragment_day) {
 
@@ -27,6 +29,7 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        isBottomChoice = false
 
         pressBackTwiceToQuit()
         dayChoice()
@@ -35,7 +38,7 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
     // Press back twice to quit app
     private fun pressBackTwiceToQuit() {
         var backPressedTime: Long = 0
-        val backSnackBar = Snackbar.make(requireView(), "Press back again to exit", Snackbar.LENGTH_SHORT)
+        val backSnackBar = Snackbar.make(requireView(), getString(R.string.press_back_again_to_exit), Snackbar.LENGTH_SHORT)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

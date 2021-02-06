@@ -113,6 +113,15 @@
         <item name="android:textColor">@color/design_default_color_on_secondary</item>
     </style>
 
+    <style name="AddDishTextInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/design_default_color_on_primary</item>
+        <item name="android:selectAllOnFocus">true</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/design_default_color_on_secondary</item>
+    </style>
+
     <style name="DayMacrosValuesResult">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -150,6 +159,7 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/design_default_color_on_secondary</item>
         <item name="android:layout_marginStart">15dp</item>
     </style>
 
@@ -176,6 +186,7 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/design_default_color_on_secondary</item>
         <item name="android:maxLines">1</item>
     </style>
 
@@ -185,7 +196,38 @@
         <item name="android:layout_marginStart">2dp</item>
         <item name="android:layout_marginTop">6dp</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/design_default_color_on_secondary</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="AddEditCategoryTextViewTitle">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/design_default_color_on_secondary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AddEditCategoryEditText">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/design_default_color_on_secondary</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="SpinnerCustomLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/design_default_color_on_secondary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="MealChoiceDetailAllValuesBackground">
+        <item name="android:background">@drawable/custom_overall_background</item>
+    </style>
+
+    <style name="ProfileInfoDialog">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/design_default_color_on_secondary</item>
     </style>
 
 </resources>

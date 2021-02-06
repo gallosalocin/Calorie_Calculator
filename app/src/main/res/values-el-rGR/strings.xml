@@ -70,7 +70,7 @@
     <string name="add_new_food">Προσθήκη Νέου Φαγητού</string>
     <string name="edit_food">Επεξεργασία Φαγητού</string>
     <string name="nutrition_facts">Διατροφική Αξία</string>
-    <string name="aa_new_category">Προσθήκη Νέας Κατηγορίας</string>
+    <string name="add_new_category">Προσθήκη Νέας Κατηγορίας</string>
     <string name="edit_category">Επεξεργασία Κατηγορίας</string>
     <string name="categories_list">Λίστα Κατηγοριών</string>
     <string name="custom_calories">Εξατομικευμένες Θερμίδες</string>
@@ -82,4 +82,18 @@
     <string name="gram_symbol">γρ</string>
     <string name="centimeter">εκ.</string>
     <string name="kilogram">χγρ.</string>
+    <string name="recipes">Πιάτα</string>
+    <string name="edit_dish">Επεξεργασία Πιάτου</string>
+    <string name="dishes_list">Λίστα Πιάτων</string>
+    <string name="add_new_dish">Προσθήκη Νέου Πιάτου</string>
+    <string name="cannot_delete_this_category">Δεν μπορείτε να διαγράψετε αυτήν την κατηγορία !!!</string>
+    <string name="press_back_again_to_exit">Πατήστε ξανά για έξοδο</string>
+    <string name="macronutrient_ratio">Αναλογία μακροθρεπτικών συστατικών :</string>
+    <string name="moderate_carbs">Μέτριοι Υδατάνθρακες (Συντήρηση)</string>
+    <string name="lower_carbs">Χαμηλότεροι Υδατάνθρακες (Απώλεια Λίπους)</string>
+    <string name="higher_carbs">Υψηλότεροι Υδατάνθρακες (Αύξηση Μυικής Μάζας)</string>
+    <string name="moderate_carbs_macros">Υδατάνθρακες 40–60%\nΛιπαρά 15–25%\nΠρωτεΐνες 25–35%</string>
+    <string name="higher_carbs_macros">Υδατάνθρακες 30–50%\nΛιπαρά 25–35%\nΠρωτεΐνες 25–35%</string>
+    <string name="lower_carbs_macros">Υδατάνθρακες 10–30%\nΛιπαρά 30–40%\nΠρωτεΐνες 40–50%</string>
+    <string name="title_alert_dialog_dish">Διαγραφή πιάτου</string>
 </resources>

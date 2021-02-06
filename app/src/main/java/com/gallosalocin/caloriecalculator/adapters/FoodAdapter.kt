@@ -1,6 +1,7 @@
 package com.gallosalocin.caloriecalculator.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -30,9 +31,16 @@ class FoodAdapter(
 
             binding.apply {
 
+                if (foodWithCategory.category.id == 2) {
+                    foodGram.visibility = View.INVISIBLE
+                    foodGramSymbol.visibility = View.INVISIBLE
+                } else {
+                    foodGram.visibility = View.VISIBLE
+                    foodGramSymbol.visibility = View.VISIBLE
+                    foodGram.text = foodWithCategory.food.weight.toString()
+                }
                 cvFood.setBackgroundColor(foodWithCategory.category.color)
                 foodName.text = foodWithCategory.food.name
-                foodGram.text = foodWithCategory.food.weight.toString()
                 foodCal.text = String.format("%.0f", foodWithCategory.food.calories)
                 foodFat.text = String.format("%.1f", foodWithCategory.food.fats)
                 foodCarb.text = String.format("%.1f", foodWithCategory.food.carbs)

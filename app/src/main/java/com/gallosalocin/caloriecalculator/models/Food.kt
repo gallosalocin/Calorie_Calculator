@@ -1,6 +1,7 @@
 package com.gallosalocin.caloriecalculator.models
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -13,6 +14,7 @@ import kotlinx.parcelize.Parcelize
                 childColumns = ["category_id"],
                 onDelete = ForeignKey.CASCADE)])
 @Parcelize
+@Keep
 data class Food(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "foods_id")

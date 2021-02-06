@@ -27,6 +27,10 @@ interface FoodDao {
     fun getAllFoods(): LiveData<List<FoodWithCategory>>
 
     @Transaction
+    @Query("SELECT * FROM foods WHERE category_id LIKE '2' ORDER BY lower(name)")
+    fun getAllDishes(): LiveData<List<FoodWithCategory>>
+
+    @Transaction
     @Query("SELECT * FROM foods WHERE day_id LIKE :dayId AND meal_id LIKE :mealId ORDER BY category_id, lower(name)")
     fun getMealDetail(dayId: String, mealId: String): LiveData<List<FoodWithCategory>>
 

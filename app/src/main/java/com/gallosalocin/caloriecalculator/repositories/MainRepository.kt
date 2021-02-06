@@ -15,7 +15,7 @@ import javax.inject.Inject
 class MainRepository @Inject constructor(
     private val foodDao: FoodDao,
     private val categoryDao: CategoryDao,
-    private val userDao: UserDao
+    private val userDao: UserDao,
 ) {
 
     // Food
@@ -29,6 +29,7 @@ class MainRepository @Inject constructor(
     suspend fun deleteAllMealDetail() = foodDao.deleteAllMealDetail(dayTag.toString(), mealTag.toString())
 
     fun observeAllFoods() = foodDao.getAllFoods()
+    fun observeAllDishes() = foodDao.getAllDishes()
 
     fun observeMealDetail() = foodDao.getMealDetail(dayTag.toString(), mealTag.toString())
 
@@ -39,7 +40,7 @@ class MainRepository @Inject constructor(
 
     fun observeDayDetail() = foodDao.getDayDetail(dayTag.toString())
 
-    fun observeFoodWithId(foodId: Int) : LiveData<FoodWithCategory> = foodDao.getFoodWithId(foodId)
+    fun observeFoodWithId(foodId: Int): LiveData<FoodWithCategory> = foodDao.getFoodWithId(foodId)
 
 
     // Category
@@ -52,7 +53,7 @@ class MainRepository @Inject constructor(
 
     fun observeAllCategories() = categoryDao.getAllCategories()
 
-    fun observeCategoryWithId(categoryId: Int) : LiveData<Category> = categoryDao.getCategoryWithId(categoryId)
+    fun observeCategoryWithId(categoryId: Int): LiveData<Category> = categoryDao.getCategoryWithId(categoryId)
 
 
     // User
