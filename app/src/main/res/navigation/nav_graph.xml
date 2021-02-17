@@ -60,6 +60,12 @@
         <action
             android:id="@+id/action_bottomSheetFragment_to_allCategoriesFragment"
             app:destination="@id/allCategoriesFragment" />
+        <action
+            android:id="@+id/action_bottomSheetFragment_to_allDishesFragment"
+            app:destination="@id/allDishesFragment" />
+        <action
+            android:id="@+id/action_bottomSheetFragment_to_backupRestoreFragment"
+            app:destination="@id/backupRestoreFragment" />
     </dialog>
     <fragment
         android:id="@+id/addFoodFragment"
@@ -122,7 +128,7 @@
     <fragment
         android:id="@+id/addCategoryFragment"
         android:name="com.gallosalocin.caloriecalculator.ui.addCategory.AddCategoryFragment"
-        android:label="@string/aa_new_category"
+        android:label="@string/add_new_category"
         tools:layout="@layout/fragment_add_category">
         <action
             android:id="@+id/action_addCategoryFragment_to_allCategoriesFragment"
@@ -153,4 +159,42 @@
             app:popUpTo="@id/allCategoriesFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/addDishFragment"
+        android:name="com.gallosalocin.caloriecalculator.ui.addDish.AddDishFragment"
+        android:label="@string/add_new_dish"
+        tools:layout="@layout/fragment_add_dish" >
+        <action
+            android:id="@+id/action_addDishFragment_to_allDishesFragment"
+            app:destination="@id/allDishesFragment" />
+        <action
+            android:id="@+id/action_addDishFragment_to_allFoodsFragment"
+            app:destination="@id/allFoodsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/allDishesFragment"
+        android:name="com.gallosalocin.caloriecalculator.ui.allDishes.AllDishesFragment"
+        android:label="@string/dishes_list"
+        tools:layout="@layout/fragment_all_dishes" >
+        <action
+            android:id="@+id/action_allDishesFragment_to_addDishFragment"
+            app:destination="@id/addDishFragment" />
+        <action
+            android:id="@+id/action_allDishesFragment_to_editDishFragment"
+            app:destination="@id/editDishFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editDishFragment"
+        android:name="com.gallosalocin.caloriecalculator.ui.editDish.EditDishFragment"
+        android:label="@string/edit_dish"
+        tools:layout="@layout/fragment_edit_dish" >
+        <action
+            android:id="@+id/action_editDishFragment_to_allDishesFragment"
+            app:destination="@id/allDishesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/backupRestoreFragment"
+        android:name="com.gallosalocin.caloriecalculator.ui.backupRestore.BackupRestoreFragment"
+        android:label="@string/backup_restore"
+        tools:layout="@layout/fragment_backup_restore" />
 </navigation>

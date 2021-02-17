@@ -38,6 +38,11 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             findNavController().navigate(R.id.action_bottomSheetFragment_to_allFoodsFragment)
         }
 
+        binding.ivBottomBackupRestore.setOnClickListener {
+            isBottomChoice = true
+            findNavController().navigate(R.id.action_bottomSheetFragment_to_backupRestoreFragment)
+        }
+
 //        binding.ivBottomDishes.setOnClickListener {
 //            isBottomChoice = true
 //            findNavController().navigate(R.id.action_bottomSheetFragment_to_allDishesFragment)

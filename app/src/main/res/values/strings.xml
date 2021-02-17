@@ -100,4 +100,10 @@
     <string name="higher_carbs_macros">Carbs 30–50%\nFats 25–35%\nProteins 25–35%</string>
     <string name="lower_carbs">Lower Carbs (Fat Loss)</string>
     <string name="lower_carbs_macros">Carbs 10–30%\nFats 30–40%\nProteins 40–50%</string>
+    <string name="database">Database</string>
+    <string name="backup_restore"><![CDATA[Backup & Restore]]></string>
+    <string name="database_backed_up">Database backed up</string>
+    <string name="backup_database">Backup Database</string>
+    <string name="restore_database">Restore Database</string>
+
 </resources>

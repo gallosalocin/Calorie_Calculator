@@ -2,6 +2,7 @@ package com.gallosalocin.caloriecalculator.ui.addCategory
 
 import android.os.Bundle
 import android.view.*
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.gallosalocin.caloriecalculator.R
@@ -13,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddCategoryFragment : androidx.fragment.app.Fragment(R.layout.fragment_add_category) {
+class AddCategoryFragment : Fragment(R.layout.fragment_add_category) {
 
     private var _binding: FragmentAddCategoryBinding? = null
     private val binding get() = _binding!!

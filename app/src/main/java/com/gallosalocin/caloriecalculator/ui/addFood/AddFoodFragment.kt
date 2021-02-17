@@ -2,6 +2,8 @@ package com.gallosalocin.caloriecalculator.ui.addFood
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
@@ -18,6 +20,7 @@ import com.gallosalocin.caloriecalculator.models.Food
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class AddFoodFragment : Fragment(R.layout.fragment_add_food) {
@@ -46,6 +49,7 @@ class AddFoodFragment : Fragment(R.layout.fragment_add_food) {
         }
 
         configSpinner()
+
     }
 
     // Setup toolbar

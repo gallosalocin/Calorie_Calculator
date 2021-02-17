@@ -96,4 +96,10 @@
     <string name="higher_carbs_macros">Υδατάνθρακες 30–50%\nΛιπαρά 25–35%\nΠρωτεΐνες 25–35%</string>
     <string name="lower_carbs_macros">Υδατάνθρακες 10–30%\nΛιπαρά 30–40%\nΠρωτεΐνες 40–50%</string>
     <string name="title_alert_dialog_dish">Διαγραφή πιάτου</string>
+    <string name="database">Βάση Δεδομένων</string>
+    <string name="backup_restore"><![CDATA[Αντιγραφή & Επαναφορά]]></string>
+    <string name="database_backed_up">Βάση δεδομένων αποθηκευμένη</string>
+    <string name="backup_database">Αποθήκευση Βάση δεδομένων</string>
+    <string name="restore_database">Επαναφορά Βάση δεδομένων</string>
+
 </resources>

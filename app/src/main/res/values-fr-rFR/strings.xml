@@ -96,4 +96,10 @@
     <string name="lower_carbs">Moins de Glucides (Perte de Graisse)</string>
     <string name="higher_carbs">Plus de Glucides (Prise de Masse)</string>
     <string name="title_alert_dialog_dish">Effacer plat</string>
+    <string name="database">Base de Données</string>
+    <string name="backup_restore"><![CDATA[Sauvegarde & Restauration]]></string>
+    <string name="database_backed_up">"Base de données sauvegardée "</string>
+    <string name="backup_database">Sauvegarger Base de données</string>
+    <string name="restore_database">Restaurer Base de données</string>
+
 </resources>
