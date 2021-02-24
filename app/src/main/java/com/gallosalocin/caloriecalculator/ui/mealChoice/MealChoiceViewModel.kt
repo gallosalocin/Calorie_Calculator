@@ -1,15 +1,17 @@
 package com.gallosalocin.caloriecalculator.ui.mealChoice
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.gallosalocin.caloriecalculator.models.FoodWithCategory
 import com.gallosalocin.caloriecalculator.models.User
 import com.gallosalocin.caloriecalculator.repositories.MainRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MealChoiceViewModel @ViewModelInject constructor(
-    private val mainRepository: MainRepository
-): ViewModel() {
+@HiltViewModel
+class MealChoiceViewModel @Inject constructor(
+    mainRepository: MainRepository
+) : ViewModel() {
 
     val getUser: LiveData<User> = mainRepository.observeUser()
 

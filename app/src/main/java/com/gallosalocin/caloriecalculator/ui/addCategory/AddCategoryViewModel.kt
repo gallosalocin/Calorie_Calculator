@@ -1,15 +1,16 @@
 package com.gallosalocin.caloriecalculator.ui.addCategory
 
-import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gallosalocin.caloriecalculator.models.Category
 import com.gallosalocin.caloriecalculator.repositories.MainRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddCategoryViewModel @ViewModelInject constructor(
-        private val mainRepository: MainRepository
+@HiltViewModel
+class AddCategoryViewModel @Inject constructor(
+    private val mainRepository: MainRepository
 ) : ViewModel() {
 
     fun insertCategory(category: Category) = viewModelScope.launch {

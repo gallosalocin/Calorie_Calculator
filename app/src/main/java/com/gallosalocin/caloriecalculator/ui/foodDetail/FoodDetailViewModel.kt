@@ -1,6 +1,5 @@
 package com.gallosalocin.caloriecalculator.ui.foodDetail
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -9,11 +8,14 @@ import com.gallosalocin.caloriecalculator.models.Food
 import com.gallosalocin.caloriecalculator.models.FoodWithCategory
 import com.gallosalocin.caloriecalculator.repositories.CurrentFoodIdRepository
 import com.gallosalocin.caloriecalculator.repositories.MainRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FoodDetailViewModel @ViewModelInject constructor(
-        private val mainRepository: MainRepository,
-        private val currentFoodIdRepository: CurrentFoodIdRepository
+@HiltViewModel
+class FoodDetailViewModel @Inject constructor(
+    private val mainRepository: MainRepository,
+    private val currentFoodIdRepository: CurrentFoodIdRepository
 ) : ViewModel() {
 
     fun getViewStateLiveData(): LiveData<FoodWithCategory> =

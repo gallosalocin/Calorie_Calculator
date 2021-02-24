@@ -2,14 +2,16 @@ package com.gallosalocin.caloriecalculator.ui.backupRestore
 
 import android.content.Context
 import android.widget.Toast
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.ebner.roomdatabasebackup.core.RoomBackup
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.db.CaloriesCalculatorDatabase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
+import javax.inject.Inject
 
-class BackupRestoreViewModel @ViewModelInject constructor(
+@HiltViewModel
+class BackupRestoreViewModel @Inject constructor(
     private val database: CaloriesCalculatorDatabase,
 ) : ViewModel() {
 

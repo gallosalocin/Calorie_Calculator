@@ -10,8 +10,9 @@ import com.gallosalocin.caloriecalculator.databinding.ItemFoodBinding
 import com.gallosalocin.caloriecalculator.models.FoodWithCategory
 
 class FoodAdapter(
-    private val onItemClickListener: (FoodWithCategory) -> Unit
-) : ListAdapter<FoodWithCategory, FoodAdapter.FoodViewHolder>(DiffCallback()) {
+    private val onItemClickListener: (FoodWithCategory) -> Unit,
+    private val onItemLongClickListener: (FoodWithCategory) -> Unit,
+    ) : ListAdapter<FoodWithCategory, FoodAdapter.FoodViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
         val binding = ItemFoodBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -20,14 +21,15 @@ class FoodAdapter(
 
     override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
         val currentFood = getItem(position)
-        holder.bind(currentFood, onItemClickListener)
+        holder.bind(currentFood, onItemClickListener, onItemLongClickListener)
     }
 
     class FoodViewHolder(private val binding: ItemFoodBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(foodWithCategory: FoodWithCategory,
                  onItemClickListener: (FoodWithCategory) -> Unit,
-        ) {
+                 onItemLongClickListener: (FoodWithCategory) -> Unit,
+                 ) {
 
             binding.apply {
 
@@ -48,6 +50,11 @@ class FoodAdapter(
 
                 root.setOnClickListener {
                     onItemClickListener.invoke(foodWithCategory)
+                }
+
+                root.setOnLongClickListener {
+                    onItemLongClickListener(foodWithCategory)
+                    true
                 }
             }
         }

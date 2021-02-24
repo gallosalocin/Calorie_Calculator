@@ -84,7 +84,7 @@ class EditCategoryFragment : Fragment(R.layout.fragment_edit_category) {
             categoryColor = category.color
 
             binding.apply {
-                etName.setText(currentCategory.name)
+                tvName.setText(currentCategory.name)
                 btnColorPicker.setBackgroundColor(currentCategory.color)
             }
         }
@@ -94,7 +94,7 @@ class EditCategoryFragment : Fragment(R.layout.fragment_edit_category) {
     private fun updateCategory() {
         val categoryUpdated = Category(
             id = currentCategory.id,
-            name = binding.etName.text.toString(),
+            name = binding.tvName.text.toString(),
             color = categoryColor
         )
         viewModel.updateCategory(categoryUpdated)
@@ -103,8 +103,8 @@ class EditCategoryFragment : Fragment(R.layout.fragment_edit_category) {
 
     // Validate All Inputs Methods
     private fun confirmAllInputs() {
-        if (binding.etName.text.isNullOrEmpty()) {
-            binding.etName.error = "Fill the field"
+        if (binding.tvName.text.isNullOrEmpty()) {
+            binding.tvName.error = "Fill the field"
             return
         }
         if (categoryColor == 0) {

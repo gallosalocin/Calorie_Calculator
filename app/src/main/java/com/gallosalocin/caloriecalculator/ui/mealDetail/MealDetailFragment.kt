@@ -26,6 +26,7 @@ import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.mealTag
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
@@ -98,9 +99,14 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
 
     // Setup recyclerview
     private fun setupRecyclerView() {
-        foodAdapter = FoodAdapter {
-            setupWeightEditDialog(it.food)
-        }
+        foodAdapter = FoodAdapter(
+            onItemClickListener = {
+                setupWeightEditDialog(it.food)
+            },
+            onItemLongClickListener = {
+                Timber.d("onItemLongClickListener : Click")
+            }
+        )
 
         binding.rvMealDetail.apply {
             adapter = foodAdapter

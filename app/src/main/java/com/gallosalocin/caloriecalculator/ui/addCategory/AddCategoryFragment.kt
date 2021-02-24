@@ -55,7 +55,7 @@ class AddCategoryFragment : Fragment(R.layout.fragment_add_category) {
     // Save category
     private fun saveCategory() {
         val category = Category(
-            name = binding.etName.text.toString(),
+            name = binding.tvName.text.toString(),
             color = categoryColor
         )
         viewModel.insertCategory(category)
@@ -64,8 +64,8 @@ class AddCategoryFragment : Fragment(R.layout.fragment_add_category) {
 
     // Validate All Inputs Methods
     private fun confirmAllInputs() {
-        if (binding.etName.text.isNullOrEmpty()) {
-            binding.etName.error = "Fill the field"
+        if (binding.tvName.text.isNullOrEmpty()) {
+            binding.tvName.error = "Fill the field"
             return
         }
         if (categoryColor == 0) {

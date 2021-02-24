@@ -66,6 +66,9 @@
         <action
             android:id="@+id/action_bottomSheetFragment_to_backupRestoreFragment"
             app:destination="@id/backupRestoreFragment" />
+        <action
+            android:id="@+id/action_bottomSheetFragment_to_searchNutritionixFragment"
+            app:destination="@id/nutritionixSearchFragment" />
     </dialog>
     <fragment
         android:id="@+id/addFoodFragment"
@@ -197,4 +200,18 @@
         android:name="com.gallosalocin.caloriecalculator.ui.backupRestore.BackupRestoreFragment"
         android:label="@string/backup_restore"
         tools:layout="@layout/fragment_backup_restore" />
+    <fragment
+        android:id="@+id/nutritionixSearchFragment"
+        android:name="com.gallosalocin.caloriecalculator.ui.nutritionixSearch.NutritionixSearchFragment"
+        android:label="@string/nutritionix"
+        tools:layout="@layout/fragment_nutritionix_search" >
+        <action
+            android:id="@+id/action_nutritionixSearchFragment_to_nutritionixDetailFragment"
+            app:destination="@id/nutritionixDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nutritionixDetailFragment"
+        android:name="com.gallosalocin.caloriecalculator.ui.nutritionixDetail.NutritionixDetailFragment"
+        android:label="@string/nutritionix"
+        tools:layout="@layout/fragment_nutritionix_detail" />
 </navigation>

@@ -1,6 +1,5 @@
 package com.gallosalocin.caloriecalculator.ui.mealDetail
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,11 +7,14 @@ import com.gallosalocin.caloriecalculator.models.Food
 import com.gallosalocin.caloriecalculator.models.FoodWithCategory
 import com.gallosalocin.caloriecalculator.models.User
 import com.gallosalocin.caloriecalculator.repositories.MainRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MealDetailViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MealDetailViewModel @Inject constructor(
     private val mainRepository: MainRepository
-): ViewModel() {
+) : ViewModel() {
 
     val getUser: LiveData<User> = mainRepository.observeUser()
 

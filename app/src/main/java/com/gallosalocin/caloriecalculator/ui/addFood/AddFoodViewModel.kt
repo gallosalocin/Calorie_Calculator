@@ -1,19 +1,19 @@
 package com.gallosalocin.caloriecalculator.ui.addFood
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gallosalocin.caloriecalculator.models.Category
 import com.gallosalocin.caloriecalculator.models.Food
-import com.gallosalocin.caloriecalculator.models.FoodWithCategory
-import com.gallosalocin.caloriecalculator.models.User
 import com.gallosalocin.caloriecalculator.repositories.MainRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddFoodViewModel @ViewModelInject constructor(
+@HiltViewModel
+class AddFoodViewModel @Inject constructor(
     private val mainRepository: MainRepository
-): ViewModel() {
+) : ViewModel() {
 
     val getAllCategories: LiveData<List<Category>> = mainRepository.observeAllCategories()
 

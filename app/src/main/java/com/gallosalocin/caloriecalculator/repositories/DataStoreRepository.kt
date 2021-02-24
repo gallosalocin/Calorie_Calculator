@@ -7,8 +7,8 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.createDataStore
-import com.gallosalocin.caloriecalculator.others.Constants.DATA_STORE_NAME
-import com.gallosalocin.caloriecalculator.others.Constants.KEY_FIRST_TIME_TOGGLE
+import com.gallosalocin.caloriecalculator.utils.Constants.DATA_STORE_NAME
+import com.gallosalocin.caloriecalculator.utils.Constants.KEY_FIRST_TIME_TOGGLE
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map

@@ -39,8 +39,11 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         binding.ivBottomBackupRestore.setOnClickListener {
-            isBottomChoice = true
             findNavController().navigate(R.id.action_bottomSheetFragment_to_backupRestoreFragment)
+        }
+
+        binding.ivBottomNutritionix.setOnClickListener {
+            findNavController().navigate(R.id.action_bottomSheetFragment_to_searchNutritionixFragment)
         }
 
 //        binding.ivBottomDishes.setOnClickListener {
@@ -50,6 +53,9 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
         binding.ivBottomDishes.visibility = View.GONE
         binding.tvBottomDishes.visibility = View.GONE
+
+//        binding.ivBottomNutritionix.visibility = View.GONE
+//        binding.tvBottomNutritionix.visibility = View.GONE
     }
 
     override fun onDestroyView() {

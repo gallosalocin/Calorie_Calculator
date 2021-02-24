@@ -128,9 +128,15 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
 
     // Setup recyclerview
     private fun setupRecyclerView() {
-        foodAdapter = FoodAdapter {
-            setupWeightEditDialog(it.food)
-        }
+        foodAdapter = FoodAdapter(
+            onItemClickListener = {
+                setupWeightEditDialog(it.food)
+            },
+            onItemLongClickListener = {
+                viewModel.setCurrentFoodId(it.food.id)
+                findNavController().navigate(R.id.action_allFoodsFragment_to_foodDetailFragment)
+            }
+        )
 
         binding.rvAllFoods.apply {
             adapter = foodAdapter
@@ -148,10 +154,10 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
 
     // Setup Swipes
     private fun configItemTouchHelper() {
-        if (isBottomChoice) {
+        if (!isBottomChoice) {
             val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
                 0,
-                ItemTouchHelper.RIGHT
+                ItemTouchHelper.LEFT //or ItemTouchHelper.RIGHT
             ) {
                 override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                     return false
@@ -163,76 +169,11 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
 
                     foodWithCategory.food.apply {
                         selectedFood = this
-                        if (direction == ItemTouchHelper.RIGHT) {
-                            viewModel.setCurrentFoodId(selectedFood.id)
-                            findNavController().navigate(R.id.action_allFoodsFragment_to_foodDetailFragment)
-                        }
-                    }
-                }
-
-                override fun onChildDraw(
-                    canvas: Canvas,
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    dX: Float,
-                    dY: Float,
-                    actionState: Int,
-                    isCurrentlyActive: Boolean
-                ) {
-                    val editIcon: Drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_edit)!!
-                    val swipeRightBackground = ColorDrawable(Color.parseColor("#142DE5"))
-                    val itemView = viewHolder.itemView
-                    val editIconMargin = (itemView.height - editIcon.intrinsicHeight) / 2
-
-                    if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-
-                        if (dX > 0) {
-                            swipeRightBackground.setBounds(itemView.left, itemView.top, dX.toInt(), itemView.bottom)
-                            editIcon.setBounds(
-                                itemView.left + editIconMargin,
-                                itemView.top + editIconMargin,
-                                itemView.left + editIconMargin + editIcon.intrinsicWidth,
-                                itemView.bottom - editIconMargin
-                            )
-                            swipeRightBackground.draw(canvas)
-                            editIcon.draw(canvas)
-                        }
-                    }
-                    super.onChildDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                }
-            }
-            ItemTouchHelper(itemTouchHelperCallback).apply {
-                attachToRecyclerView(binding.rvAllFoods)
-            }
-        } else {
-            val itemTouchHelperCallback2 = object : ItemTouchHelper.SimpleCallback(
-                0,
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-            ) {
-                override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-                    return false
-                }
-
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val position = viewHolder.adapterPosition
-                    foodWithCategory = foodAdapter.currentList[position]
-
-                    foodWithCategory.food.apply {
-                        selectedFood = this
-                        if (direction == ItemTouchHelper.RIGHT) {
-                            viewModel.setCurrentFoodId(selectedFood.id)
-                            findNavController().navigate(R.id.action_allFoodsFragment_to_foodDetailFragment)
-                        } else {
-//                            if (dayTag == 99) {
-//                                val foodDuplicated = foodWithCategory.food
-//                                foodDuplicated.id = System.currentTimeMillis().toInt()
-//                                foodDuplicated.dayId = "99"
-//                                viewModel.insertFood(foodDuplicated)
-//                                searchView.setQuery("", false)
-//                                setupRecyclerView()
-//                                foodAdapter.submitList(foodsList)
-//                            } else
-                                if (dayTag != 0) {
+//                        if (direction == ItemTouchHelper.RIGHT) {
+//                            viewModel.setCurrentFoodId(selectedFood.id)
+//                            findNavController().navigate(R.id.action_allFoodsFragment_to_foodDetailFragment)
+//                        } else {
+                            if (dayTag != 0) {
                                 val foodDuplicated = foodWithCategory.food
                                 foodDuplicated.id = System.currentTimeMillis().toInt()
                                 foodDuplicated.dayId = dayTag.toString()
@@ -246,7 +187,7 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
                                 setupRecyclerView()
                                 foodAdapter.submitList(foodsList)
                             }
-                        }
+//                        }
                     }
                 }
 
@@ -259,27 +200,27 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
                     actionState: Int,
                     isCurrentlyActive: Boolean
                 ) {
-                    val editIcon: Drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_edit)!!
-                    val addIcon: Drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_add_swipe)!!
-                    val swipeRightBackground = ColorDrawable(Color.parseColor("#142DE5"))
-                    val swipeLeftBackground = ColorDrawable(Color.parseColor("#00CC00"))
                     val itemView = viewHolder.itemView
-                    val editIconMargin = (itemView.height - editIcon.intrinsicHeight) / 2
+//                    val editIcon: Drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_edit)!!
+//                    val editIconMargin = (itemView.height - editIcon.intrinsicHeight) / 2
+//                    val swipeRightBackground = ColorDrawable(Color.parseColor("#142DE5"))
+                    val addIcon: Drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_add_swipe)!!
+                    val swipeLeftBackground = ColorDrawable(Color.parseColor("#00CC00"))
                     val addIconMargin = (itemView.height - addIcon.intrinsicHeight) / 2
 
                     if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
 
-                        if (dX > 0) {
-                            swipeRightBackground.setBounds(itemView.left, itemView.top, dX.toInt(), itemView.bottom)
-                            editIcon.setBounds(
-                                itemView.left + editIconMargin,
-                                itemView.top + editIconMargin,
-                                itemView.left + editIconMargin + editIcon.intrinsicWidth,
-                                itemView.bottom - editIconMargin
-                            )
-                            swipeRightBackground.draw(canvas)
-                            editIcon.draw(canvas)
-                        } else {
+//                        if (dX > 0) {
+//                            swipeRightBackground.setBounds(itemView.left, itemView.top, dX.toInt(), itemView.bottom)
+//                            editIcon.setBounds(
+//                                itemView.left + editIconMargin,
+//                                itemView.top + editIconMargin,
+//                                itemView.left + editIconMargin + editIcon.intrinsicWidth,
+//                                itemView.bottom - editIconMargin
+//                            )
+//                            swipeRightBackground.draw(canvas)
+//                            editIcon.draw(canvas)
+//                        } else {
                             swipeLeftBackground.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
                             addIcon.setBounds(
                                 itemView.right - addIconMargin - addIcon.intrinsicWidth,
@@ -290,12 +231,11 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
                             swipeLeftBackground.draw(canvas)
                             addIcon.draw(canvas)
                         }
-
-                    }
+//                    }
                     super.onChildDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                 }
             }
-            ItemTouchHelper(itemTouchHelperCallback2).apply {
+            ItemTouchHelper(itemTouchHelperCallback).apply {
                 attachToRecyclerView(binding.rvAllFoods)
             }
         }
