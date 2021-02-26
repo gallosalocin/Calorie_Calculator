@@ -83,9 +83,6 @@
     <string name="centimeter">εκ.</string>
     <string name="kilogram">χγρ.</string>
     <string name="recipes">Πιάτα</string>
-    <string name="edit_dish">Επεξεργασία Πιάτου</string>
-    <string name="dishes_list">Λίστα Πιάτων</string>
-    <string name="add_new_dish">Προσθήκη Νέου Πιάτου</string>
     <string name="cannot_delete_this_category">Δεν μπορείτε να διαγράψετε αυτήν την κατηγορία !!!</string>
     <string name="press_back_again_to_exit">Πατήστε ξανά για έξοδο</string>
     <string name="macronutrient_ratio">Αναλογία μακροθρεπτικών συστατικών :</string>
@@ -101,5 +98,7 @@
     <string name="database_backed_up">Βάση δεδομένων αποθηκευμένη</string>
     <string name="backup_database">Αποθήκευση Βάση δεδομένων</string>
     <string name="restore_database">Επαναφορά Βάση δεδομένων</string>
+    <string name="nutritionix">Nutritionix</string>
+    <string name="you_have_not_done_any_search_yet">Δεν έχετε κάνει ακόμα καμία αναζήτηση.</string>
 
 </resources>

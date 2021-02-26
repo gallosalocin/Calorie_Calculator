@@ -1,4 +1,4 @@
-package com.gallosalocin.caloriecalculator.db
+package com.gallosalocin.caloriecalculator.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

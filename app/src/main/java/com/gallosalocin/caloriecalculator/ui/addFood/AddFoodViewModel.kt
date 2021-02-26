@@ -3,21 +3,21 @@ package com.gallosalocin.caloriecalculator.ui.addFood
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gallosalocin.caloriecalculator.data.Repositories.Repository
 import com.gallosalocin.caloriecalculator.models.Category
 import com.gallosalocin.caloriecalculator.models.Food
-import com.gallosalocin.caloriecalculator.repositories.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AddFoodViewModel @Inject constructor(
-    private val mainRepository: MainRepository
+    private val repository: Repository
 ) : ViewModel() {
 
-    val getAllCategories: LiveData<List<Category>> = mainRepository.observeAllCategories()
+    val getAllCategories: LiveData<List<Category>> = repository.local.observeAllCategories()
 
     fun insertFood(food: Food) = viewModelScope.launch {
-        mainRepository.insertFood(food)
+        repository.local.insertFood(food)
     }
 }

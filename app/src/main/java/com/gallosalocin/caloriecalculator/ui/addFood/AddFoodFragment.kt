@@ -2,14 +2,11 @@ package com.gallosalocin.caloriecalculator.ui.addFood
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,8 +14,8 @@ import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentAddFoodBinding
 import com.gallosalocin.caloriecalculator.models.Category
 import com.gallosalocin.caloriecalculator.models.Food
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import com.gallosalocin.caloriecalculator.utils.Utils.Companion.validateInputEditTextWithLayout
+import com.gallosalocin.caloriecalculator.utils.Utils.Companion.validateSpinnerCategory
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -49,7 +46,6 @@ class AddFoodFragment : Fragment(R.layout.fragment_add_food) {
         }
 
         configSpinner()
-
     }
 
     // Setup toolbar
@@ -104,41 +100,16 @@ class AddFoodFragment : Fragment(R.layout.fragment_add_food) {
 
     // Validate All Inputs Methods
     private fun confirmAllInputs() {
-        if (!validateInput(binding.etAddName, binding.addName)
-            or !validateSpinnerCategory()
-            or !validateInput(binding.etAddCalorie, binding.addCalorie)
-            or !validateInput(binding.etAddFat, binding.addFat)
-            or !validateInput(binding.etAddCarb, binding.addCarb)
-            or !validateInput(binding.etAddProt, binding.addProt)
+        if (!binding.spinnerCategory.validateSpinnerCategory(getString(R.string.choose_a_category))
+            or !binding.etAddName.validateInputEditTextWithLayout(binding.addName, getString(R.string.error_fill_field))
+            or !binding.etAddCalorie.validateInputEditTextWithLayout(binding.addCalorie, getString(R.string.error_fill_field))
+            or !binding.etAddFat.validateInputEditTextWithLayout(binding.addFat, getString(R.string.error_fill_field))
+            or !binding.etAddCarb.validateInputEditTextWithLayout(binding.addCarb, getString(R.string.error_fill_field))
+            or !binding.etAddProt.validateInputEditTextWithLayout(binding.addProt, getString(R.string.error_fill_field))
         ) {
             return
         }
         saveFood()
-    }
-
-    // Check if input is not null or empty
-    private fun validateInput(field: TextInputEditText, layout: TextInputLayout): Boolean {
-        return if (field.text?.isEmpty() == true) {
-            layout.error = getString(R.string.error_fill_field)
-            false
-        } else {
-            layout.error = null
-            true
-        }
-    }
-
-    // Check if spinner is not null or empty
-    private fun validateSpinnerCategory(): Boolean {
-        val category = binding.spinnerCategory.selectedItem.toString().trim()
-        val errorText: TextView = binding.spinnerCategory.selectedView as TextView
-
-        return if (category == "") {
-            errorText.error = getString(R.string.choose_a_category)
-            false
-        } else {
-            errorText.error = null
-            true
-        }
     }
 
     // Show keyboard

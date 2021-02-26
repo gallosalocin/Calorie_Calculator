@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="2dp"
+    tools:context=".ui.nutritionixSearch.NutritionixSearchFragment">
+
+    <com.todkars.shimmer.ShimmerRecyclerView
+        android:id="@+id/rv_common_foods"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:descendantFocusability="blocksDescendants"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shimmer_recycler_item_count="11"
+        app:shimmer_recycler_layout="@layout/placeholder_layout_common_food_item"
+        tools:listitem="@layout/item_category" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_no_result"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:alpha="0.5"
+        android:src="@drawable/ic_search"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35"
+        app:tint="@color/grey_700" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_no_search_yet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.5"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_no_result"
+        tools:text="@string/you_have_not_done_any_search_yet" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

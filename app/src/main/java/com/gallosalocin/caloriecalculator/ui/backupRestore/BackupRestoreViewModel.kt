@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.ebner.roomdatabasebackup.core.RoomBackup
 import com.gallosalocin.caloriecalculator.R
-import com.gallosalocin.caloriecalculator.db.CaloriesCalculatorDatabase
+import com.gallosalocin.caloriecalculator.data.database.CaloriesCalculatorDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
 import javax.inject.Inject

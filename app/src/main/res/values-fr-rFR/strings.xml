@@ -83,9 +83,6 @@
     <string name="centimeter">cm</string>
     <string name="kilogram">kg</string>
     <string name="recipes">Plats</string>
-    <string name="add_new_dish">Ajouter Nouveau Plat</string>
-    <string name="dishes_list">Liste Plats</string>
-    <string name="edit_dish">Modifier Plat</string>
     <string name="cannot_delete_this_category">Vous ne pouvez pas supprimer cette catégorie !!!</string>
     <string name="press_back_again_to_exit">Appuyez à nouveau pour quitter</string>
     <string name="macronutrient_ratio">Ratio de macronutriments :</string>
@@ -101,5 +98,7 @@
     <string name="database_backed_up">"Base de données sauvegardée "</string>
     <string name="backup_database">Sauvegarger Base de données</string>
     <string name="restore_database">Restaurer Base de données</string>
+    <string name="nutritionix">Nutritionix</string>
+    <string name="you_have_not_done_any_search_yet">Vous n\'avez pas encore fait de recherche.</string>
 
 </resources>

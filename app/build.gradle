@@ -19,6 +19,7 @@ android {
         versionName "1.0"
 
         buildConfigField "String", "NutritionixApplicationId", NutritionixApplicationId
+        resValue "string", "NutritionixApplicationId", NutritionixApplicationId
         buildConfigField "String", "NutritionixApiKey", NutritionixApiKey
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -114,6 +115,12 @@ dependencies {
     // Coil
     implementation("io.coil-kt:coil:1.1.1")
 
+    // Shimmer recyclerview
+    implementation 'com.facebook.shimmer:shimmer:0.4.0'
+    implementation 'com.todkars:shimmer-recyclerview:0.4.0'
+
+    // Circle view
+    implementation 'com.mikhaellopez:circleview:1.0.3'
 }
 
 kapt{

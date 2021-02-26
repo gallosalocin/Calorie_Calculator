@@ -46,13 +46,6 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             findNavController().navigate(R.id.action_bottomSheetFragment_to_searchNutritionixFragment)
         }
 
-//        binding.ivBottomDishes.setOnClickListener {
-//            isBottomChoice = true
-//            findNavController().navigate(R.id.action_bottomSheetFragment_to_allDishesFragment)
-//        }
-
-        binding.ivBottomDishes.visibility = View.GONE
-        binding.tvBottomDishes.visibility = View.GONE
 
 //        binding.ivBottomNutritionix.visibility = View.GONE
 //        binding.tvBottomNutritionix.visibility = View.GONE

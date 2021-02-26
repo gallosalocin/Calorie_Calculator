@@ -4,31 +4,31 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gallosalocin.caloriecalculator.data.Repositories.CurrentCategoryIdRepository
+import com.gallosalocin.caloriecalculator.data.Repositories.Repository
 import com.gallosalocin.caloriecalculator.models.Category
-import com.gallosalocin.caloriecalculator.repositories.CurrentCategoryIdRepository
-import com.gallosalocin.caloriecalculator.repositories.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class EditCategoryViewModel @Inject constructor(
-    private val mainRepository: MainRepository,
+    private val repository: Repository,
     private val currentCategoryIdRepository: CurrentCategoryIdRepository
 ) : ViewModel() {
 
     fun getViewStateLiveData(): LiveData<Category> =
         Transformations.switchMap(currentCategoryIdRepository.getCurrentCategoryIdLiveData()) { id ->
-            mainRepository.observeCategoryWithId(id)
+            repository.local.observeCategoryWithId(id)
         }
 
-    val getAllCategories: LiveData<List<Category>> = mainRepository.observeAllCategories()
+    val getAllCategories: LiveData<List<Category>> = repository.local.observeAllCategories()
 
     fun updateCategory(category: Category) = viewModelScope.launch {
-        mainRepository.updateCategory(category)
+        repository.local.updateCategory(category)
     }
 
     fun deleteCategory(category: Category) = viewModelScope.launch {
-        mainRepository.deleteCategory(category)
+        repository.local.deleteCategory(category)
     }
 }

@@ -80,7 +80,7 @@ class AddCategoryFragment : Fragment(R.layout.fragment_add_category) {
         binding.btnColorPicker.setOnClickListener {
             ColorPickerDialog.Builder(requireContext())
                 .setColorShape(ColorShape.CIRCLE)
-                .setColorListener { color, colorHex ->
+                .setColorListener { color, _ ->
                     binding.btnColorPicker.apply {
                         setBackgroundColor(color)
                         categoryColor = color

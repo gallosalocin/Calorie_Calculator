@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.gallosalocin.caloriecalculator.data.Repositories.DataStoreRepository
+import com.gallosalocin.caloriecalculator.data.Repositories.Repository
 import com.gallosalocin.caloriecalculator.models.User
-import com.gallosalocin.caloriecalculator.repositories.DataStoreRepository
-import com.gallosalocin.caloriecalculator.repositories.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,14 +14,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val mainRepository: MainRepository,
+    private val repository: Repository,
     private val dataStoreRepository: DataStoreRepository
 ) : ViewModel() {
 
-    val getUser: LiveData<User> = mainRepository.observeUser()
+    val getUser: LiveData<User> = repository.local.observeUser()
 
     fun insertUser(user: User) = viewModelScope.launch {
-        mainRepository.insertUser(user)
+        repository.local.insertUser(user)
     }
 
     val readFromDataStore = dataStoreRepository.readFromDataStore.asLiveData()

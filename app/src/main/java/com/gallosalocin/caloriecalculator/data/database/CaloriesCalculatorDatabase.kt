@@ -1,4 +1,4 @@
-package com.gallosalocin.caloriecalculator.db
+package com.gallosalocin.caloriecalculator.data.database
 
 import android.graphics.Color
 import androidx.room.Database
@@ -25,8 +25,8 @@ abstract class CaloriesCalculatorDatabase : RoomDatabase() {
 
     // Prepopulate Database
     class Callback @Inject constructor(
-            private val database: Provider<CaloriesCalculatorDatabase>,
-            private val applicationScope: CoroutineScope
+        private val database: Provider<CaloriesCalculatorDatabase>,
+        private val applicationScope: CoroutineScope
     ) : RoomDatabase.Callback() {
 
         override fun onCreate(db: SupportSQLiteDatabase) {

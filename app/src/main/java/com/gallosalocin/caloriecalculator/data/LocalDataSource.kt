@@ -1,9 +1,9 @@
-package com.gallosalocin.caloriecalculator.repositories
+package com.gallosalocin.caloriecalculator.data
 
 import androidx.lifecycle.LiveData
-import com.gallosalocin.caloriecalculator.db.CategoryDao
-import com.gallosalocin.caloriecalculator.db.FoodDao
-import com.gallosalocin.caloriecalculator.db.UserDao
+import com.gallosalocin.caloriecalculator.data.database.CategoryDao
+import com.gallosalocin.caloriecalculator.data.database.FoodDao
+import com.gallosalocin.caloriecalculator.data.database.UserDao
 import com.gallosalocin.caloriecalculator.models.Category
 import com.gallosalocin.caloriecalculator.models.Food
 import com.gallosalocin.caloriecalculator.models.FoodWithCategory
@@ -12,7 +12,7 @@ import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.mealTag
 import javax.inject.Inject
 
-class MainRepository @Inject constructor(
+class LocalDataSource @Inject constructor(
     private val foodDao: FoodDao,
     private val categoryDao: CategoryDao,
     private val userDao: UserDao,
@@ -29,7 +29,6 @@ class MainRepository @Inject constructor(
     suspend fun deleteAllMealDetail() = foodDao.deleteAllMealDetail(dayTag.toString(), mealTag.toString())
 
     fun observeAllFoods() = foodDao.getAllFoods()
-    fun observeAllDishes() = foodDao.getAllDishes()
 
     fun observeMealDetail() = foodDao.getMealDetail(dayTag.toString(), mealTag.toString())
 

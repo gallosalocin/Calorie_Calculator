@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -12,8 +11,8 @@ import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentEditFoodBinding
 import com.gallosalocin.caloriecalculator.models.Category
 import com.gallosalocin.caloriecalculator.models.Food
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import com.gallosalocin.caloriecalculator.utils.Utils.Companion.validateInputEditTextWithLayout
+import com.gallosalocin.caloriecalculator.utils.Utils.Companion.validateSpinnerCategory
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,7 +42,7 @@ class EditFoodFragment : Fragment(R.layout.fragment_edit_food) {
 
     }
 
-    // Setup toolbar
+    /** Setup toolbar */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
@@ -58,7 +57,7 @@ class EditFoodFragment : Fragment(R.layout.fragment_edit_food) {
         return super.onOptionsItemSelected(item)
     }
 
-    // Load food
+    /** Load food */
     private fun loadFood() {
         var position = 0
 
@@ -83,23 +82,23 @@ class EditFoodFragment : Fragment(R.layout.fragment_edit_food) {
         }
     }
 
-    // Update Food
+    /** Update Food */
     private fun updateFood() {
         val foodUpdated = Food(
-                id = currentFood.id,
-                name = binding.etEditName.text.toString(),
-                categoryId = spinnerCategorySelected!!.id,
-                calories = binding.etEditCalorie.text.toString().toFloat(),
-                fats = binding.etEditFat.text.toString().replace(',', '.').toFloat(),
-                carbs = binding.etEditCarb.text.toString().replace(',', '.').toFloat(),
-                prots = binding.etEditProt.text.toString().replace(',', '.').toFloat(),
-                note = binding.etEditNote.text.toString()
+            id = currentFood.id,
+            name = binding.etEditName.text.toString(),
+            categoryId = spinnerCategorySelected!!.id,
+            calories = binding.etEditCalorie.text.toString().toFloat(),
+            fats = binding.etEditFat.text.toString().replace(',', '.').toFloat(),
+            carbs = binding.etEditCarb.text.toString().replace(',', '.').toFloat(),
+            prots = binding.etEditProt.text.toString().replace(',', '.').toFloat(),
+            note = binding.etEditNote.text.toString()
         )
         viewModel.updateFood(foodUpdated)
         findNavController().navigate(R.id.action_editFoodFragment_to_allFoodsFragment)
     }
 
-    // Config Category Spinner
+    /** Config Category Spinner */
     private fun configSpinner() {
         viewModel.getAllCategories.observe(viewLifecycleOwner) { allCategories ->
             categoryList = allCategories
@@ -119,43 +118,20 @@ class EditFoodFragment : Fragment(R.layout.fragment_edit_food) {
         }
     }
 
-    // Validate All Inputs Methods
+    /** Validate All Inputs Methods */
     private fun confirmAllInputs() {
-        if (!validateInput(binding.etEditName, binding.editName)
-                or !validateSpinnerCategory()
-                or !validateInput(binding.etEditCalorie, binding.editCalorie)
-                or !validateInput(binding.etEditFat, binding.editFat)
-                or !validateInput(binding.etEditCarb, binding.editCarb)
-                or !validateInput(binding.etEditProt, binding.editProt)) {
+        if (!binding.spinnerCategory.validateSpinnerCategory(getString(R.string.choose_a_category))
+            or !binding.etEditName.validateInputEditTextWithLayout(binding.editName, getString(R.string.error_fill_field))
+            or !binding.etEditCalorie.validateInputEditTextWithLayout(binding.editCalorie, getString(R.string.error_fill_field))
+            or !binding.etEditFat.validateInputEditTextWithLayout(binding.editFat, getString(R.string.error_fill_field))
+            or !binding.etEditCarb.validateInputEditTextWithLayout(binding.editCarb, getString(R.string.error_fill_field))
+            or !binding.etEditProt.validateInputEditTextWithLayout(binding.editProt, getString(R.string.error_fill_field))
+        ) {
             return
         }
         updateFood()
     }
 
-    // Validate input
-    private fun validateInput(field: TextInputEditText, layout: TextInputLayout): Boolean {
-        return if (field.text?.isEmpty() == true) {
-            layout.error = getString(R.string.error_fill_field)
-            false
-        } else {
-            layout.error = null
-            true
-        }
-    }
-
-    // Check if spinner is not null or empty
-    private fun validateSpinnerCategory(): Boolean {
-        val category = binding.spinnerCategory.selectedItem.toString().trim()
-        val errorText: TextView = binding.spinnerCategory.selectedView as TextView
-
-        return if (category == "") {
-            errorText.error = getString(R.string.choose_a_category)
-            false
-        } else {
-            errorText.error = null
-            true
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

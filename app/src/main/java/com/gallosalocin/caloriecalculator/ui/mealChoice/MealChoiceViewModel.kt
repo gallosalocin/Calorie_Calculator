@@ -2,26 +2,26 @@ package com.gallosalocin.caloriecalculator.ui.mealChoice
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.gallosalocin.caloriecalculator.data.Repositories.Repository
 import com.gallosalocin.caloriecalculator.models.FoodWithCategory
 import com.gallosalocin.caloriecalculator.models.User
-import com.gallosalocin.caloriecalculator.repositories.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class MealChoiceViewModel @Inject constructor(
-    mainRepository: MainRepository
+    repository: Repository
 ) : ViewModel() {
 
-    val getUser: LiveData<User> = mainRepository.observeUser()
+    val getUser: LiveData<User> = repository.local.observeUser()
 
-    val getDayDetail: LiveData<List<FoodWithCategory>> = mainRepository.observeDayDetail()
+    val getDayDetail: LiveData<List<FoodWithCategory>> = repository.local.observeDayDetail()
 
-    val getBreakfastMacros: LiveData<List<FoodWithCategory>> = mainRepository.observeBreakfast()
+    val getBreakfastMacros: LiveData<List<FoodWithCategory>> = repository.local.observeBreakfast()
 
-    val getLunchMacros: LiveData<List<FoodWithCategory>> = mainRepository.observeLunch()
+    val getLunchMacros: LiveData<List<FoodWithCategory>> = repository.local.observeLunch()
 
-    val getDinnerMacros: LiveData<List<FoodWithCategory>> = mainRepository.observeDinner()
+    val getDinnerMacros: LiveData<List<FoodWithCategory>> = repository.local.observeDinner()
 
-    val getSnackMacros: LiveData<List<FoodWithCategory>> = mainRepository.observeSnack()
+    val getSnackMacros: LiveData<List<FoodWithCategory>> = repository.local.observeSnack()
 }

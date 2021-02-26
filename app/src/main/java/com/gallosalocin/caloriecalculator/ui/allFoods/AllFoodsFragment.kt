@@ -63,7 +63,7 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
         configItemTouchHelper()
     }
 
-    // Setup toolbar
+    /** Setup toolbar */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
@@ -126,7 +126,7 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
         return super.onOptionsItemSelected(item)
     }
 
-    // Setup recyclerview
+    /** Setup recyclerview */
     private fun setupRecyclerView() {
         foodAdapter = FoodAdapter(
             onItemClickListener = {
@@ -144,7 +144,7 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
         }
     }
 
-    // Get all foods live data
+    /** Get all foods live data */
     private fun getAllFoodsLiveData() {
         viewModel.getAllFoods.observe(viewLifecycleOwner) {
             foodsList = it
@@ -152,7 +152,7 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
         }
     }
 
-    // Setup Swipes
+    /** Setup Swipes */
     private fun configItemTouchHelper() {
         if (!isBottomChoice) {
             val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
@@ -241,7 +241,7 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
         }
     }
 
-    // Setup Alert Dialog to edit weight
+    /** Setup Alert Dialog to edit weight */
     private fun setupWeightEditDialog(selectedFood: Food) {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_weight_edit, null)
 
@@ -277,7 +277,7 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
             .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
     }
 
-    // Update Food
+    /** Update Food */
     private fun updateFood(selectedFood: Food, weightEdited: AppCompatEditText) {
         val newWeight = weightEdited.text.toString().toInt()
         val foodUpdated = Food(
@@ -296,7 +296,7 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
         viewModel.updateFood(foodUpdated)
     }
 
-    // Press enter to update weight
+    /** Press enter to update weight */
     private fun configEnterButtonSoftKeyboard(selectedFood: Food, editText: AppCompatEditText, alertDialog: AlertDialog) {
         editText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {

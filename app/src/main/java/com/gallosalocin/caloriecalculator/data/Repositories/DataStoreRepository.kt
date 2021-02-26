@@ -1,4 +1,4 @@
-package com.gallosalocin.caloriecalculator.repositories
+package com.gallosalocin.caloriecalculator.data.Repositories
 
 import android.content.Context
 import androidx.datastore.core.DataStore
