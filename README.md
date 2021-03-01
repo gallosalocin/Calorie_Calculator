@@ -45,3 +45,4 @@ Translation: English, French, Greek
 - [CircleView](https://github.com/lopspower/CircleView)
 - [Coil](https://github.com/coil-kt/coil)
 - [Timber](https://github.com/JakeWharton/timber)
+- [Nutritionix API](https://www.nutritionix.com/business/api)
