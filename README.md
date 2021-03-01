@@ -40,7 +40,7 @@ Translation: English, French, Greek
 - [Room Persistence Library](https://developer.android.com/topic/libraries/architecture/room)
 - [Retrofit](https://square.github.io/retrofit)
 - [ColorPicker](https://github.com/Dhaval2404/ColorPicker)
-- [Shimmer_RecyclerView](https://github.com/sharish/ShimmerRecyclerView)
+- [Shimmer_RecyclerView](https://github.com/omtodkar/ShimmerRecyclerView)
 - [Android_Room_Database_Backup](https://github.com/rafi0101/Android-Room-Database-Backup)
 - [CircleView](https://github.com/lopspower/CircleView)
 - [Coil](https://github.com/coil-kt/coil)
