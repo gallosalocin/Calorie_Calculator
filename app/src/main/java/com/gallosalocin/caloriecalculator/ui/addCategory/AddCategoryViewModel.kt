@@ -2,7 +2,7 @@ package com.gallosalocin.caloriecalculator.ui.addCategory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gallosalocin.caloriecalculator.data.Repositories.Repository
+import com.gallosalocin.caloriecalculator.data.repositories.Repository
 import com.gallosalocin.caloriecalculator.models.Category
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

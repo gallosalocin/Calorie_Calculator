@@ -2,7 +2,7 @@ package com.gallosalocin.caloriecalculator.ui.mealChoice
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.gallosalocin.caloriecalculator.data.Repositories.Repository
+import com.gallosalocin.caloriecalculator.data.repositories.Repository
 import com.gallosalocin.caloriecalculator.models.FoodWithCategory
 import com.gallosalocin.caloriecalculator.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,15 +1,19 @@
 package com.gallosalocin.caloriecalculator.ui.nutritionixSearch
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.gallosalocin.caloriecalculator.data.Repositories.Repository
 import com.gallosalocin.caloriecalculator.data.network.dto.InstantSearchResponse
-import com.gallosalocin.caloriecalculator.data.Repositories.CurrentCommonFoodNameRepository
+import com.gallosalocin.caloriecalculator.data.repositories.CurrentCommonFoodNameRepository
+import com.gallosalocin.caloriecalculator.data.repositories.DataStoreRepository
+import com.gallosalocin.caloriecalculator.data.repositories.Repository
 import com.gallosalocin.caloriecalculator.utils.NetworkResult
 import com.gallosalocin.caloriecalculator.utils.Utils.Companion.hasInternetConnection
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -18,14 +22,22 @@ import javax.inject.Inject
 class NutritionixSearchViewModel @Inject constructor(
     private val repository: Repository,
     private val currentCommonFoodNameRepository: CurrentCommonFoodNameRepository,
+    private val dataStoreRepository: DataStoreRepository,
     application: Application,
 ) : AndroidViewModel(application) {
 
-    var instantSearchResponse: MutableLiveData<NetworkResult<InstantSearchResponse>> = MutableLiveData()
+    var networkStatus = false
+    var backOnline = false
 
+    var readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
+    var instantSearchResponse: MutableLiveData<NetworkResult<InstantSearchResponse>> = MutableLiveData()
 
     fun setCurrentCommonFoodName(commonFoodName: String) {
         currentCommonFoodNameRepository.setCurrentCommonFoodName(commonFoodName)
+    }
+
+    fun saveBackOnline(backOnline: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        dataStoreRepository.saveBackOnline(backOnline)
     }
 
     fun getInstantSearch(query: String) = viewModelScope.launch {
@@ -75,6 +87,18 @@ class NutritionixSearchViewModel @Inject constructor(
             }
             else -> {
                 return NetworkResult.Error(response.message())
+            }
+        }
+    }
+
+    fun showNetworkStatus() {
+        if (!networkStatus) {
+            Toast.makeText(getApplication(), "No internet connection", Toast.LENGTH_SHORT).show()
+            saveBackOnline(true)
+        } else if (networkStatus) {
+            if (backOnline) {
+                Toast.makeText(getApplication(), "Internet connection is back", Toast.LENGTH_SHORT).show()
+                saveBackOnline(false)
             }
         }
     }

@@ -3,7 +3,7 @@ package com.gallosalocin.caloriecalculator.ui.addFood
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gallosalocin.caloriecalculator.data.Repositories.Repository
+import com.gallosalocin.caloriecalculator.data.repositories.Repository
 import com.gallosalocin.caloriecalculator.models.Category
 import com.gallosalocin.caloriecalculator.models.Food
 import dagger.hilt.android.lifecycle.HiltViewModel

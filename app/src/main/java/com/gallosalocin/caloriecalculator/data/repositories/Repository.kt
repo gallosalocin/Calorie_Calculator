@@ -1,4 +1,4 @@
-package com.gallosalocin.caloriecalculator.data.Repositories
+package com.gallosalocin.caloriecalculator.data.repositories
 
 import com.gallosalocin.caloriecalculator.data.LocalDataSource
 import com.gallosalocin.caloriecalculator.data.RemoteDataSource

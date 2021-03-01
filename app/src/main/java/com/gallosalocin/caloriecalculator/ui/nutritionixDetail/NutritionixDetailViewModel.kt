@@ -2,13 +2,12 @@ package com.gallosalocin.caloriecalculator.ui.nutritionixDetail
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.gallosalocin.caloriecalculator.data.Repositories.Repository
+import com.gallosalocin.caloriecalculator.data.repositories.Repository
 import com.gallosalocin.caloriecalculator.data.network.dto.FoodNamePost
 import com.gallosalocin.caloriecalculator.data.network.dto.FoodNutrientsResponse
 import com.gallosalocin.caloriecalculator.models.Category
 import com.gallosalocin.caloriecalculator.models.Food
-import com.gallosalocin.caloriecalculator.data.Repositories.CurrentCommonFoodNameRepository
-import com.gallosalocin.caloriecalculator.data.LocalDataSource
+import com.gallosalocin.caloriecalculator.data.repositories.CurrentCommonFoodNameRepository
 import com.gallosalocin.caloriecalculator.utils.NetworkResult
 import com.gallosalocin.caloriecalculator.utils.Utils.Companion.hasInternetConnection
 import dagger.hilt.android.lifecycle.HiltViewModel

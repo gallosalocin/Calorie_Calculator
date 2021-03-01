@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.gallosalocin.caloriecalculator.data.Repositories.DataStoreRepository
-import com.gallosalocin.caloriecalculator.data.Repositories.Repository
+import com.gallosalocin.caloriecalculator.data.repositories.DataStoreRepository
+import com.gallosalocin.caloriecalculator.data.repositories.Repository
 import com.gallosalocin.caloriecalculator.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -24,9 +24,9 @@ class ProfileViewModel @Inject constructor(
         repository.local.insertUser(user)
     }
 
-    val readFromDataStore = dataStoreRepository.readFromDataStore.asLiveData()
+    val readFromDataStore = dataStoreRepository.readFirstTimeToggle.asLiveData()
 
     fun saveToDataStore(isFirstTimeOpen: Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        dataStoreRepository.saveToDataStore(isFirstTimeOpen)
+        dataStoreRepository.saveFirstTimeToggle(isFirstTimeOpen)
     }
 }

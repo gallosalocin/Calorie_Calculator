@@ -1,4 +1,4 @@
-package com.gallosalocin.caloriecalculator.data.Repositories
+package com.gallosalocin.caloriecalculator.data.repositories
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData

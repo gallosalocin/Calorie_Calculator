@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Room
 import com.gallosalocin.caloriecalculator.data.database.CaloriesCalculatorDatabase
 import com.gallosalocin.caloriecalculator.utils.Constants.CALORIES_CALCULATOR_DATABASE_NAME
-import com.gallosalocin.caloriecalculator.data.Repositories.CurrentCategoryIdRepository
-import com.gallosalocin.caloriecalculator.data.Repositories.CurrentCommonFoodNameRepository
-import com.gallosalocin.caloriecalculator.data.Repositories.CurrentFoodIdRepository
-import com.gallosalocin.caloriecalculator.data.Repositories.DataStoreRepository
+import com.gallosalocin.caloriecalculator.data.repositories.CurrentCategoryIdRepository
+import com.gallosalocin.caloriecalculator.data.repositories.CurrentCommonFoodNameRepository
+import com.gallosalocin.caloriecalculator.data.repositories.CurrentFoodIdRepository
+import com.gallosalocin.caloriecalculator.data.repositories.DataStoreRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
