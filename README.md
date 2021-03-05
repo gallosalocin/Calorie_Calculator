@@ -1,5 +1,7 @@
 # Calorie_Calculator
-L'app permet de calculer son BMR et d'indiquer le nombre de calories mangé par rapport à chaque aliment.
+The app allows you to calculate your BMR and indicate the number of calories eaten in relation to each food.
+
+Translation: English, French, Greek
 
 ![calorie_calculator_logo_small](https://user-images.githubusercontent.com/49925096/105958500-fbb2ae80-607a-11eb-9ebf-96ad5c3c537c.jpg)
 
@@ -19,6 +21,14 @@ L'app permet de calculer son BMR et d'indiquer le nombre de calories mangé par 
 
 ![Change weight](https://user-images.githubusercontent.com/49925096/105959939-d757d180-607c-11eb-8a1a-4edc90082993.gif)
 
+- Backup & Restore Local Database
+
+![Backup   Restore](https://user-images.githubusercontent.com/49925096/109481167-bb30c100-7a7c-11eb-8dd0-70540a8341d4.gif)
+
+- Search Online Nutritionix Database
+
+![Nutritionix Search](https://user-images.githubusercontent.com/49925096/109481750-6d688880-7a7d-11eb-92ab-69ecc8c6e964.gif)
+
 
 ## Tech/Framework/Library
 - [Kotlin](https://developer.android.com/kotlin/get-started)
@@ -28,4 +38,11 @@ L'app permet de calculer son BMR et d'indiquer le nombre de calories mangé par 
 - [Coroutines](https://developer.android.com/kotlin/coroutines)
 - [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 - [Room Persistence Library](https://developer.android.com/topic/libraries/architecture/room)
+- [Retrofit](https://square.github.io/retrofit)
+- [ColorPicker](https://github.com/Dhaval2404/ColorPicker)
+- [Shimmer_RecyclerView](https://github.com/omtodkar/ShimmerRecyclerView)
+- [Android_Room_Database_Backup](https://github.com/rafi0101/Android-Room-Database-Backup)
+- [CircleView](https://github.com/lopspower/CircleView)
+- [Coil](https://github.com/coil-kt/coil)
 - [Timber](https://github.com/JakeWharton/timber)
+- [Nutritionix API](https://www.nutritionix.com/business/api)
