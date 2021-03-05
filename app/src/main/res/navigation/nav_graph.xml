@@ -66,6 +66,9 @@
         <action
             android:id="@+id/action_bottomSheetFragment_to_searchNutritionixFragment"
             app:destination="@id/nutritionixSearchFragment" />
+        <action
+            android:id="@+id/action_bottomSheetFragment_to_allDishesFragment"
+            app:destination="@id/allDishesFragment" />
     </dialog>
     <fragment
         android:id="@+id/addFoodFragment"
@@ -183,5 +186,44 @@
             app:destination="@id/nutritionixSearchFragment"
             app:popUpTo="@id/nutritionixSearchFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/allDishesFragment"
+        android:name="com.gallosalocin.caloriecalculator.ui.allDishes.AllDishesFragment"
+        android:label="@string/dishes_list"
+        tools:layout="@layout/fragment_all_dishes" >
+        <action
+            android:id="@+id/action_allDishesFragment_to_addDishFragment"
+            app:destination="@id/addDishFragment" />
+        <action
+            android:id="@+id/action_allDishesFragment_to_editDishFragment"
+            app:destination="@id/editDishFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addDishFragment"
+        android:name="com.gallosalocin.caloriecalculator.ui.addDish.AddDishFragment"
+        android:label="@string/add_new_dish"
+        tools:layout="@layout/fragment_add_dish" >
+        <action
+            android:id="@+id/action_addDishFragment_to_allFoodsFragment"
+            app:destination="@id/allFoodsFragment" />
+        <action
+            android:id="@+id/action_addDishFragment_to_allDishesFragment"
+            app:destination="@id/allDishesFragment"
+            app:popUpTo="@id/allDishesFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/editDishFragment"
+        android:name="com.gallosalocin.caloriecalculator.ui.editDish.EditDishFragment"
+        tools:layout="@layout/fragment_edit_dish">
+        <action
+            android:id="@+id/action_editDishFragment_to_allDishesFragment"
+            app:destination="@id/allDishesFragment"
+            app:popUpTo="@id/allDishesFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_editDishFragment_to_allFoodsFragment"
+            app:destination="@id/allFoodsFragment" />
     </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.gallosalocin.caloriecalculator.ui.allFoods
+package com.gallosalocin.caloriecalculator.ui.editDish
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
@@ -15,13 +15,36 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AllFoodsViewModel @Inject constructor(
+class EditDishViewModel @Inject constructor(
     private val repository: Repository,
-    private val currentFoodIdRepository: CurrentFoodIdRepository,
     private val currentDishIdRepository: CurrentDishIdRepository,
 ) : ViewModel() {
 
-    val getAllFoods: LiveData<List<FoodWithAllData>> = repository.local.observeAllFoods()
+    fun updateDish(dish: Dish) = viewModelScope.launch {
+        repository.local.updateDish(dish)
+    }
+
+    fun deleteDish(dish: Dish) = viewModelScope.launch {
+        repository.local.deleteDish(dish)
+    }
+
+    fun setCurrentDishId(id: Int) {
+        currentDishIdRepository.setCurrentDishId(id)
+    }
+
+    fun getDishLiveData(): LiveData<Dish> =
+        Transformations.switchMap(currentDishIdRepository.getCurrentDishIdLiveData()) { id ->
+            repository.local.observeDishWithId(id)
+        }
+
+    fun getDishFoodListLiveData(): LiveData<List<FoodWithAllData>> =
+        Transformations.switchMap(currentDishIdRepository.getCurrentDishIdLiveData()) { dishId ->
+            repository.local.observeRecipeFoods(dishId)
+        }
+
+    fun deleteFood(food: Food) = viewModelScope.launch {
+        repository.local.deleteFood(food)
+    }
 
     fun insertFood(food: Food) = viewModelScope.launch {
         repository.local.insertFood(food)
@@ -30,14 +53,4 @@ class AllFoodsViewModel @Inject constructor(
     fun updateFood(food: Food) = viewModelScope.launch {
         repository.local.updateFood(food)
     }
-
-    fun setCurrentFoodId(id: Int) {
-        currentFoodIdRepository.setCurrentFoodId(id)
-    }
-
-    fun getViewStateLiveData(): LiveData<Dish> =
-        Transformations.switchMap(currentDishIdRepository.getCurrentDishIdLiveData()) { id ->
-            repository.local.observeDishWithId(id)
-        }
-
 }

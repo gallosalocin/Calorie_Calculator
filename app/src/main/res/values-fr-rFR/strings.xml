@@ -45,14 +45,15 @@
     <string name="carb_gram_symbol">Glucides (g)</string>
     <string name="prot_gram_symbol">Protéines (g)</string>
     <string name="add">Ajouter</string>
-    <string name="alert_dialog_delete_all_message">Êtes-vous sûr de vouloir supprimer cet aliment ?</string>
-    <string name="delete_alert_dialog_question">Êtes-vous sûr de vouloir supprimer \'%1$s\' ?</string>
+    <string name="alert_dialog_delete_all_message">Êtes-vous sûr de vouloir supprimer ce repas ?</string>
+    <string name="delete_alert_dialog_question">Êtes-vous sûr de vouloir supprimer \«%1$s\» ?</string>
     <string name="calculate">Calculer</string>
     <string name="categories">Catégories</string>
     <string name="category">Catégorie</string>
     <string name="choose_a_category">Choisir une catégorie</string>
     <string name="alert_dialog_delete_meal">Effacer repas</string>
     <string name="error_fill_field">Remplir le champ</string>
+    <string name="error_fill_field_weight">Le poids ne peut pas être vide ou égal à 0</string>
     <string name="fruits">Fruits</string>
     <string name="healthy_fats">Graisses Saines</string>
     <string name="name">Nom</string>
@@ -82,7 +83,7 @@
     <string name="gram_symbol">g</string>
     <string name="centimeter">cm</string>
     <string name="kilogram">kg</string>
-    <string name="recipes">Plats</string>
+    <string name="dishes">Plats</string>
     <string name="cannot_delete_this_category">Vous ne pouvez pas supprimer cette catégorie !!!</string>
     <string name="press_back_again_to_exit">Appuyez à nouveau pour quitter</string>
     <string name="macronutrient_ratio">Ratio de macronutriments :</string>
@@ -100,5 +101,13 @@
     <string name="restore_database">Restaurer Base de données</string>
     <string name="nutritionix">Nutritionix</string>
     <string name="you_have_not_done_any_search_yet">Vous n\'avez pas encore fait de recherche.</string>
+    <string name="dishes_list">Liste Plats</string>
+    <string name="next">Suivant</string>
+    <string name="add_new_dish">Ajouter Nouveau Plat</string>
+    <string name="add_food">Ajouter Aliments</string>
+    <string name="edit_dish">Modifier Plat</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuler</string>
+    <string name="do_you_want_to_change">Changer \«%1$s\» avec :</string>
 
 </resources>

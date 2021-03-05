@@ -1,14 +1,20 @@
 package com.gallosalocin.caloriecalculator.ui.foodDetail
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
 import android.view.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentFoodDetailBinding
 import com.gallosalocin.caloriecalculator.models.Food
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,7 +39,7 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail) {
         loadFood()
     }
 
-    // Setup toolbar
+    /** Setup toolbar */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
@@ -53,23 +59,37 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail) {
         return super.onOptionsItemSelected(item)
     }
 
-    // Display Alert Dialog to delete
+    /** Display Alert Dialog to delete */
     private fun displayAlertDialogToDelete() {
-        AlertDialog.Builder(requireContext(), R.style.DialogTheme)
-                .setCancelable(false)
-                .setTitle(getString(R.string.title_alert_dialog_food))
-                .setIcon(R.drawable.ic_delete_swipe_black)
-                .setMessage(getString(R.string.delete_alert_dialog_question, currentFood.name))
-                .setPositiveButton(getString(R.string.yes_alert_dialog)) { _, _ ->
-                    viewModel.deleteFood(currentFood)
-                    findNavController().navigate(R.id.action_foodDetailFragment_to_allFoodsFragment)
-                }
-                .setNegativeButton(getString(R.string.no_alert_dialog)) { dialogInterface, _ ->
-                    dialogInterface.dismiss()
-                }.create().show()
+        val title = SpannableString(getString(R.string.title_alert_dialog_food))
+        title.setSpan(StyleSpan(Typeface.BOLD), 0, title.length, 0)
+        title.setSpan(RelativeSizeSpan(1.2F), 0, title.length, 0)
+
+        val message = SpannableString(getString(R.string.delete_alert_dialog_question, currentFood.name))
+        message.setSpan(RelativeSizeSpan(1.2F), 0, message.length, 0)
+
+        val alertDialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle(title)
+            .setIcon(R.drawable.ic_delete_swipe_black)
+            .setMessage(message)
+            .setPositiveButton(getString(R.string.yes_alert_dialog)) { _, _ ->
+                viewModel.deleteFood(currentFood)
+                findNavController().navigate(R.id.action_foodDetailFragment_to_allFoodsFragment)
+            }
+            .setNegativeButton(getString(R.string.no_alert_dialog)) { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            .create()
+
+        alertDialog.show()
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
     }
 
-    // Load food
+    /** Load food */
     private fun loadFood() {
         viewModel.getViewStateLiveData().observe(viewLifecycleOwner) { currentFoodWithCategory ->
             currentFood = currentFoodWithCategory.food

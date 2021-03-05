@@ -33,10 +33,10 @@ class AddCategoryFragment : Fragment(R.layout.fragment_add_category) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        setupColorPickerDialog()
+        displayColorPickerDialog()
     }
 
-    // Setup toolbar
+    /** Setup toolbar */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
@@ -52,7 +52,7 @@ class AddCategoryFragment : Fragment(R.layout.fragment_add_category) {
     }
 
 
-    // Save category
+    /** Save category */
     private fun saveCategory() {
         val category = Category(
             name = binding.tvName.text.toString(),
@@ -62,7 +62,7 @@ class AddCategoryFragment : Fragment(R.layout.fragment_add_category) {
         findNavController().navigate(R.id.action_addCategoryFragment_to_allCategoriesFragment)
     }
 
-    // Validate All Inputs Methods
+    /** Validate All Inputs Methods */
     private fun confirmAllInputs() {
         if (binding.tvName.text.isNullOrEmpty()) {
             binding.tvName.error = "Fill the field"
@@ -75,8 +75,8 @@ class AddCategoryFragment : Fragment(R.layout.fragment_add_category) {
         saveCategory()
     }
 
-    // Setup Color Picker Dialog
-    private fun setupColorPickerDialog() {
+    /** Display Color Picker Dialog */
+    private fun displayColorPickerDialog() {
         binding.btnColorPicker.setOnClickListener {
             ColorPickerDialog.Builder(requireContext())
                 .setColorShape(ColorShape.CIRCLE)

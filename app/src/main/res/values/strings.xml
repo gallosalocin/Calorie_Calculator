@@ -50,7 +50,7 @@
     <string name="title_alert_dialog_food">Delete food</string>
     <string name="title_alert_dialog_category">Delete category</string>
     <string name="title_alert_dialog_dish">Delete dish</string>
-    <string name="delete_alert_dialog_question">Are you sure you want to delete \'%1$s\' ?</string>
+    <string name="delete_alert_dialog_question">Are you sure you want to delete \«%1$s\» ?</string>
     <string name="yes_alert_dialog">Yes</string>
     <string name="successfully_remove_food">Food successfully removed : %1$s</string>
     <string name="undo_snackbar">Undo</string>
@@ -60,6 +60,7 @@
     <string name="carb_gram_symbol">Carbs (g)</string>
     <string name="prot_gram_symbol">Proteins (g)</string>
     <string name="error_fill_field">Fill the field</string>
+    <string name="error_fill_field_weight">The weight cannot be empty or equal to 0</string>
     <string name="gram_symbol">g</string>
     <string name="calculate">Calculate</string>
     <string name="switch_calories_input_mode">Switch calories input mode</string>
@@ -87,7 +88,7 @@
     <string name="edit_category">Edit Category</string>
     <string name="custom_calories">Custom Calories</string>
     <string name="calories_calculator">Calories Calculator</string>
-    <string name="recipes">Dishes</string>
+    <string name="dishes">Dishes</string>
     <string name="cannot_delete_this_category">You can\'t delete this category!!!</string>
     <string name="press_back_again_to_exit">Press back again to exit</string>
     <string name="macronutrient_ratio">Macronutrient ratio :</string>
@@ -104,5 +105,13 @@
     <string name="restore_database">Restore Database</string>
     <string name="nutritionix">Nutritionix</string>
     <string name="you_have_not_done_any_search_yet">You have not done any search yet.</string>
+    <string name="dishes_list">Dishes List</string>
+    <string name="next">Next</string>
+    <string name="add_new_dish">Add New Dish</string>
+    <string name="add_food">Add Food</string>
+    <string name="edit_dish">Edit Dish</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="do_you_want_to_change">Change \«%1$s\» with :</string>
 
 </resources>

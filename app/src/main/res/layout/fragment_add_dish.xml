@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.addDish.AddDishFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="5dp"
+        app:errorEnabled="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_add_name"
+            style="@style/AddFoodTextInput"
+            android:hint="@string/name"
+            android:inputType="text|textCapSentences"
+            android:textSize="20sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_add_food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_food"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/cv_dish_overall"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add_name" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_dish_overall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="2dp"
+        android:layout_marginTop="15dp"
+        app:cardCornerRadius="6dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_add_food">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/MealChoiceDetailAllValuesBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/cal_name"
+                style="@style/CardViewAllFoodsTitle"
+                android:text="@string/calories"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/fat_name"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fat_name"
+                style="@style/CardViewAllFoodsTitle"
+                android:text="@string/fats"
+                app:layout_constraintLeft_toRightOf="@id/cal_name"
+                app:layout_constraintRight_toLeftOf="@id/carb_name"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/carb_name"
+                style="@style/CardViewAllFoodsTitle"
+                android:text="@string/carbs"
+                app:layout_constraintLeft_toRightOf="@id/fat_name"
+                app:layout_constraintRight_toLeftOf="@id/prot_name"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/prot_name"
+                style="@style/CardViewAllFoodsTitle"
+                android:text="@string/proteins"
+                app:layout_constraintLeft_toRightOf="@id/carb_name"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/dish_total_cal"
+                style="@style/DayMacrosValuesExpected"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/dish_total_fat"
+                app:layout_constraintTop_toBottomOf="@id/cal_name"
+                tools:text="2257" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/dish_total_fat"
+                style="@style/DayMacrosValuesExpected"
+                app:layout_constraintLeft_toRightOf="@id/dish_total_cal"
+                app:layout_constraintRight_toLeftOf="@id/dish_total_carb"
+                app:layout_constraintTop_toBottomOf="@id/cal_name"
+                tools:text="68" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/dish_total_carb"
+                style="@style/DayMacrosValuesExpected"
+                app:layout_constraintLeft_toRightOf="@id/dish_total_fat"
+                app:layout_constraintRight_toLeftOf="@id/dish_total_prot"
+                app:layout_constraintTop_toBottomOf="@id/cal_name"
+                tools:text="237" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/dish_total_prot"
+                style="@style/DayMacrosValuesExpected"
+                app:layout_constraintLeft_toRightOf="@id/dish_total_carb"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cal_name"
+                tools:text="155" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_foods_dish"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_dish_overall"
+        tools:listitem="@layout/item_food" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

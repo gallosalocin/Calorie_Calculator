@@ -3,11 +3,8 @@ package com.gallosalocin.caloriecalculator.di
 import android.content.Context
 import androidx.room.Room
 import com.gallosalocin.caloriecalculator.data.database.CaloriesCalculatorDatabase
+import com.gallosalocin.caloriecalculator.data.repositories.*
 import com.gallosalocin.caloriecalculator.utils.Constants.CALORIES_CALCULATOR_DATABASE_NAME
-import com.gallosalocin.caloriecalculator.data.repositories.CurrentCategoryIdRepository
-import com.gallosalocin.caloriecalculator.data.repositories.CurrentCommonFoodNameRepository
-import com.gallosalocin.caloriecalculator.data.repositories.CurrentFoodIdRepository
-import com.gallosalocin.caloriecalculator.data.repositories.DataStoreRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,6 +25,10 @@ object AppModule {
     @Singleton
     @Provides
     fun provideCurrentCategoryRepository() = CurrentCategoryIdRepository()
+
+    @Singleton
+    @Provides
+    fun provideCurrentDishRepository() = CurrentDishIdRepository()
 
     @Singleton
     @Provides
@@ -52,6 +53,10 @@ object AppModule {
     @Singleton
     @Provides
     fun provideCategoryDao(database: CaloriesCalculatorDatabase) = database.getCategoryDao()
+
+    @Singleton
+    @Provides
+    fun provideDishDao(database: CaloriesCalculatorDatabase) = database.getDishDao()
 
     @Singleton
     @Provides

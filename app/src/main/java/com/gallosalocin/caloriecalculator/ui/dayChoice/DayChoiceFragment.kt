@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentDayBinding
+import com.gallosalocin.caloriecalculator.ui.addDish.AddDishFragment.Companion.isDish
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.dayTag
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.isBottomChoice
 import com.google.android.material.snackbar.Snackbar
@@ -28,6 +29,8 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
         setHasOptionsMenu(true)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         isBottomChoice = false
+        isDish = false
+        dayTag = 0
 
         binding.ivShowBottomSheet.setOnClickListener { findNavController().navigate(R.id.action_dayFragment_to_bottomSheetFragment) }
 

@@ -8,7 +8,7 @@ import com.gallosalocin.caloriecalculator.data.repositories.CurrentFoodIdReposit
 import com.gallosalocin.caloriecalculator.data.repositories.Repository
 import com.gallosalocin.caloriecalculator.models.Category
 import com.gallosalocin.caloriecalculator.models.Food
-import com.gallosalocin.caloriecalculator.models.FoodWithCategory
+import com.gallosalocin.caloriecalculator.models.FoodWithAllData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,7 +19,7 @@ class EditFoodViewModel @Inject constructor(
     private val currentFoodIdRepository: CurrentFoodIdRepository
 ) : ViewModel() {
 
-    fun getViewStateLiveData(): LiveData<FoodWithCategory> =
+    fun getViewStateLiveData(): LiveData<FoodWithAllData> =
         Transformations.switchMap(currentFoodIdRepository.getCurrentFoodIdLiveData()) { id ->
             repository.local.observeFoodWithId(id)
         }

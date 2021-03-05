@@ -2,12 +2,10 @@ package com.gallosalocin.caloriecalculator.data
 
 import androidx.lifecycle.LiveData
 import com.gallosalocin.caloriecalculator.data.database.CategoryDao
+import com.gallosalocin.caloriecalculator.data.database.DishDao
 import com.gallosalocin.caloriecalculator.data.database.FoodDao
 import com.gallosalocin.caloriecalculator.data.database.UserDao
-import com.gallosalocin.caloriecalculator.models.Category
-import com.gallosalocin.caloriecalculator.models.Food
-import com.gallosalocin.caloriecalculator.models.FoodWithCategory
-import com.gallosalocin.caloriecalculator.models.User
+import com.gallosalocin.caloriecalculator.models.*
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.dayTag
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.mealTag
 import javax.inject.Inject
@@ -15,6 +13,7 @@ import javax.inject.Inject
 class LocalDataSource @Inject constructor(
     private val foodDao: FoodDao,
     private val categoryDao: CategoryDao,
+    private val dishDao: DishDao,
     private val userDao: UserDao,
 ) {
 
@@ -39,7 +38,9 @@ class LocalDataSource @Inject constructor(
 
     fun observeDayDetail() = foodDao.getDayDetail(dayTag.toString())
 
-    fun observeFoodWithId(foodId: Int): LiveData<FoodWithCategory> = foodDao.getFoodWithId(foodId)
+    fun observeRecipeFoods(dishId: Int): LiveData<List<FoodWithAllData>> = foodDao.getRecipeFoods(dishId)
+
+    fun observeFoodWithId(foodId: Int): LiveData<FoodWithAllData> = foodDao.getFoodWithId(foodId)
 
 
     // Category
@@ -53,6 +54,21 @@ class LocalDataSource @Inject constructor(
     fun observeAllCategories() = categoryDao.getAllCategories()
 
     fun observeCategoryWithId(categoryId: Int): LiveData<Category> = categoryDao.getCategoryWithId(categoryId)
+
+
+    // Dish
+
+    suspend fun insertDish(dish: Dish) = dishDao.insertDish(dish)
+
+    suspend fun updateDish(dish: Dish) = dishDao.updateDish(dish)
+
+    suspend fun deleteDish(dish: Dish) = dishDao.deleteDish(dish)
+
+    fun observeAllDishes() = dishDao.getAllDishes()
+
+    fun observeNewDishId() = dishDao.getNewDishId()
+
+    fun observeDishWithId(dishId: Int): LiveData<Dish> = dishDao.getDishWithId(dishId)
 
 
     // User

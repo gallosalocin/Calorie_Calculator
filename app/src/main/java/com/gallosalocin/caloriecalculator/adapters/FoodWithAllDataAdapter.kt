@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gallosalocin.caloriecalculator.databinding.ItemFoodBinding
-import com.gallosalocin.caloriecalculator.models.FoodWithCategory
+import com.gallosalocin.caloriecalculator.models.FoodWithAllData
 
-class FoodAdapter(
-    private val onItemClickListener: (FoodWithCategory) -> Unit,
-    private val onItemLongClickListener: (FoodWithCategory) -> Unit,
-    ) : ListAdapter<FoodWithCategory, FoodAdapter.FoodViewHolder>(DiffCallback()) {
+class FoodWithAllDataAdapter(
+    private val onItemClickListener: (FoodWithAllData) -> Unit,
+    private val onItemLongClickListener: (FoodWithAllData) -> Unit,
+    ) : ListAdapter<FoodWithAllData, FoodWithAllDataAdapter.FoodViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
         val binding = ItemFoodBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,22 +26,15 @@ class FoodAdapter(
 
     class FoodViewHolder(private val binding: ItemFoodBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(foodWithCategory: FoodWithCategory,
-                 onItemClickListener: (FoodWithCategory) -> Unit,
-                 onItemLongClickListener: (FoodWithCategory) -> Unit,
+        fun bind(foodWithCategory: FoodWithAllData,
+                 onItemClickListener: (FoodWithAllData) -> Unit,
+                 onItemLongClickListener: (FoodWithAllData) -> Unit,
                  ) {
 
             binding.apply {
 
-                if (foodWithCategory.category.id == 2) {
-                    foodGram.visibility = View.INVISIBLE
-                    foodGramSymbol.visibility = View.INVISIBLE
-                } else {
-                    foodGram.visibility = View.VISIBLE
-                    foodGramSymbol.visibility = View.VISIBLE
-                    foodGram.text = foodWithCategory.food.weight.toString()
-                }
                 cvFood.setBackgroundColor(foodWithCategory.category.color)
+                foodGram.text = foodWithCategory.food.weight.toString()
                 foodName.text = foodWithCategory.food.name
                 foodCal.text = String.format("%.0f", foodWithCategory.food.calories)
                 foodFat.text = String.format("%.1f", foodWithCategory.food.fats)
@@ -60,11 +53,11 @@ class FoodAdapter(
         }
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<FoodWithCategory>() {
-        override fun areItemsTheSame(oldItem: FoodWithCategory, newItem: FoodWithCategory) =
+    class DiffCallback : DiffUtil.ItemCallback<FoodWithAllData>() {
+        override fun areItemsTheSame(oldItem: FoodWithAllData, newItem: FoodWithAllData) =
             oldItem.food.id == newItem.food.id
 
-        override fun areContentsTheSame(oldItem: FoodWithCategory, newItem: FoodWithCategory) =
+        override fun areContentsTheSame(oldItem: FoodWithAllData, newItem: FoodWithAllData) =
             oldItem.food.hashCode() == newItem.food.hashCode()
     }
 }

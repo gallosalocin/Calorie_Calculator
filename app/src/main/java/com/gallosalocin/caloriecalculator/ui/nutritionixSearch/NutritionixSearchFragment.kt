@@ -51,7 +51,6 @@ class NutritionixSearchFragment : Fragment(R.layout.fragment_nutritionix_search)
         if (isCache) {
             commonFoodsAdapter.submitList(commonFoodsList)
         } else {
-            commonFoodsList = ArrayList()
             displayErrorMessage(true, R.drawable.ic_search, getString(R.string.you_have_not_done_any_search_yet))
         }
 

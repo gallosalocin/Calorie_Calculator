@@ -121,6 +121,8 @@ dependencies {
 
     // Circle view
     implementation 'com.mikhaellopez:circleview:1.0.3'
+
+    
 }
 
 kapt{

@@ -2,11 +2,16 @@ package com.gallosalocin.caloriecalculator.ui.allFoods
 
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
 import android.view.*
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.SearchView
@@ -18,15 +23,18 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gallosalocin.caloriecalculator.R
-import com.gallosalocin.caloriecalculator.adapters.FoodAdapter
+import com.gallosalocin.caloriecalculator.adapters.FoodWithAllDataAdapter
 import com.gallosalocin.caloriecalculator.databinding.FragmentAllFoodsBinding
 import com.gallosalocin.caloriecalculator.models.Food
-import com.gallosalocin.caloriecalculator.models.FoodWithCategory
+import com.gallosalocin.caloriecalculator.models.FoodWithAllData
+import com.gallosalocin.caloriecalculator.ui.addDish.AddDishFragment.Companion.isDish
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.dayTag
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.isBottomChoice
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.mealTag
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Runnable
+import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -37,12 +45,13 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
     private val binding get() = _binding!!
 
     private val viewModel: AllFoodsViewModel by viewModels()
-    private lateinit var foodAdapter: FoodAdapter
+    private lateinit var foodAdapter: FoodWithAllDataAdapter
 
-    private lateinit var foodsList: List<FoodWithCategory>
-    private lateinit var foodWithCategory: FoodWithCategory
+    private lateinit var foodsList: List<FoodWithAllData>
+    private lateinit var foodWithCategory: FoodWithAllData
     private lateinit var selectedFood: Food
     private lateinit var searchView: SearchView
+    private var currentDishId: Int = -1
 
     private var currentQuery: String? = null
 
@@ -56,8 +65,11 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
         setHasOptionsMenu(true)
 
         foodsList = ArrayList()
-
         setupRecyclerView()
+
+        viewModel.getViewStateLiveData().observe(viewLifecycleOwner) {
+            currentDishId = it.id
+        }
 
         getAllFoodsLiveData()
         configItemTouchHelper()
@@ -77,10 +89,6 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null) {
-                    currentQuery = query
-                    filter(query)
-                }
                 return true
             }
 
@@ -95,7 +103,7 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
     }
 
     private fun filter(text: String) {
-        val filteredFood = ArrayList<FoodWithCategory>()
+        val filteredFood = ArrayList<FoodWithAllData>()
 
         foodsList.filterTo(filteredFood) {
             it.food.name.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))
@@ -128,9 +136,9 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
 
     /** Setup recyclerview */
     private fun setupRecyclerView() {
-        foodAdapter = FoodAdapter(
+        foodAdapter = FoodWithAllDataAdapter(
             onItemClickListener = {
-                setupWeightEditDialog(it.food)
+                displayWeightEditDialog(it.food)
             },
             onItemLongClickListener = {
                 viewModel.setCurrentFoodId(it.food.id)
@@ -152,7 +160,7 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
         }
     }
 
-    /** Setup Swipes */
+    /** Setup Swipe */
     private fun configItemTouchHelper() {
         if (!isBottomChoice) {
             val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
@@ -173,21 +181,35 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
 //                            viewModel.setCurrentFoodId(selectedFood.id)
 //                            findNavController().navigate(R.id.action_allFoodsFragment_to_foodDetailFragment)
 //                        } else {
-                            if (dayTag != 0) {
+                        when {
+                            !isDish && dayTag != 0 -> {
                                 val foodDuplicated = foodWithCategory.food
-                                foodDuplicated.id = System.currentTimeMillis().toInt()
+                                foodDuplicated.id = 0
                                 foodDuplicated.dayId = dayTag.toString()
                                 foodDuplicated.mealId = mealTag.toString()
                                 viewModel.insertFood(foodDuplicated)
                                 searchView.setQuery("", false)
                                 setupRecyclerView()
                                 foodAdapter.submitList(foodsList)
-                            } else {
+                            }
+                            isDish && dayTag == 0 -> {
+                                val foodDuplicated = foodWithCategory.food
+                                foodDuplicated.apply {
+                                    id = 0
+                                    dayId = "new"
+                                    dishId = currentDishId
+                                }
+                                viewModel.insertFood(foodDuplicated)
                                 searchView.setQuery("", false)
                                 setupRecyclerView()
                                 foodAdapter.submitList(foodsList)
                             }
-//                        }
+                            else -> {
+                                searchView.setQuery("", false)
+                                setupRecyclerView()
+                                foodAdapter.submitList(foodsList)
+                            }
+                        }
                     }
                 }
 
@@ -221,16 +243,16 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
 //                            swipeRightBackground.draw(canvas)
 //                            editIcon.draw(canvas)
 //                        } else {
-                            swipeLeftBackground.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
-                            addIcon.setBounds(
-                                itemView.right - addIconMargin - addIcon.intrinsicWidth,
-                                itemView.top + addIconMargin,
-                                itemView.right - addIconMargin,
-                                itemView.bottom - addIconMargin
-                            )
-                            swipeLeftBackground.draw(canvas)
-                            addIcon.draw(canvas)
-                        }
+                        swipeLeftBackground.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
+                        addIcon.setBounds(
+                            itemView.right - addIconMargin - addIcon.intrinsicWidth,
+                            itemView.top + addIconMargin,
+                            itemView.right - addIconMargin,
+                            itemView.bottom - addIconMargin
+                        )
+                        swipeLeftBackground.draw(canvas)
+                        addIcon.draw(canvas)
+                    }
 //                    }
                     super.onChildDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                 }
@@ -241,39 +263,45 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
         }
     }
 
-    /** Setup Alert Dialog to edit weight */
-    private fun setupWeightEditDialog(selectedFood: Food) {
+    /** Display Alert Dialog to edit weight */
+    private fun displayWeightEditDialog(selectedFood: Food) {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_weight_edit, null)
-
         val weightEdited = dialogView.findViewById<AppCompatEditText>(R.id.et_dialog_weight)
         weightEdited.apply {
             setText("${selectedFood.weight}")
             requestFocus()
             selectAll()
         }
+        val title = SpannableString(selectedFood.name)
+        title.setSpan(StyleSpan(Typeface.BOLD), 0, title.length, 0)
+        title.setSpan(RelativeSizeSpan(1.2F), 0, title.length, 0)
 
-
-        val dialog = AlertDialog.Builder(requireContext(), R.style.DialogTheme)
+        val alertDialog = MaterialAlertDialogBuilder(requireContext())
             .setView(dialogView)
-            .setTitle(selectedFood.name)
-            .setCancelable(false)
-            .setPositiveButton("Change") { dialoginterface, _ ->
-                dialoginterface.dismiss()
+            .setTitle(title)
+            .setPositiveButton(getString(R.string.ok), null)
+            .setNegativeButton(getString(R.string.cancel)) { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            .create()
+
+        configEnterButtonSoftKeyboard(selectedFood, weightEdited, alertDialog)
+        alertDialog.show()
+
+        val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        positiveButton.setOnClickListener {
+            if (weightEdited.text.toString() != "" && weightEdited.text.toString() != "0") {
+                alertDialog.dismiss()
                 updateFood(selectedFood, weightEdited)
                 searchView.setQuery("", false)
+            } else {
+                Toast.makeText(requireContext(), getString(R.string.error_fill_field_weight), Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton("Cancel") { dialogInterface, _ ->
-                dialogInterface.dismiss()
-                searchView.setQuery(currentQuery, true)
-            }.create()
+        }
 
-        dialog.show()
-
-        configEnterButtonSoftKeyboard(selectedFood, weightEdited, dialog)
-        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
-        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+        alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        positiveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
             .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
     }
 

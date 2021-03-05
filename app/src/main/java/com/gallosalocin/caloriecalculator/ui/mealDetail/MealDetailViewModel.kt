@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gallosalocin.caloriecalculator.data.repositories.Repository
 import com.gallosalocin.caloriecalculator.models.Food
-import com.gallosalocin.caloriecalculator.models.FoodWithCategory
+import com.gallosalocin.caloriecalculator.models.FoodWithAllData
 import com.gallosalocin.caloriecalculator.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,9 +18,9 @@ class MealDetailViewModel @Inject constructor(
 
     val getUser: LiveData<User> = repository.local.observeUser()
 
-    val getMealDetail: LiveData<List<FoodWithCategory>> = repository.local.observeMealDetail()
+    val getMealDetail: LiveData<List<FoodWithAllData>> = repository.local.observeMealDetail()
 
-    val getDayDetail: LiveData<List<FoodWithCategory>> = repository.local.observeDayDetail()
+    val getDayDetail: LiveData<List<FoodWithAllData>> = repository.local.observeDayDetail()
 
     fun deleteAllMealDetail() = viewModelScope.launch {
         repository.local.deleteAllMealDetail()

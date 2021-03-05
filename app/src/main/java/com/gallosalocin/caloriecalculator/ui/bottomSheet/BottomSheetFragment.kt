@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentBottomSheetBinding
+import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.dayTag
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.isBottomChoice
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -23,9 +24,9 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.ivBottomProfile.setOnClickListener {
+        binding.ivBottomFoods.setOnClickListener {
             isBottomChoice = true
-            findNavController().navigate(R.id.action_bottomSheetFragment_to_profileFragment)
+            findNavController().navigate(R.id.action_bottomSheetFragment_to_allFoodsFragment)
         }
 
         binding.ivBottomCategories.setOnClickListener {
@@ -33,9 +34,13 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             findNavController().navigate(R.id.action_bottomSheetFragment_to_allCategoriesFragment)
         }
 
-        binding.ivBottomFoods.setOnClickListener {
+        binding.ivBottomDishes.setOnClickListener {
+            findNavController().navigate(R.id.action_bottomSheetFragment_to_allDishesFragment)
+        }
+
+        binding.ivBottomProfile.setOnClickListener {
             isBottomChoice = true
-            findNavController().navigate(R.id.action_bottomSheetFragment_to_allFoodsFragment)
+            findNavController().navigate(R.id.action_bottomSheetFragment_to_profileFragment)
         }
 
         binding.ivBottomBackupRestore.setOnClickListener {

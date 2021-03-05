@@ -40,7 +40,7 @@
     <string name="toast_fill_fields">Συμπληρώστε όλα τα κενά</string>
     <string name="profile_saved">Το προφίλ αποθηκεύτηκε</string>
     <string name="title_alert_dialog_food">Διαγραφή φαγητού</string>
-    <string name="delete_alert_dialog_question">Είστε βέβαιοι ότι θέλετε να διαγράψετε το \'%1$s\' ;</string>
+    <string name="delete_alert_dialog_question">Είστε βέβαιοι ότι θέλετε να διαγράψετε το \«%1$s\» ;</string>
     <string name="yes_alert_dialog">Ναί</string>
     <string name="successfully_remove_food">Το φαγητό διαγράφηκε επιτυχώς : %1$s</string>
     <string name="undo_snackbar">Ακύρωση</string>
@@ -50,11 +50,12 @@
     <string name="carb_gram_symbol">Υδατάνθρακες (γρ)</string>
     <string name="prot_gram_symbol">Πρωτεΐνη (γρ)</string>
     <string name="error_fill_field">Συμπληρώστε το πεδίο</string>
+    <string name="error_fill_field_weight">Το βάρος δεν μπορεί να είναι κενό ή ίσο με 0</string>
     <string name="calculate">Υπολογίση</string>
     <string name="switch_calories_input_mode">Αλλάξτε τη λειτουργία εισαγωγής θερμίδων</string>
     <string name="search">Αναζήτηση</string>
     <string name="alert_dialog_delete_meal">Διαγραφή γεύματος</string>
-    <string name="alert_dialog_delete_all_message">Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το φαγητό ;</string>
+    <string name="alert_dialog_delete_all_message">Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το γεύμα ;</string>
     <string name="choose_a_category">Επιλέξτε μια κατηγορία</string>
     <string name="sort_by_category">Ταξινόμηση κατά κατηγορία</string>
     <string name="sort_by_name">Ταξινόμηση κατά όνομα</string>
@@ -82,7 +83,7 @@
     <string name="gram_symbol">γρ</string>
     <string name="centimeter">εκ.</string>
     <string name="kilogram">χγρ.</string>
-    <string name="recipes">Πιάτα</string>
+    <string name="dishes">Πιάτα</string>
     <string name="cannot_delete_this_category">Δεν μπορείτε να διαγράψετε αυτήν την κατηγορία !!!</string>
     <string name="press_back_again_to_exit">Πατήστε ξανά για έξοδο</string>
     <string name="macronutrient_ratio">Αναλογία μακροθρεπτικών συστατικών :</string>
@@ -100,5 +101,13 @@
     <string name="restore_database">Επαναφορά Βάση δεδομένων</string>
     <string name="nutritionix">Nutritionix</string>
     <string name="you_have_not_done_any_search_yet">Δεν έχετε κάνει ακόμα καμία αναζήτηση.</string>
+    <string name="dishes_list">Λίστα Πιάτων</string>
+    <string name="next">Επόμενο</string>
+    <string name="add_new_dish">Προσθήκη Νέου Πιάτου</string>
+    <string name="add_food">Προσθήκη Τροφίμων</string>
+    <string name="edit_dish">Επεξεργασία Πιάτου</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Ακύρωση</string>
+    <string name="do_you_want_to_change">Αλλαγή \«%1$s\» με : </string>
 
 </resources>

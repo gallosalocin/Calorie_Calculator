@@ -1,8 +1,12 @@
 package com.gallosalocin.caloriecalculator.ui.editCategory
 
-import android.app.AlertDialog
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -11,6 +15,7 @@ import com.gallosalocin.caloriecalculator.databinding.FragmentEditCategoryBindin
 import com.gallosalocin.caloriecalculator.models.Category
 import com.github.dhaval2404.colorpicker.ColorPickerDialog
 import com.github.dhaval2404.colorpicker.model.ColorShape
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,10 +40,10 @@ class EditCategoryFragment : Fragment(R.layout.fragment_edit_category) {
         setHasOptionsMenu(true)
 
         loadCategory()
-        setupColorPickerDialog()
+        displayColorPickerDialog()
     }
 
-    // Setup toolbar
+    /** Setup toolbar */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
@@ -51,7 +56,7 @@ class EditCategoryFragment : Fragment(R.layout.fragment_edit_category) {
         when (item.itemId) {
             R.id.tb_menu_save -> confirmAllInputs()
             R.id.tb_menu_delete -> {
-                if (currentCategory.id <= 8 ) {
+                if (currentCategory.id <= 7 ) {
                     Snackbar.make(requireView(), getString(R.string.cannot_delete_this_category), Snackbar.LENGTH_SHORT).show()
                 } else {
                     displayAlertDialogToDelete()
@@ -61,23 +66,37 @@ class EditCategoryFragment : Fragment(R.layout.fragment_edit_category) {
         return super.onOptionsItemSelected(item)
     }
 
-    // Display Alert Dialog to delete
+    /** Display Alert Dialog to delete */
     private fun displayAlertDialogToDelete() {
-        AlertDialog.Builder(requireContext(), R.style.DialogTheme)
-            .setCancelable(false)
-            .setTitle(getString(R.string.title_alert_dialog_category))
+        val title = SpannableString(getString(R.string.title_alert_dialog_category))
+        title.setSpan(StyleSpan(Typeface.BOLD), 0, title.length, 0)
+        title.setSpan(RelativeSizeSpan(1.2F), 0, title.length, 0)
+
+        val message = SpannableString(getString(R.string.delete_alert_dialog_question, currentCategory.name))
+        message.setSpan(RelativeSizeSpan(1.2F), 0, message.length, 0)
+
+        val alertDialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle(title)
             .setIcon(R.drawable.ic_delete_swipe_black)
-            .setMessage(getString(R.string.delete_alert_dialog_question, currentCategory.name))
+            .setMessage(message)
             .setPositiveButton(getString(R.string.yes_alert_dialog)) { _, _ ->
                 viewModel.deleteCategory(currentCategory)
                 findNavController().navigate(R.id.action_editCategoryFragment_to_allCategoriesFragment)
             }
             .setNegativeButton(getString(R.string.no_alert_dialog)) { dialogInterface, _ ->
                 dialogInterface.dismiss()
-            }.create().show()
+            }
+            .create()
+
+        alertDialog.show()
+
+        alertDialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE)
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
+        alertDialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE)
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
     }
 
-    // Load food
+    /** Load Category */
     private fun loadCategory() {
         viewModel.getViewStateLiveData().observe(viewLifecycleOwner) { category ->
             currentCategory = category
@@ -90,7 +109,7 @@ class EditCategoryFragment : Fragment(R.layout.fragment_edit_category) {
         }
     }
 
-    // Update Food
+    /** Update Category */
     private fun updateCategory() {
         val categoryUpdated = Category(
             id = currentCategory.id,
@@ -101,7 +120,7 @@ class EditCategoryFragment : Fragment(R.layout.fragment_edit_category) {
         findNavController().navigate(R.id.action_editCategoryFragment_to_allCategoriesFragment)
     }
 
-    // Validate All Inputs Methods
+    /** Validate All Inputs Methods */
     private fun confirmAllInputs() {
         if (binding.tvName.text.isNullOrEmpty()) {
             binding.tvName.error = "Fill the field"
@@ -114,8 +133,8 @@ class EditCategoryFragment : Fragment(R.layout.fragment_edit_category) {
         updateCategory()
     }
 
-    // Setup Color Picker Dialog
-    private fun setupColorPickerDialog() {
+    /** Display Color Picker Dialog */
+    private fun displayColorPickerDialog() {
         binding.btnColorPicker.setOnClickListener {
             ColorPickerDialog.Builder(requireContext())
                 .setColorShape(ColorShape.CIRCLE)

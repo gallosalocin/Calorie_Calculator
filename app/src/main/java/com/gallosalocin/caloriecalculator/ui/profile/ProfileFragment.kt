@@ -4,18 +4,15 @@ import android.os.Bundle
 import android.view.*
 import android.widget.EditText
 import android.widget.RadioButton
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentProfileBinding
-import com.gallosalocin.caloriecalculator.models.Food
 import com.gallosalocin.caloriecalculator.models.User
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.isBottomChoice
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -66,7 +63,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             }
         }
 
-        binding.ivProfileInfo.setOnClickListener { setupInfoMacrosRatioDialog() }
+        binding.ivProfileInfo.setOnClickListener { displayInfoMacrosRatioDialog() }
         switchCaloriesDayInputMode()
     }
 
@@ -343,15 +340,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
-    // Setup Alert Dialog Info Macros Ratio
-    private fun setupInfoMacrosRatioDialog() {
+    /** Display Alert Dialog Info Macros Ratio */
+    private fun displayInfoMacrosRatioDialog() {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_profile_info, null)
 
-        val dialog = AlertDialog.Builder(requireContext(), R.style.DialogTheme)
+        val alertDialog = MaterialAlertDialogBuilder(requireContext())
             .setView(dialogView)
             .create()
 
-        dialog.show()
+        alertDialog.show()
     }
 
     override fun onDestroyView() {

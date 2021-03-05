@@ -8,11 +8,22 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
-@Entity(tableName = "foods",
-        foreignKeys = [ForeignKey(entity = Category::class,
-                parentColumns = ["categories_id"],
-                childColumns = ["category_id"],
-                onDelete = ForeignKey.CASCADE)])
+@Entity(
+        tableName = "foods",
+        foreignKeys = [
+                ForeignKey(
+                        entity = Category::class,
+                        parentColumns = ["categories_id"],
+                        childColumns = ["category_id"],
+                        onDelete = ForeignKey.CASCADE
+                ),
+                ForeignKey(
+                        entity = Dish::class,
+                        parentColumns = ["dishes_id"],
+                        childColumns = ["dish_id"],
+                        onDelete = ForeignKey.CASCADE
+                )]
+)
 @Parcelize
 @Keep
 data class Food(
@@ -25,7 +36,9 @@ data class Food(
         var mealId: String = "0",
         val name: String,
         @ColumnInfo(name = "category_id")
-        val categoryId: Int,
+        var categoryId: Int,
+        @ColumnInfo(name = "dish_id")
+        var dishId: Int? = null,
         val weight: Int = 100,
         val calories: Float,
         val fats: Float,

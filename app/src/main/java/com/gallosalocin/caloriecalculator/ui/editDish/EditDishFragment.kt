@@ -1,4 +1,4 @@
-package com.gallosalocin.caloriecalculator.ui.mealDetail
+package com.gallosalocin.caloriecalculator.ui.editDish
 
 import android.graphics.Canvas
 import android.graphics.Color
@@ -24,31 +24,31 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.adapters.FoodWithAllDataAdapter
-import com.gallosalocin.caloriecalculator.databinding.FragmentMealDetailBinding
+import com.gallosalocin.caloriecalculator.databinding.FragmentEditDishBinding
+import com.gallosalocin.caloriecalculator.models.Dish
 import com.gallosalocin.caloriecalculator.models.Food
 import com.gallosalocin.caloriecalculator.models.FoodWithAllData
-import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.dayTag
-import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.mealTag
+import com.gallosalocin.caloriecalculator.ui.addDish.AddDishFragment.Companion.isDish
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
-class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
+class EditDishFragment : Fragment(R.layout.fragment_edit_dish) {
 
-    private var _binding: FragmentMealDetailBinding? = null
+    private var _binding: FragmentEditDishBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MealDetailViewModel by viewModels()
+    private val viewModel: EditDishViewModel by viewModels()
     private lateinit var foodAdapter: FoodWithAllDataAdapter
 
     private lateinit var foodWithAllData: FoodWithAllData
-    private lateinit var foodWithAllDataList: List<FoodWithAllData>
+    private lateinit var currentDish: Dish
+    private lateinit var currentRecipeFoodWithAllDataList: List<FoodWithAllData>
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentMealDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentEditDishBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -56,11 +56,11 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        foodWithAllDataList = ArrayList()
+        currentRecipeFoodWithAllDataList = ArrayList()
         setupRecyclerView()
-        showUserMacrosExpected()
 
-        getMealDetailLiveData()
+        getCurrentDish()
+        getCurrentDishListFood()
         configItemTouchHelper()
 
     }
@@ -75,32 +75,14 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.tb_menu_delete -> {
-                if (foodWithAllDataList.isEmpty())
-                    Snackbar.make(requireView(), getString(R.string.nothing_to_delete), Snackbar.LENGTH_SHORT).show()
-                else
-                    displayAlertDialogToDelete()
+            R.id.tb_menu_delete -> displayAlertDialogToDelete()
+            R.id.tb_menu_add -> {
+                isDish = true
+                viewModel.setCurrentDishId(currentDish.id)
+                findNavController().navigate(R.id.action_editDishFragment_to_allFoodsFragment)
             }
-            R.id.tb_menu_add -> findNavController().navigate(R.id.action_mealDetailFragment_to_allFoodsFragment)
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun toolbarChangeTitleMealName(dayTag: Int, mealTag: Int) {
-        val dayTagArray = arrayOf(
-            getString(R.string.monday_cap), getString(R.string.tuesday_cap), getString(R.string.wednesday_cap), getString(R.string.thursday_cap),
-            getString(R.string.friday_cap), getString(R.string.saturday_cap), getString(R.string.sunday_cap)
-        )
-        val mealTagArray = arrayOf(
-            getString(R.string.breakfast), getString(R.string.lunch), getString(R.string.dinner), getString(R.string.snack)
-        )
-
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = dayTagArray[dayTag - 1] + " / " + mealTagArray[mealTag - 1]
-    }
-    
-    override fun onStart() {
-        super.onStart()
-        toolbarChangeTitleMealName(dayTag, mealTag)
     }
 
     /** Setup recyclerview */
@@ -110,85 +92,35 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
                 displayWeightEditDialog(it.food)
             },
             onItemLongClickListener = {
-                Timber.d("onItemLongClickListener : Click")
+                Toast.makeText(requireContext(), "longClick : ${it.food}", Toast.LENGTH_SHORT).show()
             }
         )
 
-        binding.rvMealDetail.apply {
+        binding.rvFoodsDish.apply {
             adapter = foodAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
-    /** Display User Daily Macros Expected */
-    private fun showUserMacrosExpected() {
-        viewModel.getUser.observe(viewLifecycleOwner) {
-            binding.apply {
-                expectedDayCalTotal.text = it.dailyCalories.toInt().toString()
-                expectedDayFatTotal.text = it.fatResult.toString()
-                expectedDayCarbTotal.text = it.carbResult.toString()
-                expectedDayProtTotal.text = it.protResult.toString()
-            }
-            showDayDetailMacros()
+    /** Get current dish */
+    private fun getCurrentDish() {
+        viewModel.getDishLiveData().observe(viewLifecycleOwner) { dish ->
+            currentDish = dish
+            changeToolbarTitle()
         }
     }
 
-    /** Display User Daily Macros */
-    private fun showDayDetailMacros() {
-        viewModel.getDayDetail.observe(viewLifecycleOwner) { foodWithAllData ->
+    /** Get current dish list food */
+    private fun getCurrentDishListFood() {
+        viewModel.getDishFoodListLiveData().observe(viewLifecycleOwner) { foodWithAllDataList ->
+            currentRecipeFoodWithAllDataList = foodWithAllDataList
             binding.apply {
-                dayCalTotal.text = String.format("%.0f", foodWithAllData.sumByDouble { it.food.calories.toDouble() })
-                dayFatTotal.text = String.format("%.1f", foodWithAllData.sumByDouble { it.food.fats.toDouble() })
-                dayCarbTotal.text = String.format("%.1f", foodWithAllData.sumByDouble { it.food.carbs.toDouble() })
-                dayProtTotal.text = String.format("%.1f", foodWithAllData.sumByDouble { it.food.prots.toDouble() })
+                dishTotalCal.text = String.format("%.0f", currentRecipeFoodWithAllDataList.sumByDouble { it.food.calories.toDouble() })
+                dishTotalFat.text = String.format("%.1f", currentRecipeFoodWithAllDataList.sumByDouble { it.food.fats.toDouble() })
+                dishTotalCarb.text = String.format("%.1f", currentRecipeFoodWithAllDataList.sumByDouble { it.food.carbs.toDouble() })
+                dishTotalProt.text = String.format("%.1f", currentRecipeFoodWithAllDataList.sumByDouble { it.food.prots.toDouble() })
             }
-            checkIfDayMacrosBiggerExpectedDayMacros()
-        }
-    }
-
-    /** Get meal detail live data sorted by category & display Meal Macros */
-    private fun getMealDetailLiveData() {
-        viewModel.getMealDetail.observe(viewLifecycleOwner) { foodWithAllData ->
-            foodWithAllDataList = foodWithAllData
-            binding.apply {
-                mealCalTotal.text = String.format("%.0f", foodWithAllData.sumByDouble { it.food.calories.toDouble() })
-                mealFatTotal.text = String.format("%.1f", foodWithAllData.sumByDouble { it.food.fats.toDouble() })
-                mealCarbTotal.text = String.format("%.1f", foodWithAllData.sumByDouble { it.food.carbs.toDouble() })
-                mealProtTotal.text = String.format("%.1f", foodWithAllData.sumByDouble { it.food.prots.toDouble() })
-            }
-            foodAdapter.submitList(foodWithAllDataList)
-        }
-    }
-
-    /** Check if dayMacrosTotal are bigger than expectedDayMacrosTotal */
-    private fun checkIfDayMacrosBiggerExpectedDayMacros() {
-        if (binding.dayCalTotal.text.toString().toFloat()
-            > binding.expectedDayCalTotal.text.toString().toFloat()
-        ) {
-            binding.dayCalTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
-        } else {
-            binding.dayCalTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
-        }
-        if (binding.dayFatTotal.text.toString().replace(',', '.').toFloat()
-            > binding.expectedDayFatTotal.text.toString().toFloat()
-        ) {
-            binding.dayFatTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
-        } else {
-            binding.dayFatTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
-        }
-        if (binding.dayCarbTotal.text.toString().replace(',', '.').toFloat()
-            > binding.expectedDayCarbTotal.text.toString().toFloat()
-        ) {
-            binding.dayCarbTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
-        } else {
-            binding.dayCarbTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
-        }
-        if (binding.dayProtTotal.text.toString().replace(',', '.').toFloat()
-            > binding.expectedDayProtTotal.text.toString().toFloat()
-        ) {
-            binding.dayProtTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
-        } else {
-            binding.dayProtTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
+            foodAdapter.submitList(currentRecipeFoodWithAllDataList)
         }
     }
 
@@ -252,8 +184,38 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
             }
         }
         ItemTouchHelper(itemTouchHelperCallback).apply {
-            attachToRecyclerView(binding.rvMealDetail)
+            attachToRecyclerView(binding.rvFoodsDish)
         }
+    }
+
+    /** Display Alert Dialog to delete */
+    private fun displayAlertDialogToDelete() {
+        val title = SpannableString(getString(R.string.title_alert_dialog_dish))
+        title.setSpan(StyleSpan(Typeface.BOLD), 0, title.length, 0)
+        title.setSpan(RelativeSizeSpan(1.2F), 0, title.length, 0)
+
+        val message = SpannableString(getString(R.string.delete_alert_dialog_question, currentDish.name))
+        message.setSpan(RelativeSizeSpan(1.2F), 0, message.length, 0)
+
+        val alertDialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle(title)
+            .setIcon(R.drawable.ic_delete_swipe_black)
+            .setMessage(message)
+            .setPositiveButton(getString(R.string.yes_alert_dialog)) { _, _ ->
+                viewModel.deleteDish(currentDish)
+                findNavController().navigate(R.id.action_editDishFragment_to_allDishesFragment)
+            }
+            .setNegativeButton(getString(R.string.no_alert_dialog)) { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            .create()
+
+        alertDialog.show()
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
     }
 
     /** Display Alert Dialog to edit weight */
@@ -287,14 +249,14 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
                 alertDialog.dismiss()
                 updateFood(selectedFood, weightEdited)
                 setupRecyclerView()
-                getMealDetailLiveData()
+                getCurrentDishListFood()
             } else {
                 Toast.makeText(requireContext(), getString(R.string.error_fill_field_weight), Toast.LENGTH_SHORT).show()
             }
         }
 
         alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-            positiveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
+        positiveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
             .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
     }
@@ -306,6 +268,7 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
             id = selectedFood.id,
             name = selectedFood.name,
             categoryId = selectedFood.categoryId,
+            dishId = selectedFood.dishId,
             calories = ((newWeight.toFloat() / 100) * ((100 * selectedFood.calories) / selectedFood.weight)),
             fats = ((newWeight.toFloat() / 100) * ((100 * selectedFood.fats) / selectedFood.weight)),
             carbs = ((newWeight.toFloat() / 100) * ((100 * selectedFood.carbs) / selectedFood.weight)),
@@ -318,50 +281,23 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
         viewModel.updateFood(foodUpdated)
     }
 
-    /** Display Alert Dialog to delete all meal foods */
-    private fun displayAlertDialogToDelete() {
-        val title = SpannableString(getString(R.string.alert_dialog_delete_meal))
-        title.setSpan(StyleSpan(Typeface.BOLD), 0, title.length, 0)
-        title.setSpan(RelativeSizeSpan(1.2F), 0, title.length, 0)
-
-        val message = SpannableString(getString(R.string.alert_dialog_delete_all_message))
-        message.setSpan(RelativeSizeSpan(1.2F), 0, message.length, 0)
-
-        val alertDialog = MaterialAlertDialogBuilder(requireContext())
-            .setTitle(title)
-            .setIcon(R.drawable.ic_delete_swipe_black)
-            .setMessage(message)
-            .setPositiveButton(getString(R.string.yes_alert_dialog)) { dialoginterface, _ ->
-                dialoginterface.dismiss()
-                viewModel.deleteAllMealDetail()
-            }
-            .setNegativeButton(getString(R.string.cancel)) { dialogInterface, _ ->
-                dialogInterface.dismiss()
-            }
-            .create()
-
-        alertDialog.show()
-
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-            .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
-    }
-
-
-
     /** Press enter to update weight */
-    private fun configEnterButtonSoftKeyboard(selectedFood: Food, editText: AppCompatEditText, alertDialog: AlertDialog) {
+    private fun configEnterButtonSoftKeyboard(selectedFood: Food, editText: AppCompatEditText, alertDialog: androidx.appcompat.app.AlertDialog) {
         editText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 alertDialog.dismiss()
                 updateFood(selectedFood, editText)
                 setupRecyclerView()
-                getMealDetailLiveData()
+                getCurrentDishListFood()
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
         }
+    }
+
+    /** Change toolbar title */
+    private fun changeToolbarTitle() {
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = currentDish.name
     }
 
     override fun onDestroyView() {
