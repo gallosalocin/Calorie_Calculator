@@ -40,7 +40,6 @@ class AddDishFragment : Fragment(R.layout.fragment_add_category) {
     private lateinit var foodWithAllData: FoodWithAllData
     private lateinit var currentRecipeFoodWithAllDataList: List<FoodWithAllData>
     private lateinit var currentDish: Dish
-    private var isNewDish = false
 
     companion object {
         var isDish = false
@@ -54,7 +53,6 @@ class AddDishFragment : Fragment(R.layout.fragment_add_category) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        isNewDish = false
 
         currentRecipeFoodWithAllDataList = ArrayList()
         setupRecyclerView()
@@ -64,7 +62,6 @@ class AddDishFragment : Fragment(R.layout.fragment_add_category) {
 
         binding.btnAddFood.setOnClickListener {
             isDish = true
-            isNewDish = true
             findNavController().navigate(R.id.action_addDishFragment_to_allFoodsFragment)
         }
 
@@ -75,7 +72,7 @@ class AddDishFragment : Fragment(R.layout.fragment_add_category) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
-        menu.getItem(5).isVisible = true
+        menu.getItem(6).isVisible = true
 
     }
 
@@ -136,7 +133,6 @@ class AddDishFragment : Fragment(R.layout.fragment_add_category) {
             id = currentDish.id,
             name = binding.etAddName.text.toString(),
         )
-        isNewDish = true
         viewModel.updateDish(dish)
         findNavController().navigate(R.id.action_addDishFragment_to_allDishesFragment)
     }
@@ -224,7 +220,7 @@ class AddDishFragment : Fragment(R.layout.fragment_add_category) {
             }
             .create()
 
-        configEnterButtonSoftKeyboard(selectedFood, weightEdited, alertDialog)
+        weightEdited.configEnterButtonSoftKeyboard(selectedFood, alertDialog)
         alertDialog.show()
 
         val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
@@ -266,11 +262,11 @@ class AddDishFragment : Fragment(R.layout.fragment_add_category) {
     }
 
     /** Press enter to update weight */
-    private fun configEnterButtonSoftKeyboard(selectedFood: Food, editText: AppCompatEditText, alertDialog: AlertDialog) {
-        editText.setOnEditorActionListener { _, actionId, _ ->
+    private fun AppCompatEditText.configEnterButtonSoftKeyboard(selectedFood: Food, alertDialog: AlertDialog) {
+        this.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 alertDialog.dismiss()
-                updateFood(selectedFood, editText)
+                updateFood(selectedFood, this)
                 setupRecyclerView()
                 getCurrentDishListFood()
                 return@setOnEditorActionListener true
@@ -279,12 +275,9 @@ class AddDishFragment : Fragment(R.layout.fragment_add_category) {
         }
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        if (!isNewDish) {
-            viewModel.deleteDish(currentDish)
-        }
     }
-
 }

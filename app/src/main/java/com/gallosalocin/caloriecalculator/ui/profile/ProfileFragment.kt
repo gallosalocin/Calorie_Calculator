@@ -11,10 +11,12 @@ import androidx.navigation.fragment.findNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentProfileBinding
 import com.gallosalocin.caloriecalculator.models.User
-import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.isBottomChoice
+import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.globalChoices
+import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_BOTTOM_PROFILE
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -41,13 +43,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
+        Timber.d(globalChoices)
+
         viewModel.readFromDataStore.observe(viewLifecycleOwner) {
             isFirstAppOpen = it
 
             if (isFirstAppOpen) {
                 (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
             } else {
-                if (isBottomChoice) {
+                if (globalChoices == GLOBAL_CHOICE_BOTTOM_PROFILE) {
                     (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
                     viewModel.getUser.observe(viewLifecycleOwner) { user ->
@@ -72,7 +76,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
         menu.getItem(0).isVisible = true
-        menu.getItem(5).isVisible = true
+        menu.getItem(6).isVisible = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

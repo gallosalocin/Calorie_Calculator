@@ -40,7 +40,7 @@ class AddCategoryFragment : Fragment(R.layout.fragment_add_category) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
-        menu.getItem(5).isVisible = true
+        menu.getItem(6).isVisible = true
 
     }
 

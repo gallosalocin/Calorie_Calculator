@@ -109,5 +109,6 @@
     <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
     <string name="do_you_want_to_change">Changer \«%1$s\» avec :</string>
+    <string name="add_dish">Ajouter Plat</string>
 
 </resources>

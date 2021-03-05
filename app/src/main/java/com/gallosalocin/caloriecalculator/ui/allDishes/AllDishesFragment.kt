@@ -1,9 +1,14 @@
 package com.gallosalocin.caloriecalculator.ui.allDishes
 
+import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.SpannableString
-import android.text.style.*
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -12,13 +17,20 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.adapters.DishAdapter
 import com.gallosalocin.caloriecalculator.databinding.FragmentAllDishesBinding
 import com.gallosalocin.caloriecalculator.models.Dish
+import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity
+import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.globalChoices
+import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_BOTTOM_DISHES
+import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_NOTHING
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
@@ -28,6 +40,8 @@ class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
 
     private val viewModel: AllDishesViewModel by viewModels()
     private lateinit var dishAdapter: DishAdapter
+    private lateinit var currentDish: Dish
+    private lateinit var currentDishesList: List<Dish>
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -39,15 +53,18 @@ class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
+        Timber.d(globalChoices)
+
         setupRecyclerView()
         getAllDishesLiveData()
+        configItemTouchHelper()
     }
 
     /** Setup toolbar */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
-        menu.getItem(3).isVisible = true
+        menu.getItem(3).isVisible = globalChoices != GLOBAL_CHOICE_NOTHING
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -83,7 +100,13 @@ class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
     /** Get all dishes live data */
     private fun getAllDishesLiveData() {
         viewModel.getAllDishes.observe(viewLifecycleOwner) { dishesList ->
-            dishAdapter.submitList(dishesList)
+            currentDishesList = dishesList
+            for (dish in currentDishesList) {
+                if (dish.name == "") {
+                    viewModel.deleteDish(dish)
+                }
+            }
+            dishAdapter.submitList(currentDishesList)
         }
     }
 
@@ -98,7 +121,6 @@ class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
 
         val alertDialog = MaterialAlertDialogBuilder(requireContext())
             .setView(dialogView)
-            .setCancelable(false)
             .setTitle(title)
             .setPositiveButton(getString(R.string.ok), null)
             .setNegativeButton(getString(R.string.cancel)) { dialoginterface, _ ->
@@ -132,6 +154,76 @@ class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
             name = nameEdited.text.toString(),
         )
         viewModel.updateDish(dishUpdated)
+    }
+
+    /** Setup Swipe */
+    private fun configItemTouchHelper() {
+        when (globalChoices) {
+            GLOBAL_CHOICE_NOTHING -> {
+                val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+                    0,
+                    ItemTouchHelper.LEFT
+                ) {
+                    override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                        return false
+                    }
+
+                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                        val position = viewHolder.adapterPosition
+                        currentDish = dishAdapter.currentList[position]
+
+                        viewModel.setCurrentDishId(currentDish.id)
+                        viewModel.getDishFoodListLiveData().observe(viewLifecycleOwner) { foodWithAllDataList ->
+                            for (foodWithAllData in foodWithAllDataList) {
+                                val foodDuplicated = foodWithAllData.food
+                                foodDuplicated.apply {
+                                    id = 0
+                                    dayId = MainActivity.dayTag.toString()
+                                    mealId = MainActivity.mealTag.toString()
+                                    dishId = null
+                                }
+                                viewModel.insertFood(foodDuplicated)
+                            }
+                            findNavController().navigate(R.id.action_allDishesFragment_to_mealDetailFragment)
+                        }
+                    }
+
+                    override fun onChildDraw(
+                        canvas: Canvas,
+                        recyclerView: RecyclerView,
+                        viewHolder: RecyclerView.ViewHolder,
+                        dX: Float,
+                        dY: Float,
+                        actionState: Int,
+                        isCurrentlyActive: Boolean
+                    ) {
+                        val itemView = viewHolder.itemView
+                        val addIcon: Drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_add_swipe)!!
+                        val swipeLeftBackground = ColorDrawable(Color.parseColor("#00CC00"))
+                        val addIconMargin = (itemView.height - addIcon.intrinsicHeight) / 2
+
+                        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+
+                            swipeLeftBackground.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
+                            addIcon.setBounds(
+                                itemView.right - addIconMargin - addIcon.intrinsicWidth,
+                                itemView.top + addIconMargin,
+                                itemView.right - addIconMargin,
+                                itemView.bottom - addIconMargin
+                            )
+                            swipeLeftBackground.draw(canvas)
+                            addIcon.draw(canvas)
+                        }
+                        super.onChildDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                    }
+                }
+                ItemTouchHelper(itemTouchHelperCallback).apply {
+                    attachToRecyclerView(binding.rvAllDishes)
+                }
+            }
+
+            GLOBAL_CHOICE_BOTTOM_DISHES -> Timber.d("generalChoices == GENERAL_CHOICE_BOTTOM_DISHES = No swipe available")
+        }
     }
 
     override fun onDestroyView() {

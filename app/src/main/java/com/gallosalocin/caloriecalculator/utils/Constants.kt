@@ -4,6 +4,14 @@ import com.gallosalocin.caloriecalculator.BuildConfig
 
 object Constants {
 
+    /** generalChoices */
+    const val GLOBAL_CHOICE_NOTHING = "GLOBAL_CHOICE_NOTHING"
+    const val GLOBAL_CHOICE_BOTTOM = "GLOBAL_CHOICE_BOTTOM"
+    const val GLOBAL_CHOICE_BOTTOM_DISHES = "GLOBAL_CHOICE_BOTTOM_DISHES"
+    const val GLOBAL_CHOICE_BOTTOM_PROFILE = "GLOBAL_CHOICE_BOTTOM_PROFILE"
+    const val GLOBAL_CHOICE_BOTTOM_FOODS = "GLOBAL_CHOICE_BOTTOM_FOODS"
+
+    /** Database */
     const val CALORIES_CALCULATOR_DATABASE_NAME = "calories_calculator_db"
 
     /** Preferences */

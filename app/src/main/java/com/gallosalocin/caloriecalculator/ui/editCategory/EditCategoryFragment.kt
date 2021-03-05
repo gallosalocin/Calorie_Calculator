@@ -48,7 +48,7 @@ class EditCategoryFragment : Fragment(R.layout.fragment_edit_category) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
         menu.getItem(5).isVisible = true
-        menu.getItem(4).isVisible = true
+        menu.getItem(6).isVisible = true
 
     }
 
@@ -139,7 +139,7 @@ class EditCategoryFragment : Fragment(R.layout.fragment_edit_category) {
             ColorPickerDialog.Builder(requireContext())
                 .setColorShape(ColorShape.CIRCLE)
                 .setDefaultColor(currentCategory.color)
-                .setColorListener { color, colorHex ->
+                .setColorListener { color, _ ->
                     binding.btnColorPicker.apply {
                         setBackgroundColor(color)
                         categoryColor = color

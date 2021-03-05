@@ -92,6 +92,9 @@
             app:exitAnim="@anim/exit_to_left"
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/exit_to_right" />
+        <action
+            android:id="@+id/action_mealDetailFragment_to_allDishesFragment"
+            app:destination="@id/allDishesFragment" />
     </fragment>
     <fragment
         android:id="@+id/editFoodFragment"
@@ -198,6 +201,9 @@
         <action
             android:id="@+id/action_allDishesFragment_to_editDishFragment"
             app:destination="@id/editDishFragment" />
+        <action
+            android:id="@+id/action_allDishesFragment_to_mealDetailFragment"
+            app:destination="@id/mealDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/addDishFragment"

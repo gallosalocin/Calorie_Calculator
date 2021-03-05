@@ -70,7 +70,7 @@ class EditDishFragment : Fragment(R.layout.fragment_edit_dish) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
         menu.getItem(3).isVisible = true
-        menu.getItem(4).isVisible = true
+        menu.getItem(5).isVisible = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -240,7 +240,7 @@ class EditDishFragment : Fragment(R.layout.fragment_edit_dish) {
             }
             .create()
 
-        configEnterButtonSoftKeyboard(selectedFood, weightEdited, alertDialog)
+        weightEdited.configEnterButtonSoftKeyboard(selectedFood, alertDialog)
         alertDialog.show()
 
         val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
@@ -282,11 +282,11 @@ class EditDishFragment : Fragment(R.layout.fragment_edit_dish) {
     }
 
     /** Press enter to update weight */
-    private fun configEnterButtonSoftKeyboard(selectedFood: Food, editText: AppCompatEditText, alertDialog: androidx.appcompat.app.AlertDialog) {
-        editText.setOnEditorActionListener { _, actionId, _ ->
+    private fun AppCompatEditText.configEnterButtonSoftKeyboard(selectedFood: Food, alertDialog: AlertDialog) {
+        this.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 alertDialog.dismiss()
-                updateFood(selectedFood, editText)
+                updateFood(selectedFood, this)
                 setupRecyclerView()
                 getCurrentDishListFood()
                 return@setOnEditorActionListener true

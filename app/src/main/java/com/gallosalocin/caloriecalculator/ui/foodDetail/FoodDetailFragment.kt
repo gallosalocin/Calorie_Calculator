@@ -44,7 +44,7 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
         menu.getItem(1).isVisible = true
-        menu.getItem(4).isVisible = true
+        menu.getItem(5).isVisible = true
 
     }
 

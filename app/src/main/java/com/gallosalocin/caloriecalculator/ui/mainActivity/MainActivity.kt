@@ -9,6 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.ActivityMainBinding
+import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_NOTHING
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var dayTag = 0
         var mealTag = 0
-        var isBottomChoice = false
+        var globalChoices = GLOBAL_CHOICE_NOTHING
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

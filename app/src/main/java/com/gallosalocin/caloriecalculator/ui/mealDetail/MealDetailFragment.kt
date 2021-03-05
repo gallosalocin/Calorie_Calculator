@@ -71,6 +71,7 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
         inflater.inflate(R.menu.toolbar, menu)
         menu.getItem(3).isVisible = true
         menu.getItem(4).isVisible = true
+        menu.getItem(5).isVisible = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -82,6 +83,7 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
                     displayAlertDialogToDelete()
             }
             R.id.tb_menu_add -> findNavController().navigate(R.id.action_mealDetailFragment_to_allFoodsFragment)
+            R.id.tb_menu_add_dish -> findNavController().navigate(R.id.action_mealDetailFragment_to_allDishesFragment)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -278,7 +280,7 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
             }
             .create()
 
-        configEnterButtonSoftKeyboard(selectedFood, weightEdited, alertDialog)
+        weightEdited.configEnterButtonSoftKeyboard(selectedFood, alertDialog)
         alertDialog.show()
 
         val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
@@ -348,14 +350,12 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
             .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
     }
 
-
-
     /** Press enter to update weight */
-    private fun configEnterButtonSoftKeyboard(selectedFood: Food, editText: AppCompatEditText, alertDialog: AlertDialog) {
-        editText.setOnEditorActionListener { _, actionId, _ ->
+    private fun AppCompatEditText.configEnterButtonSoftKeyboard(selectedFood: Food, alertDialog: AlertDialog) {
+        this.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 alertDialog.dismiss()
-                updateFood(selectedFood, editText)
+                updateFood(selectedFood, this)
                 setupRecyclerView()
                 getMealDetailLiveData()
                 return@setOnEditorActionListener true

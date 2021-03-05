@@ -20,10 +20,6 @@ class EditDishViewModel @Inject constructor(
     private val currentDishIdRepository: CurrentDishIdRepository,
 ) : ViewModel() {
 
-    fun updateDish(dish: Dish) = viewModelScope.launch {
-        repository.local.updateDish(dish)
-    }
-
     fun deleteDish(dish: Dish) = viewModelScope.launch {
         repository.local.deleteDish(dish)
     }

@@ -97,7 +97,7 @@ class NutritionixDetailFragment : Fragment(R.layout.fragment_nutritionix_detail)
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
-        menu.getItem(5).isVisible = true
+        menu.getItem(6).isVisible = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

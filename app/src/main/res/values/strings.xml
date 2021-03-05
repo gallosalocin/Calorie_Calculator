@@ -113,5 +113,6 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="do_you_want_to_change">Change \«%1$s\» with :</string>
+    <string name="add_dish">Add Dish</string>
 
 </resources>
