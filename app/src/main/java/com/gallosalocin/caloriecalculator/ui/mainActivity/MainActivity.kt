@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var dayTag = 0
         var mealTag = 0
-        var globalChoices = GLOBAL_CHOICE_NOTHING
+        var globalChoice = GLOBAL_CHOICE_NOTHING
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

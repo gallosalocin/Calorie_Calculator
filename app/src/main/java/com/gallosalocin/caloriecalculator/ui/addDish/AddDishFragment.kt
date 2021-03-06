@@ -41,10 +41,6 @@ class AddDishFragment : Fragment(R.layout.fragment_add_category) {
     private lateinit var currentRecipeFoodWithAllDataList: List<FoodWithAllData>
     private lateinit var currentDish: Dish
 
-    companion object {
-        var isDish = false
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAddDishBinding.inflate(inflater, container, false)
         return binding.root
@@ -60,10 +56,7 @@ class AddDishFragment : Fragment(R.layout.fragment_add_category) {
         getCurrentDishId()
         getCurrentDishListFood()
 
-        binding.btnAddFood.setOnClickListener {
-            isDish = true
-            findNavController().navigate(R.id.action_addDishFragment_to_allFoodsFragment)
-        }
+        binding.btnAddFood.setOnClickListener { findNavController().navigate(R.id.action_addDishFragment_to_allFoodsFragment) }
 
         configItemTouchHelper()
     }

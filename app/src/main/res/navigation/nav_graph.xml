@@ -203,7 +203,9 @@
             app:destination="@id/editDishFragment" />
         <action
             android:id="@+id/action_allDishesFragment_to_mealDetailFragment"
-            app:destination="@id/mealDetailFragment" />
+            app:destination="@id/mealDetailFragment"
+            app:popUpTo="@id/mealDetailFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/addDishFragment"

@@ -8,18 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentDayBinding
-import com.gallosalocin.caloriecalculator.ui.addDish.AddDishFragment.Companion.isDish
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.dayTag
-import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.globalChoices
+import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.globalChoice
 import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_NOTHING
 import com.google.android.material.snackbar.Snackbar
-import timber.log.Timber
 
 class DayChoiceFragment : Fragment(R.layout.fragment_day) {
 
     private var _binding: FragmentDayBinding? = null
     private val binding get() = _binding!!
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentDayBinding.inflate(inflater, container, false)
@@ -30,11 +27,8 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        globalChoices = GLOBAL_CHOICE_NOTHING
 
-        Timber.d(globalChoices)
-
-        isDish = false
+        globalChoice = GLOBAL_CHOICE_NOTHING
         dayTag = 0
 
         binding.ivShowBottomSheet.setOnClickListener { findNavController().navigate(R.id.action_dayFragment_to_bottomSheetFragment) }
@@ -43,7 +37,7 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
         dayChoice()
     }
 
-    // Press back twice to quit app
+    /** Press back twice to quit app */
     private fun pressBackTwiceToQuit() {
         var backPressedTime: Long = 0
         val backSnackBar = Snackbar.make(requireView(), getString(R.string.press_back_again_to_exit), Snackbar.LENGTH_SHORT)
@@ -61,7 +55,7 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
         })
     }
 
-    // Setup toolbar
+    /** Setup toolbar */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)

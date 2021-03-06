@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentProfileBinding
 import com.gallosalocin.caloriecalculator.models.User
-import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.globalChoices
+import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.globalChoice
 import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_BOTTOM_PROFILE
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -43,15 +43,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        Timber.d(globalChoices)
-
         viewModel.readFromDataStore.observe(viewLifecycleOwner) {
             isFirstAppOpen = it
 
             if (isFirstAppOpen) {
                 (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
             } else {
-                if (globalChoices == GLOBAL_CHOICE_BOTTOM_PROFILE) {
+                if (globalChoice == GLOBAL_CHOICE_BOTTOM_PROFILE) {
                     (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
                     viewModel.getUser.observe(viewLifecycleOwner) { user ->

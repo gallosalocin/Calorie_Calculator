@@ -49,7 +49,6 @@ class EditCategoryFragment : Fragment(R.layout.fragment_edit_category) {
         inflater.inflate(R.menu.toolbar, menu)
         menu.getItem(5).isVisible = true
         menu.getItem(6).isVisible = true
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

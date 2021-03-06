@@ -28,7 +28,6 @@ import com.gallosalocin.caloriecalculator.databinding.FragmentEditDishBinding
 import com.gallosalocin.caloriecalculator.models.Dish
 import com.gallosalocin.caloriecalculator.models.Food
 import com.gallosalocin.caloriecalculator.models.FoodWithAllData
-import com.gallosalocin.caloriecalculator.ui.addDish.AddDishFragment.Companion.isDish
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -77,7 +76,6 @@ class EditDishFragment : Fragment(R.layout.fragment_edit_dish) {
         when (item.itemId) {
             R.id.tb_menu_delete -> displayAlertDialogToDelete()
             R.id.tb_menu_add -> {
-                isDish = true
                 viewModel.setCurrentDishId(currentDish.id)
                 findNavController().navigate(R.id.action_editDishFragment_to_allFoodsFragment)
             }

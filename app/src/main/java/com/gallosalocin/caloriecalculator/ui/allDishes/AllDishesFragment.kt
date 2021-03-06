@@ -25,7 +25,7 @@ import com.gallosalocin.caloriecalculator.adapters.DishAdapter
 import com.gallosalocin.caloriecalculator.databinding.FragmentAllDishesBinding
 import com.gallosalocin.caloriecalculator.models.Dish
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity
-import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.globalChoices
+import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.globalChoice
 import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_BOTTOM_DISHES
 import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_NOTHING
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -53,8 +53,6 @@ class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        Timber.d(globalChoices)
-
         setupRecyclerView()
         getAllDishesLiveData()
         configItemTouchHelper()
@@ -64,7 +62,7 @@ class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
-        menu.getItem(3).isVisible = globalChoices != GLOBAL_CHOICE_NOTHING
+        menu.getItem(3).isVisible = globalChoice != GLOBAL_CHOICE_NOTHING
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -158,7 +156,7 @@ class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
 
     /** Setup Swipe */
     private fun configItemTouchHelper() {
-        when (globalChoices) {
+        when (globalChoice) {
             GLOBAL_CHOICE_NOTHING -> {
                 val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
                     0,

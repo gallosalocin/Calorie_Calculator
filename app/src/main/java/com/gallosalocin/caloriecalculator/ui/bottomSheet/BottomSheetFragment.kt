@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentBottomSheetBinding
-import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.globalChoices
+import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.globalChoice
 import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_BOTTOM
 import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_BOTTOM_DISHES
 import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_BOTTOM_FOODS
@@ -28,22 +28,22 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.ivBottomFoods.setOnClickListener {
-            globalChoices = GLOBAL_CHOICE_BOTTOM_FOODS
+            globalChoice = GLOBAL_CHOICE_BOTTOM_FOODS
             findNavController().navigate(R.id.action_bottomSheetFragment_to_allFoodsFragment)
         }
 
         binding.ivBottomCategories.setOnClickListener {
-            globalChoices = GLOBAL_CHOICE_BOTTOM
+            globalChoice = GLOBAL_CHOICE_BOTTOM
             findNavController().navigate(R.id.action_bottomSheetFragment_to_allCategoriesFragment)
         }
 
         binding.ivBottomDishes.setOnClickListener {
-            globalChoices = GLOBAL_CHOICE_BOTTOM_DISHES
+            globalChoice = GLOBAL_CHOICE_BOTTOM_DISHES
             findNavController().navigate(R.id.action_bottomSheetFragment_to_allDishesFragment)
         }
 
         binding.ivBottomProfile.setOnClickListener {
-            globalChoices = GLOBAL_CHOICE_BOTTOM_PROFILE
+            globalChoice = GLOBAL_CHOICE_BOTTOM_PROFILE
             findNavController().navigate(R.id.action_bottomSheetFragment_to_profileFragment)
         }
 

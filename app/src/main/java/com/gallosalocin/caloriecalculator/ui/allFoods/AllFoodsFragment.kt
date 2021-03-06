@@ -28,7 +28,7 @@ import com.gallosalocin.caloriecalculator.databinding.FragmentAllFoodsBinding
 import com.gallosalocin.caloriecalculator.models.Food
 import com.gallosalocin.caloriecalculator.models.FoodWithAllData
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.dayTag
-import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.globalChoices
+import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.globalChoice
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.mealTag
 import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_BOTTOM_DISHES
 import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_BOTTOM_FOODS
@@ -65,12 +65,10 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        Timber.d(globalChoices)
-
         foodsList = ArrayList()
         setupRecyclerView()
 
-        if (globalChoices == GLOBAL_CHOICE_BOTTOM_DISHES) {
+        if (globalChoice == GLOBAL_CHOICE_BOTTOM_DISHES) {
             viewModel.getViewStateLiveData().observe(viewLifecycleOwner) {
                 currentDishId = it.id
             }
@@ -108,7 +106,7 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
     }
 
     private fun filter(text: String) {
-        val filteredFood = ArrayList<FoodWithAllData>()
+        val filteredFood: ArrayList<FoodWithAllData> = ArrayList()
 
         foodsList.filterTo(filteredFood) {
             it.food.name.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))
@@ -243,7 +241,7 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
 
     /** Setup Swipes */
     private fun configItemTouchHelper() {
-        when(globalChoices) {
+        when(globalChoice) {
             GLOBAL_CHOICE_NOTHING -> {
                 val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
                     0,
