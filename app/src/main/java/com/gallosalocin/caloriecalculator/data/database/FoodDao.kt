@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.gallosalocin.caloriecalculator.models.Food
 import com.gallosalocin.caloriecalculator.models.FoodWithAllData
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_NO_CHOICE
 
 
 @Dao
@@ -23,7 +24,7 @@ interface FoodDao {
     suspend fun deleteAllMealDetail(dayId: String, mealId: String)
 
     @Transaction
-    @Query("SELECT * FROM foods WHERE day_id LIKE '0' ORDER BY lower(name)")
+    @Query("SELECT * FROM foods WHERE day_id LIKE '$DAY_TAG_NO_CHOICE' ORDER BY lower(name)")
     fun getAllFoods(): LiveData<List<FoodWithAllData>>
 
     @Transaction

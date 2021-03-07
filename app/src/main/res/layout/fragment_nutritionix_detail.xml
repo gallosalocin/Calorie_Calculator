@@ -36,6 +36,7 @@
         android:ellipsize="end"
         android:inputType="textCapSentences"
         android:maxLines="1"
+        android:selectAllOnFocus="true"
         android:textColor="@color/grey_700"
         android:textSize="20sp"
         android:textStyle="bold"

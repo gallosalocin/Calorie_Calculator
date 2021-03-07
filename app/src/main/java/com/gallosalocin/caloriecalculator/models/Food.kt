@@ -6,6 +6,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_NO_CHOICE
+import com.gallosalocin.caloriecalculator.utils.Constants.MEAL_TAG_NO_CHOICE
 import kotlinx.parcelize.Parcelize
 
 @Entity(
@@ -31,9 +33,9 @@ data class Food(
         @ColumnInfo(name = "foods_id")
         var id: Int = 0,
         @ColumnInfo(name = "day_id")
-        var dayId: String = "0",
+        var dayId: String = DAY_TAG_NO_CHOICE,
         @ColumnInfo(name = "meal_id")
-        var mealId: String = "0",
+        var mealId: String = MEAL_TAG_NO_CHOICE,
         val name: String,
         @ColumnInfo(name = "category_id")
         var categoryId: Int,

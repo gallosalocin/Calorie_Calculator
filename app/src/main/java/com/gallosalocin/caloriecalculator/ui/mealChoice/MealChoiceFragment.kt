@@ -11,6 +11,17 @@ import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentMealChoiceBinding
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.dayTag
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.mealTag
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_FRIDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_MONDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_SATURDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_SUNDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_THURSDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_TUESDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_WEDNESDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.MEAL_TAG_BREAKFAST
+import com.gallosalocin.caloriecalculator.utils.Constants.MEAL_TAG_DINNER
+import com.gallosalocin.caloriecalculator.utils.Constants.MEAL_TAG_LUNCH
+import com.gallosalocin.caloriecalculator.utils.Constants.MEAL_TAG_SNACK
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -73,25 +84,29 @@ class MealChoiceFragment : Fragment(R.layout.fragment_meal_choice) {
     // Check if dayMacrosTotal are bigger than expectedDayMacrosTotal
     private fun checkIfDayMacrosBiggerExpectedDayMacros() {
         if (binding.dayCalTotal.text.toString().toFloat()
-            > binding.expectedDayCalTotal.text.toString().toFloat()) {
+            > binding.expectedDayCalTotal.text.toString().toFloat()
+        ) {
             binding.dayCalTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
         } else {
             binding.dayCalTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
         }
         if (binding.dayFatTotal.text.toString().replace(',', '.').toFloat()
-            > binding.expectedDayFatTotal.text.toString().toFloat()) {
+            > binding.expectedDayFatTotal.text.toString().toFloat()
+        ) {
             binding.dayFatTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
         } else {
             binding.dayFatTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
         }
         if (binding.dayCarbTotal.text.toString().replace(',', '.').toFloat()
-            > binding.expectedDayCarbTotal.text.toString().toFloat()) {
+            > binding.expectedDayCarbTotal.text.toString().toFloat()
+        ) {
             binding.dayCarbTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
         } else {
             binding.dayCarbTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
         }
         if (binding.dayProtTotal.text.toString().replace(',', '.').toFloat()
-            > binding.expectedDayProtTotal.text.toString().toFloat()) {
+            > binding.expectedDayProtTotal.text.toString().toFloat()
+        ) {
             binding.dayProtTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_700))
         } else {
             binding.dayProtTotal.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
@@ -154,33 +169,39 @@ class MealChoiceFragment : Fragment(R.layout.fragment_meal_choice) {
 
     private fun mealChoice() {
         binding.cvBreakfast.setOnClickListener {
-            mealTag = 1
+            mealTag = MEAL_TAG_BREAKFAST
             findNavController().navigate(R.id.action_mealFragment_to_mealListFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.cvLunch.setOnClickListener {
-            mealTag = 2
+            mealTag = MEAL_TAG_LUNCH
             findNavController().navigate(R.id.action_mealFragment_to_mealListFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.cvDinner.setOnClickListener {
-            mealTag = 3
+            mealTag = MEAL_TAG_DINNER
             findNavController().navigate(R.id.action_mealFragment_to_mealListFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.cvSnack.setOnClickListener {
-            mealTag = 4
+            mealTag = MEAL_TAG_SNACK
             findNavController().navigate(R.id.action_mealFragment_to_mealListFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
     }
 
-    private fun toolbarChangeTitleNameDay(dayTag: Int) {
-        val dayTagArray = arrayOf(
-                getString(R.string.monday_cap), getString(R.string.tuesday_cap), getString(R.string.wednesday_cap), getString(R.string.thursday_cap),
-                getString(R.string.friday_cap), getString(R.string.saturday_cap), getString(R.string.sunday_cap)
-        )
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = dayTagArray[dayTag - 1]
+    private fun toolbarChangeTitleNameDay(dayTag: String) {
+        var day = ""
+        when (dayTag) {
+            DAY_TAG_MONDAY -> day = getString(R.string.monday_cap)
+            DAY_TAG_TUESDAY -> day = getString(R.string.tuesday_cap)
+            DAY_TAG_WEDNESDAY -> day = getString(R.string.wednesday_cap)
+            DAY_TAG_THURSDAY -> day = getString(R.string.thursday_cap)
+            DAY_TAG_FRIDAY -> day = getString(R.string.friday_cap)
+            DAY_TAG_SATURDAY -> day = getString(R.string.saturday_cap)
+            DAY_TAG_SUNDAY -> day = getString(R.string.sunday_cap)
+        }
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = day
     }
 
     override fun onDestroyView() {

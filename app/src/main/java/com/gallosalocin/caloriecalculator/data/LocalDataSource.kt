@@ -8,6 +8,10 @@ import com.gallosalocin.caloriecalculator.data.database.UserDao
 import com.gallosalocin.caloriecalculator.models.*
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.dayTag
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.mealTag
+import com.gallosalocin.caloriecalculator.utils.Constants.MEAL_TAG_BREAKFAST
+import com.gallosalocin.caloriecalculator.utils.Constants.MEAL_TAG_DINNER
+import com.gallosalocin.caloriecalculator.utils.Constants.MEAL_TAG_LUNCH
+import com.gallosalocin.caloriecalculator.utils.Constants.MEAL_TAG_SNACK
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(
@@ -25,18 +29,18 @@ class LocalDataSource @Inject constructor(
 
     suspend fun deleteFood(food: Food) = foodDao.deleteFood(food)
 
-    suspend fun deleteAllMealDetail() = foodDao.deleteAllMealDetail(dayTag.toString(), mealTag.toString())
+    suspend fun deleteAllMealDetail() = foodDao.deleteAllMealDetail(dayTag, mealTag)
 
     fun observeAllFoods() = foodDao.getAllFoods()
 
-    fun observeMealDetail() = foodDao.getMealDetail(dayTag.toString(), mealTag.toString())
+    fun observeMealDetail() = foodDao.getMealDetail(dayTag, mealTag)
 
-    fun observeBreakfast() = foodDao.getMealDetail(dayTag.toString(), "1")
-    fun observeLunch() = foodDao.getMealDetail(dayTag.toString(), "2")
-    fun observeDinner() = foodDao.getMealDetail(dayTag.toString(), "3")
-    fun observeSnack() = foodDao.getMealDetail(dayTag.toString(), "4")
+    fun observeBreakfast() = foodDao.getMealDetail(dayTag, MEAL_TAG_BREAKFAST)
+    fun observeLunch() = foodDao.getMealDetail(dayTag, MEAL_TAG_LUNCH)
+    fun observeDinner() = foodDao.getMealDetail(dayTag, MEAL_TAG_DINNER)
+    fun observeSnack() = foodDao.getMealDetail(dayTag, MEAL_TAG_SNACK)
 
-    fun observeDayDetail() = foodDao.getDayDetail(dayTag.toString())
+    fun observeDayDetail() = foodDao.getDayDetail(dayTag)
 
     fun observeRecipeFoods(dishId: Int): LiveData<List<FoodWithAllData>> = foodDao.getRecipeFoods(dishId)
 

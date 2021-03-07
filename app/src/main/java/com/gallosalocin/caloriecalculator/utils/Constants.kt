@@ -5,28 +5,28 @@ import com.gallosalocin.caloriecalculator.BuildConfig
 object Constants {
 
     /** generalChoices */
-    const val GLOBAL_CHOICE_NOTHING = "GLOBAL_CHOICE_NOTHING"
+    const val GLOBAL_CHOICE_NO_CHOICE = "GLOBAL_CHOICE_NO_CHOICE"
     const val GLOBAL_CHOICE_BOTTOM = "GLOBAL_CHOICE_BOTTOM"
     const val GLOBAL_CHOICE_BOTTOM_DISHES = "GLOBAL_CHOICE_BOTTOM_DISHES"
     const val GLOBAL_CHOICE_BOTTOM_PROFILE = "GLOBAL_CHOICE_BOTTOM_PROFILE"
     const val GLOBAL_CHOICE_BOTTOM_FOODS = "GLOBAL_CHOICE_BOTTOM_FOODS"
 
     /** dayTag */
-    const val DAY_TAG_NOTHING = "DAY_TAG_NOTHING"
-    const val DAY_TAG_MONDAY = "DAY_TAG_MONDAY"
-    const val DAY_TAG_TUESDAY = "DAY_TAG_TUESDAY"
-    const val DAY_TAG_WEDNESDAY = "DAY_TAG_WEDNESDAY"
-    const val DAY_TAG_THURSDAY = "DAY_TAG_THURSDAY"
-    const val DAY_TAG_FRIDAY = "DAY_TAG_FRIDAY"
-    const val DAY_TAG_SATURDAY = "DAY_TAG_SATURDAY"
-    const val DAY_TAG_SUNDAY = "DAY_TAG_SUNDAY"
+    const val DAY_TAG_NO_CHOICE = "No Choice"
+    const val DAY_TAG_MONDAY = "Monday"
+    const val DAY_TAG_TUESDAY = "Tuesday"
+    const val DAY_TAG_WEDNESDAY = "Wednesday"
+    const val DAY_TAG_THURSDAY = "Thursday"
+    const val DAY_TAG_FRIDAY = "Friday"
+    const val DAY_TAG_SATURDAY = "Saturday"
+    const val DAY_TAG_SUNDAY = "Sunday"
 
     /** mealTag */
-    const val MEAL_TAG_NOTHING = "MEAL_TAG_NOTHING"
-    const val MEAL_TAG_BREAKFAST = "MEAL_TAG_BREAKFAST"
-    const val MEAL_TAG_LUNCH = "MEAL_TAG_LUNCH"
-    const val MEAL_TAG_DINNER = "MEAL_TAG_DINNER"
-    const val MEAL_TAG_SNACK = "MEAL_TAG_SNACK"
+    const val MEAL_TAG_NO_CHOICE = "No Choice"
+    const val MEAL_TAG_BREAKFAST = "Breakfast"
+    const val MEAL_TAG_LUNCH = "Lunch"
+    const val MEAL_TAG_DINNER = "Dinner"
+    const val MEAL_TAG_SNACK = "Snack"
 
     /** Database */
     const val CALORIES_CALCULATOR_DATABASE_NAME = "calories_calculator_db"

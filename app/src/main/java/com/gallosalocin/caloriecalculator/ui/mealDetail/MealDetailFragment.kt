@@ -29,6 +29,17 @@ import com.gallosalocin.caloriecalculator.models.Food
 import com.gallosalocin.caloriecalculator.models.FoodWithAllData
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.dayTag
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.mealTag
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_FRIDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_MONDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_SATURDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_SUNDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_THURSDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_TUESDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_WEDNESDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.MEAL_TAG_BREAKFAST
+import com.gallosalocin.caloriecalculator.utils.Constants.MEAL_TAG_DINNER
+import com.gallosalocin.caloriecalculator.utils.Constants.MEAL_TAG_LUNCH
+import com.gallosalocin.caloriecalculator.utils.Constants.MEAL_TAG_SNACK
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -88,18 +99,27 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun toolbarChangeTitleMealName(dayTag: Int, mealTag: Int) {
-        val dayTagArray = arrayOf(
-            getString(R.string.monday_cap), getString(R.string.tuesday_cap), getString(R.string.wednesday_cap), getString(R.string.thursday_cap),
-            getString(R.string.friday_cap), getString(R.string.saturday_cap), getString(R.string.sunday_cap)
-        )
-        val mealTagArray = arrayOf(
-            getString(R.string.breakfast), getString(R.string.lunch), getString(R.string.dinner), getString(R.string.snack)
-        )
-
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = dayTagArray[dayTag - 1] + " / " + mealTagArray[mealTag - 1]
+    private fun toolbarChangeTitleMealName(dayTag: String, mealTag: String) {
+        var day = ""
+        var meal = ""
+        when (dayTag) {
+            DAY_TAG_MONDAY -> day = getString(R.string.monday_cap)
+            DAY_TAG_TUESDAY -> day = getString(R.string.tuesday_cap)
+            DAY_TAG_WEDNESDAY -> day = getString(R.string.wednesday_cap)
+            DAY_TAG_THURSDAY -> day = getString(R.string.thursday_cap)
+            DAY_TAG_FRIDAY -> day = getString(R.string.friday_cap)
+            DAY_TAG_SATURDAY -> day = getString(R.string.saturday_cap)
+            DAY_TAG_SUNDAY -> day = getString(R.string.sunday_cap)
+        }
+        when (mealTag) {
+            MEAL_TAG_BREAKFAST -> meal = getString(R.string.breakfast)
+            MEAL_TAG_LUNCH -> meal = getString(R.string.lunch)
+            MEAL_TAG_DINNER -> meal = getString(R.string.dinner)
+            MEAL_TAG_SNACK -> meal = getString(R.string.snack)
+        }
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = "$day  /  $meal"
     }
-    
+
     override fun onStart() {
         super.onStart()
         toolbarChangeTitleMealName(dayTag, mealTag)
@@ -296,7 +316,7 @@ class MealDetailFragment : Fragment(R.layout.fragment_meal_detail) {
         }
 
         alertDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-            positiveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
+        positiveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
             .setTextColor(ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant))
     }

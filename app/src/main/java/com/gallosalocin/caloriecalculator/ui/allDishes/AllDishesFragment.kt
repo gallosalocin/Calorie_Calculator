@@ -13,6 +13,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -27,10 +28,12 @@ import com.gallosalocin.caloriecalculator.models.Dish
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.globalChoice
 import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_BOTTOM_DISHES
-import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_NOTHING
+import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_NO_CHOICE
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
@@ -42,6 +45,8 @@ class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
     private lateinit var dishAdapter: DishAdapter
     private lateinit var currentDish: Dish
     private lateinit var currentDishesList: List<Dish>
+    private lateinit var searchView: SearchView
+    private var currentQuery: String? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -62,7 +67,34 @@ class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar, menu)
-        menu.getItem(3).isVisible = globalChoice != GLOBAL_CHOICE_NOTHING
+        menu.getItem(2).isVisible = true
+        menu.getItem(3).isVisible = globalChoice != GLOBAL_CHOICE_NO_CHOICE
+
+        val searchItem = menu.findItem(R.id.tb_menu_search)
+        searchView = searchItem.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                if (query != null) {
+                    currentQuery = query
+                    filter(query)
+                }
+                return true
+            }
+        })
+    }
+
+    private fun filter(text: String) {
+        val filteredDishes: ArrayList<Dish> = ArrayList()
+
+        currentDishesList.filterTo(filteredDishes) {
+            it.name.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))
+        }
+        dishAdapter.submitList(filteredDishes)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -81,11 +113,15 @@ class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
     private fun setupRecyclerView() {
         dishAdapter = DishAdapter(
             onItemClickListener = {
-                viewModel.setCurrentDishId(it.id)
-                findNavController().navigate(R.id.action_allDishesFragment_to_editDishFragment)
+                if (globalChoice != GLOBAL_CHOICE_NO_CHOICE) {
+                    viewModel.setCurrentDishId(it.id)
+                    findNavController().navigate(R.id.action_allDishesFragment_to_editDishFragment)
+                }
             },
             onItemLongClickListener = {
-                displayDishNameEditDialog(it)
+                if (globalChoice != GLOBAL_CHOICE_NO_CHOICE) {
+                    displayDishNameEditDialog(it)
+                }
             }
         )
 
@@ -130,9 +166,10 @@ class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
 
         val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
         positiveButton.setOnClickListener {
-            if (dishNameEdited.text.toString() != "") {
+            if (dishNameEdited.text.toString().trim() != "") {
                 alertDialog.dismiss()
                 updateDish(selectedDish, dishNameEdited)
+                searchView.setQuery("", false)
                 setupRecyclerView()
             } else {
                 Toast.makeText(requireContext(), getString(R.string.error_fill_field), Toast.LENGTH_SHORT).show()
@@ -157,7 +194,7 @@ class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
     /** Setup Swipe */
     private fun configItemTouchHelper() {
         when (globalChoice) {
-            GLOBAL_CHOICE_NOTHING -> {
+            GLOBAL_CHOICE_NO_CHOICE -> {
                 val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
                     0,
                     ItemTouchHelper.LEFT
@@ -176,8 +213,8 @@ class AllDishesFragment : Fragment(R.layout.fragment_all_categories) {
                                 val foodDuplicated = foodWithAllData.food
                                 foodDuplicated.apply {
                                     id = 0
-                                    dayId = MainActivity.dayTag.toString()
-                                    mealId = MainActivity.mealTag.toString()
+                                    dayId = MainActivity.dayTag
+                                    mealId = MainActivity.mealTag
                                     dishId = null
                                 }
                                 viewModel.insertFood(foodDuplicated)

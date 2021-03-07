@@ -9,7 +9,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.ActivityMainBinding
-import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_NOTHING
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_NO_CHOICE
+import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_NO_CHOICE
+import com.gallosalocin.caloriecalculator.utils.Constants.MEAL_TAG_NO_CHOICE
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,9 +20,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     companion object {
-        var dayTag = 0
-        var mealTag = 0
-        var globalChoice = GLOBAL_CHOICE_NOTHING
+        var dayTag = DAY_TAG_NO_CHOICE
+        var mealTag = MEAL_TAG_NO_CHOICE
+        var globalChoice = GLOBAL_CHOICE_NO_CHOICE
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

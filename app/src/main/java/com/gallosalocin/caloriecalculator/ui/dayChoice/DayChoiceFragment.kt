@@ -10,7 +10,15 @@ import com.gallosalocin.caloriecalculator.R
 import com.gallosalocin.caloriecalculator.databinding.FragmentDayBinding
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.dayTag
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.globalChoice
-import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_NOTHING
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_FRIDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_MONDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_NO_CHOICE
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_SATURDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_SUNDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_THURSDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_TUESDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.DAY_TAG_WEDNESDAY
+import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_NO_CHOICE
 import com.google.android.material.snackbar.Snackbar
 
 class DayChoiceFragment : Fragment(R.layout.fragment_day) {
@@ -28,8 +36,8 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
         setHasOptionsMenu(true)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
-        globalChoice = GLOBAL_CHOICE_NOTHING
-        dayTag = 0
+        globalChoice = GLOBAL_CHOICE_NO_CHOICE
+        dayTag = DAY_TAG_NO_CHOICE
 
         binding.ivShowBottomSheet.setOnClickListener { findNavController().navigate(R.id.action_dayFragment_to_bottomSheetFragment) }
 
@@ -71,37 +79,37 @@ class DayChoiceFragment : Fragment(R.layout.fragment_day) {
 
     private fun dayChoice() {
         binding.tvMonday.setOnClickListener {
-            dayTag = 1
+            dayTag = DAY_TAG_MONDAY
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.tvTuesday.setOnClickListener {
-            dayTag = 2
+            dayTag = DAY_TAG_TUESDAY
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
         }
         binding.tvWednesday.setOnClickListener {
-            dayTag = 3
+            dayTag = DAY_TAG_WEDNESDAY
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.tvThursday.setOnClickListener {
-            dayTag = 4
+            dayTag = DAY_TAG_THURSDAY
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.tvFriday.setOnClickListener {
-            dayTag = 5
+            dayTag = DAY_TAG_FRIDAY
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.tvSaturday.setOnClickListener {
-            dayTag = 6
+            dayTag = DAY_TAG_SATURDAY
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
         binding.tvSunday.setOnClickListener {
-            dayTag = 7
+            dayTag = DAY_TAG_SUNDAY
             findNavController().navigate(R.id.action_dayFragment_to_mealFragment)
             requireView().performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }

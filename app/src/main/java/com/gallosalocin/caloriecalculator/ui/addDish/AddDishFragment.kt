@@ -247,8 +247,6 @@ class AddDishFragment : Fragment(R.layout.fragment_add_category) {
             carbs = ((newWeight.toFloat() / 100) * ((100 * selectedFood.carbs) / selectedFood.weight)),
             prots = ((newWeight.toFloat() / 100) * ((100 * selectedFood.prots) / selectedFood.weight)),
             note = selectedFood.note,
-            dayId = selectedFood.dayId,
-            mealId = selectedFood.mealId,
             weight = newWeight
         )
         viewModel.updateFood(foodUpdated)

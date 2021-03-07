@@ -1,7 +1,6 @@
 package com.gallosalocin.caloriecalculator.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,7 +11,7 @@ import com.gallosalocin.caloriecalculator.models.FoodWithAllData
 class FoodWithAllDataAdapter(
     private val onItemClickListener: (FoodWithAllData) -> Unit,
     private val onItemLongClickListener: (FoodWithAllData) -> Unit,
-    ) : ListAdapter<FoodWithAllData, FoodWithAllDataAdapter.FoodViewHolder>(DiffCallback()) {
+) : ListAdapter<FoodWithAllData, FoodWithAllDataAdapter.FoodViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
         val binding = ItemFoodBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,10 +25,11 @@ class FoodWithAllDataAdapter(
 
     class FoodViewHolder(private val binding: ItemFoodBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(foodWithCategory: FoodWithAllData,
-                 onItemClickListener: (FoodWithAllData) -> Unit,
-                 onItemLongClickListener: (FoodWithAllData) -> Unit,
-                 ) {
+        fun bind(
+            foodWithCategory: FoodWithAllData,
+            onItemClickListener: (FoodWithAllData) -> Unit,
+            onItemLongClickListener: (FoodWithAllData) -> Unit,
+        ) {
 
             binding.apply {
 

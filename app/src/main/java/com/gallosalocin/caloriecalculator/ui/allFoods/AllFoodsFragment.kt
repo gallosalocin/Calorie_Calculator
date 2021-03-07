@@ -32,7 +32,7 @@ import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion
 import com.gallosalocin.caloriecalculator.ui.mainActivity.MainActivity.Companion.mealTag
 import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_BOTTOM_DISHES
 import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_BOTTOM_FOODS
-import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_NOTHING
+import com.gallosalocin.caloriecalculator.utils.Constants.GLOBAL_CHOICE_NO_CHOICE
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Runnable
@@ -242,7 +242,7 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
     /** Setup Swipes */
     private fun configItemTouchHelper() {
         when(globalChoice) {
-            GLOBAL_CHOICE_NOTHING -> {
+            GLOBAL_CHOICE_NO_CHOICE -> {
                 val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
                     0,
                     ItemTouchHelper.LEFT //or ItemTouchHelper.RIGHT
@@ -260,8 +260,8 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
 //                        } else {
                                 val foodDuplicated = foodWithAllData.food
                                 foodDuplicated.id = 0
-                                foodDuplicated.dayId = dayTag.toString()
-                                foodDuplicated.mealId = mealTag.toString()
+                                foodDuplicated.dayId = dayTag
+                                foodDuplicated.mealId = mealTag
                                 viewModel.insertFood(foodDuplicated)
                                 searchView.setQuery("", false)
                                 setupRecyclerView()
@@ -335,7 +335,6 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
                         val foodDuplicated = foodWithAllData.food
                         foodDuplicated.apply {
                             id = 0
-                            dayId = "new"
                             dishId = currentDishId
                         }
                         viewModel.insertFood(foodDuplicated)
