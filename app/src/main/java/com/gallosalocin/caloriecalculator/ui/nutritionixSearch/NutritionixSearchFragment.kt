@@ -78,14 +78,14 @@ class NutritionixSearchFragment : Fragment(R.layout.fragment_nutritionix_search)
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null) {
-                    requestApiData(query)
-                    hideSoftKeyboard()
-                }
                 return true
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
+                if (query != null) {
+                    requestApiData(query)
+//                    hideSoftKeyboard()
+                }
                 return true
             }
         })

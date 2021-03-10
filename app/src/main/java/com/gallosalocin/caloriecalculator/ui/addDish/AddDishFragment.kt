@@ -2,9 +2,13 @@ package com.gallosalocin.caloriecalculator.ui.addDish
 
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
@@ -146,9 +150,7 @@ class AddDishFragment : Fragment(R.layout.fragment_add_category) {
 
                 if (direction == ItemTouchHelper.LEFT) {
                     viewModel.deleteFood(foodWithAllData.food)
-                    Snackbar.make(
-                        requireView(), (getString(R.string.successfully_remove_food, foodWithAllData.food.name)),
-                        Snackbar.LENGTH_SHORT
+                    Snackbar.make(requireView(), (getString(R.string.successfully_remove_food, foodWithAllData.food.name)), Snackbar.LENGTH_SHORT
                     ).apply {
                         setAction(getString(R.string.undo_snackbar)) {
                             viewModel.insertFood(foodWithAllData.food)
@@ -203,10 +205,13 @@ class AddDishFragment : Fragment(R.layout.fragment_add_category) {
             requestFocus()
             selectAll()
         }
+        val title = SpannableString(selectedFood.name)
+        title.setSpan(StyleSpan(Typeface.BOLD), 0, title.length, 0)
+        title.setSpan(RelativeSizeSpan(1.2F), 0, title.length, 0)
 
         val alertDialog = MaterialAlertDialogBuilder(requireContext())
             .setView(dialogView)
-            .setTitle(selectedFood.name)
+            .setTitle(title)
             .setPositiveButton(getString(R.string.ok), null)
             .setNegativeButton(getString(R.string.cancel)) { dialoginterface, _ ->
                 dialoginterface.dismiss()
@@ -218,7 +223,7 @@ class AddDishFragment : Fragment(R.layout.fragment_add_category) {
 
         val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
         positiveButton.setOnClickListener {
-            if (weightEdited.text.toString() != "" && weightEdited.text.toString() != "0") {
+            if (weightEdited.text.toString().trim() != "" && weightEdited.text.toString() != "0") {
                 alertDialog.dismiss()
                 updateFood(selectedFood, weightEdited)
                 setupRecyclerView()
@@ -247,7 +252,8 @@ class AddDishFragment : Fragment(R.layout.fragment_add_category) {
             carbs = ((newWeight.toFloat() / 100) * ((100 * selectedFood.carbs) / selectedFood.weight)),
             prots = ((newWeight.toFloat() / 100) * ((100 * selectedFood.prots) / selectedFood.weight)),
             note = selectedFood.note,
-            weight = newWeight
+            dayId = selectedFood.dayId,
+            weight = newWeight,
         )
         viewModel.updateFood(foodUpdated)
     }

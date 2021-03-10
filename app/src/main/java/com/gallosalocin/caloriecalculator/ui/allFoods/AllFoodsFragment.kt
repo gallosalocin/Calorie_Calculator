@@ -190,7 +190,7 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
 
         val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
         positiveButton.setOnClickListener {
-            if (weightEdited.text.toString() != "" && weightEdited.text.toString() != "0") {
+            if (weightEdited.text.toString().trim() != "" && weightEdited.text.toString() != "0") {
                 alertDialog.dismiss()
                 updateFood(selectedFood, weightEdited)
                 searchView.setQuery("", false)
@@ -336,9 +336,10 @@ class AllFoodsFragment : Fragment(R.layout.fragment_all_foods) {
                         foodDuplicated.apply {
                             id = 0
                             dishId = currentDishId
+                            dayId = "dish selection"
                         }
-                        viewModel.insertFood(foodDuplicated)
                         searchView.setQuery("", false)
+                        viewModel.insertFood(foodDuplicated)
                         setupRecyclerView()
                         foodAdapter.submitList(foodsList)
                     }

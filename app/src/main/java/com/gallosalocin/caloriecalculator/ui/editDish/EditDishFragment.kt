@@ -243,7 +243,7 @@ class EditDishFragment : Fragment(R.layout.fragment_edit_dish) {
 
         val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
         positiveButton.setOnClickListener {
-            if (weightEdited.text.toString() != "" && weightEdited.text.toString() != "0") {
+            if (weightEdited.text.toString().trim() != "" && weightEdited.text.toString() != "0") {
                 alertDialog.dismiss()
                 updateFood(selectedFood, weightEdited)
                 setupRecyclerView()
