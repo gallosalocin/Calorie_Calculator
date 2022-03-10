@@ -142,7 +142,7 @@ abstract class CaloriesCalculatorDatabase : RoomDatabase() {
                 foodDao.insertFood(Food(id = 86, name = "Farine", categoryId = 2, calories = 344F, weight = 100, fats = 1F, carbs = 72F, prots = 10F))
                 foodDao.insertFood(Food(id = 87, name = "Baguette", categoryId = 2, calories = 320F, weight = 125, fats = 2F, carbs = 64F, prots = 10.6F))
                 foodDao.insertFood(Food(id = 88, name = "Blé", categoryId = 2, calories = 250F, weight = 100, fats = 2.5F, carbs = 62F, prots = 14F))
-                foodDao.insertFood(Food(id = 15, name = "Beurre", categoryId = 6, calories = 546F, weight = 100, fats = 60F, carbs = 1.1F, prots = 0.5F))
+                foodDao.insertFood(Food(id = 89, name = "Beurre", categoryId = 6, calories = 546F, weight = 100, fats = 60F, carbs = 1.1F, prots = 0.5F))
             }
         }
     }
