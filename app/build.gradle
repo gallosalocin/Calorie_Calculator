@@ -18,9 +18,9 @@ android {
         versionCode 1
         versionName "1.0"
 
-//        buildConfigField "String", "NutritionixApplicationId", NutritionixApplicationId
-//        resValue "string", "NutritionixApplicationId", NutritionixApplicationId
-//        buildConfigField "String", "NutritionixApiKey", NutritionixApiKey
+        buildConfigField "String", "NutritionixApplicationId", NutritionixApplicationId
+        resValue "string", "NutritionixApplicationId", NutritionixApplicationId
+        buildConfigField "String", "NutritionixApiKey", NutritionixApiKey
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
